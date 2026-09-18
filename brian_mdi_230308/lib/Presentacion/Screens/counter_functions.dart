@@ -157,7 +157,7 @@ class _CounterFunctionsScrensState extends State<CounterFunctionsScrens> {
 
                 boxShadow: [
                   BoxShadow(
-                    color: primaryColor.withOpacity(0.15),
+                    color: primaryColor.withValues(alpha: 0.15),
                     blurRadius: 140,
                     spreadRadius: 40,
                   ),
@@ -190,13 +190,13 @@ class _CounterFunctionsScrensState extends State<CounterFunctionsScrens> {
 
                 boxShadow: [
                   BoxShadow(
-                    color: primaryColor.withOpacity(0.30),
+                    color: primaryColor.withValues(alpha: 0.30),
                     blurRadius: 70,
                     spreadRadius: 10,
                   ),
 
                   BoxShadow(
-                    color: secondaryColor.withOpacity(0.20),
+                    color: secondaryColor.withValues(alpha: 0.20),
                     blurRadius: 100,
                     spreadRadius: 5,
                   ),
@@ -213,7 +213,7 @@ class _CounterFunctionsScrensState extends State<CounterFunctionsScrens> {
                     color: const Color(0xFF07101F),
 
                     border: Border.all(
-                      color: primaryColor.withOpacity(0.6),
+                      color: primaryColor.withValues(alpha: 0.6),
                       width: 2,
                     ),
                   ),
@@ -342,13 +342,13 @@ class _CounterFunctionsScrensState extends State<CounterFunctionsScrens> {
 
           colors: [
             color,
-            color.withOpacity(0.45),
+            color.withValues(alpha: 0.45),
           ],
         ),
 
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.45),
+            color: color.withValues(alpha: 0.45),
             blurRadius: 25,
             spreadRadius: 3,
           ),
@@ -364,6 +364,6 @@ class _CounterFunctionsScrensState extends State<CounterFunctionsScrens> {
           size: 34,
         ),
       ),
-    );z
+    );
   }
 }
