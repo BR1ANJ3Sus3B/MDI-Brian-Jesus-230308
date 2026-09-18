@@ -1,22 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>brian_mdi_230308 architecture</title>
+  <title>brian_mdi_230308 — Documentación</title>
   <style>
     :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #0b1020; color: #e7efff; }
-    body { min-height: 100vh; display: grid; place-items: center; margin: 0; }
-    main { max-width: 42rem; padding: 2.5rem; text-align: center; }
-    a { display: inline-block; margin-top: 1rem; padding: .75rem 1rem; border-radius: .5rem; background: #38bdf8; color: #082033; font-weight: 700; text-decoration: none; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; }
+    main { max-width: 46rem; padding: 2.5rem; text-align: center; }
+    h1 { margin: 0 0 .5rem; }
     p { color: #b9c7df; line-height: 1.6; }
+    .links { display: grid; gap: .75rem; margin-top: 1.5rem; }
+    a { display: inline-block; padding: .7rem 1rem; border-radius: .5rem; background: #38bdf8; color: #082033; font-weight: 700; text-decoration: none; }
+    a.gray { background: #1f2a44; color: #e7efff; }
   </style>
 </head>
 <body>
   <main>
     <h1>brian_mdi_230308</h1>
-    <p>Interactive, self-contained architecture diagram for the Flutter application.</p>
-    <a href="architecture.html">Open the architecture diagram</a>
+    <p>Aplicación Flutter (Material 3) con un contador interactivo y estados visuales. Documentación completa, diagramas interactivos e imágenes de referencia.</p>
+    <div class="links">
+      <a href="README.md">Ver la documentación completa (README)</a>
+      <a href="architecture.html">Arquitectura de la aplicación</a>
+      <a class="gray" href="estructura.html">Estructura del proyecto</a>
+      <a class="gray" href="interaccion.html">Interacción del contador</a>
+      <a class="gray" href="ciclo-vida.html">Ciclo de vida de estados</a>
+    </div>
   </main>
 </body>
 </html>
