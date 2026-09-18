@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Ciclo de vida del contador",
+    "output": "ciclo-vida.html",
+    "quality_profile": "showcase",
+    "viewBox": [1020, 640]
+  },
+  "lanes": [
+    { "id": "main", "label": "Rango del contador" },
+    { "id": "recovery", "label": "Recuperación" }
+  ],
+  "states": [
+    { "id": "cero", "type": "start", "label": "0", "sublabel": "estado inicial", "lane": "main", "col": 0, "step": "00" },
+    { "id": "low", "type": "active", "label": "LOW", "sublabel": "0 a 9", "lane": "main", "col": 1, "step": "01" },
+    { "id": "medium", "type": "active", "label": "MEDIUM", "sublabel": "10 a 19", "lane": "main", "col": 2, "step": "02" },
+    { "id": "high", "type": "success", "label": "HIGH", "sublabel": "20 o más", "lane": "main", "col": 3, "step": "03" },
+    { "id": "negative", "type": "failure", "label": "NEGATIVE", "sublabel": "menor a 0", "lane": "recovery", "col": 0, "step": "04" }
+  ],
+  "transitions": [
+    { "from": "cero", "to": "low", "label": "sumar +", "variant": "emphasis", "labelAt": [171, 204] },
+    { "from": "low", "to": "medium", "label": "10+", "variant": "emphasis", "labelAt": [325, 112] },
+    { "from": "medium", "to": "high", "label": "20+", "variant": "emphasis", "labelAt": [480, 112] },
+    { "from": "low", "to": "negative", "label": "restar −", "variant": "security", "route": "bottom-channel", "channelY": 460 },
+    { "from": "negative", "to": "cero", "label": "reiniciar ⟳", "variant": "dashed", "route": "left-channel" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Rango",
+      "items": ["El estado se deriva de clickCounter en cada build.", "LOW, MEDIUM y HIGH dependen de los umbrales 10 y 20."]
+    },
+    {
+      "dot": "rose",
+      "title": "Negativos",
+      "items": ["Un valor menor a 0 activa NEGATIVE.", "El botón reiniciar restaura el estado a cero."]
+    },
+    {
+      "dot": "emerald",
+      "title": "Colores",
+      "items": ["primaryColor anima entre cian, verde y rojo.", "El texto y los círculos reflejan el estado."]
+    }
+  ]
+}

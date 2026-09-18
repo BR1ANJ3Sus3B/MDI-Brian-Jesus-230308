@@ -1,0 +1,66 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Interacción del contador",
+    "output": "interaccion.html",
+    "quality_profile": "showcase",
+    "viewBox": [1180, 450],
+    "views": [
+      {
+        "id": "incremento",
+        "label": "Incrementar",
+        "focus": ["tap", "handler", "setstate", "counter", "getters", "rebuild"],
+        "note": "El botón + llama a increaseCounter y setState reconstruye la pantalla."
+      },
+      {
+        "id": "derivacion",
+        "label": "Derivación de estilos",
+        "focus": ["counter", "getters", "rebuild"],
+        "note": "primaryColor y counterStatus se calculan a partir del valor del contador."
+      }
+    ]
+  },
+  "lanes": [
+    { "id": "ui", "label": "Interfaz (CounterFunctionsScrens)" },
+    { "id": "state", "label": "Estado (_CounterFunctionsScrensState)" }
+  ],
+  "phases": [
+    { "id": "entrada", "label": "Entrada del usuario", "fromCol": 0, "toCol": 1 },
+    { "id": "mutacion", "label": "Actualización del estado", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "render", "label": "Derivación y render", "fromCol": 4, "toCol": 5, "variant": "dashed" }
+  ],
+  "mainPath": ["tap", "handler", "setstate", "counter", "getters", "rebuild"],
+  "nodes": [
+    { "id": "tap", "lane": "ui", "col": 0, "type": "frontend", "label": "Botones + / − / ⟳", "sublabel": "tap del usuario", "width": 168 },
+    { "id": "handler", "lane": "state", "col": 1, "type": "backend", "label": "Handlers", "sublabel": "increase/decrease/reset", "width": 168 },
+    { "id": "setstate", "lane": "state", "col": 2, "type": "messagebus", "label": "setState", "sublabel": "notifica al framework", "width": 168 },
+    { "id": "counter", "lane": "state", "col": 3, "type": "database", "label": "clickCounter", "sublabel": "valor: int", "width": 168 },
+    { "id": "getters", "lane": "state", "col": 4, "type": "external", "label": "Getters", "sublabel": "colores + estado", "width": 168 },
+    { "id": "rebuild", "lane": "ui", "col": 5, "type": "frontend", "label": "Rebuild", "sublabel": "animaciones y texto", "width": 168 }
+  ],
+  "edges": [
+    { "id": "tap-handler", "from": "tap", "to": "handler", "label": "onPressed", "variant": "emphasis" },
+    { "id": "handler-setstate", "from": "handler", "to": "setstate", "variant": "default" },
+    { "id": "setstate-counter", "from": "setstate", "to": "counter", "label": "clickCounter ± 1", "variant": "security" },
+    { "id": "counter-getters", "from": "counter", "to": "getters", "label": "consulta", "variant": "default" },
+    { "id": "getters-rebuild", "from": "getters", "to": "rebuild", "label": "estilo + texto", "variant": "emphasis", "role": "return" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Control",
+      "items": ["Tres botones controlan incremento, decremento y reinicio.", "Cada acción muta clickCounter a través de un handler."]
+    },
+    {
+      "dot": "emerald",
+      "title": "Derivación",
+      "items": ["primaryColor y secondaryColor cambian según el rango.", "counterStatus devuelve NEGATIVE, LOW, MEDIUM o HIGH."]
+    },
+    {
+      "dot": "violet",
+      "title": "Render",
+      "items": ["setState fuerza una reconstrucción del widget.", "AnimatedContainer y AnimatedSwitcher animan el cambio."]
+    }
+  ]
+}

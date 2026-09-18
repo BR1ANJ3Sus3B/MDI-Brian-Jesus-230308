@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Estructura del proyecto brian_mdi_230308",
+    "output": "estructura.html",
+    "quality_profile": "showcase",
+    "viewBox": [1360, 720],
+    "views": [
+      {
+        "id": "codigo",
+        "label": "Código fuente",
+        "focus": ["root", "lib", "test", "docs"],
+        "note": "La aplicación vive en lib/main.dart y el código de la pantalla en lib/Presentacion/Screens."
+      },
+      {
+        "id": "plataformas",
+        "label": "Plataformas",
+        "focus": ["root", "web", "android", "ios", "windows", "linux", "macos"],
+        "note": "Flutter mantiene runners nativos para seis plataformas."
+      },
+      {
+        "id": "herramientas",
+        "label": "Herramientas y config",
+        "focus": ["root", "dart_tool", "idea", "build", "pubspec"],
+        "note": ".dart_tool, .idea y build son generados; pubspec.yaml configura las dependencias."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "root",
+      "type": "external",
+      "label": "brian_mdi_230308",
+      "sublabel": "raíz del proyecto",
+      "pos": [500, 330],
+      "size": [200, 80]
+    },
+    {
+      "id": "lib",
+      "type": "frontend",
+      "label": "lib",
+      "sublabel": "main.dart · Presentacion/Screens",
+      "pos": [150, 130],
+      "size": [220, 80]
+    },
+    {
+      "id": "test",
+      "type": "backend",
+      "label": "test",
+      "sublabel": "widget_test.dart",
+      "pos": [150, 330],
+      "size": [220, 80]
+    },
+    {
+      "id": "docs",
+      "type": "database",
+      "label": "docs",
+      "sublabel": "README, diagramas e imágenes",
+      "pos": [150, 530],
+      "size": [220, 80]
+    },
+    {
+      "id": "dart_tool",
+      "type": "cloud",
+      "label": ".dart_tool",
+      "sublabel": "config de paquetes",
+      "pos": [410, 80],
+      "size": [160, 66]
+    },
+    {
+      "id": "idea",
+      "type": "cloud",
+      "label": ".idea",
+      "sublabel": "config del IDE",
+      "pos": [590, 80],
+      "size": [160, 66]
+    },
+    {
+      "id": "pubspec",
+      "type": "security",
+      "label": "pubspec.yaml",
+      "sublabel": "dependencias",
+      "pos": [410, 620],
+      "size": [160, 66]
+    },
+    {
+      "id": "build",
+      "type": "cloud",
+      "label": "build",
+      "sublabel": "artefactos compilados",
+      "pos": [590, 620],
+      "size": [160, 66]
+    },
+    {
+      "id": "android",
+      "type": "backend",
+      "label": "android",
+      "sublabel": "Kotlin + Gradle",
+      "pos": [940, 90],
+      "size": [200, 80]
+    },
+    {
+      "id": "ios",
+      "type": "backend",
+      "label": "ios",
+      "sublabel": "Swift + Xcode",
+      "pos": [940, 190],
+      "size": [200, 80]
+    },
+    {
+      "id": "web",
+      "type": "backend",
+      "label": "web",
+      "sublabel": "HTML5 + manifest",
+      "pos": [940, 290],
+      "size": [200, 80]
+    },
+    {
+      "id": "windows",
+      "type": "backend",
+      "label": "windows",
+      "sublabel": "C++ + CMake",
+      "pos": [940, 390],
+      "size": [200, 80]
+    },
+    {
+      "id": "linux",
+      "type": "backend",
+      "label": "linux",
+      "sublabel": "C++ + CMake",
+      "pos": [940, 490],
+      "size": [200, 80]
+    },
+    {
+      "id": "macos",
+      "type": "backend",
+      "label": "macos",
+      "sublabel": "Swift + Xcode",
+      "pos": [940, 590],
+      "size": [200, 80]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Configuración y salidas",
+      "wraps": ["dart_tool", "idea", "pubspec", "build"],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "Runners de plataforma",
+      "wraps": ["android", "ios", "web", "windows", "linux", "macos"],
+      "pad": 22
+    }
+  ],
+  "connections": [
+    { "from": "root", "to": "lib", "label": "código fuente", "variant": "emphasis", "labelAt": [360, 300] },
+    { "from": "root", "to": "test", "label": "pruebas", "labelAt": [360, 424] },
+    { "from": "root", "to": "docs", "label": "documentación", "variant": "dashed" },
+    { "from": "root", "to": "web", "label": "compilación a 6 plataformas", "variant": "emphasis" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Código fuente",
+      "items": ["La app se inicia en lib/main.dart con MyApp.", "La pantalla del contador está en lib/Presentacion/Screens."]
+    },
+    {
+      "dot": "emerald",
+      "title": "Plataformas",
+      "items": ["Seis runners generados por Flutter en la carpeta apropiada.", "El proyecto no incluye código backend propio."]
+    },
+    {
+      "dot": "violet",
+      "title": "Herramientas",
+      "items": [".dart_tool y build son generados automáticamente.", "pubspec.yaml declara cupertino_icons y google_fonts."]
+    }
+  ]
+}
