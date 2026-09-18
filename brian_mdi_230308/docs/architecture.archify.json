@@ -5,6 +5,7 @@
     "title": "Arquitectura de brian_mdi_230308",
     "output": "architecture.html",
     "quality_profile": "showcase",
+    "viewBox": [1200, 680],
     "views": [
       {
         "id": "startup",
@@ -31,43 +32,55 @@
       "id": "flutter",
       "type": "external",
       "label": "Flutter runtime",
-      "sublabel": "SDK y Material 3"
+      "sublabel": "SDK y Material 3",
+      "pos": [60, 300],
+      "size": [150, 70]
     },
     {
       "id": "app",
       "type": "frontend",
       "label": "MyApp",
-      "sublabel": "MaterialApp y tema oscuro"
+      "sublabel": "MaterialApp y tema oscuro",
+      "pos": [280, 300],
+      "size": [160, 70]
     },
     {
       "id": "counter",
       "type": "frontend",
       "label": "CounterFunctionsScrens",
-      "sublabel": "pantalla principal"
+      "sublabel": "pantalla principal",
+      "pos": [530, 300],
+      "size": [190, 70]
     },
     {
       "id": "state",
       "type": "database",
       "label": "Estado local",
-      "sublabel": "clickCounter, colores y estado"
+      "sublabel": "clickCounter, colores y estado",
+      "pos": [760, 160],
+      "size": [180, 70]
     },
     {
       "id": "fonts",
       "type": "cloud",
       "label": "google_fonts",
-      "sublabel": "Space Grotesk"
+      "sublabel": "Space Grotesk",
+      "pos": [530, 470],
+      "size": [170, 70]
     },
     {
       "id": "platforms",
       "type": "backend",
       "label": "Runners de plataforma",
-      "sublabel": "Android, iOS, Linux, macOS, web y Windows"
+      "sublabel": "6 destinos Flutter",
+      "pos": [980, 300],
+      "size": [190, 70]
     }
   ],
   "boundaries": [
     {
       "kind": "region",
-      "label": "Aplicación Flutter",
+      "label": "Flutter UI",
       "wraps": ["app", "counter", "state", "fonts"],
       "pad": 24
     }
@@ -77,7 +90,15 @@
     { "from": "app", "to": "counter", "label": "home", "variant": "emphasis" },
     { "from": "app", "to": "fonts", "label": "tema tipográfico" },
     { "from": "counter", "to": "state", "label": "setState: +, −, reiniciar", "variant": "security" },
-    { "from": "app", "to": "platforms", "label": "compilación Flutter" }
+    {
+      "from": "app",
+      "to": "platforms",
+      "label": "compilación Flutter",
+      "fromSide": "top",
+      "toSide": "top",
+      "via": [[360, 90], [1075, 90]],
+      "labelAt": [720, 90]
+    }
   ],
   "cards": [
     {
