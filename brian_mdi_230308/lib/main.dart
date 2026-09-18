@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:mdi_230308/Presentacion/Screens/Conter_Functions.dart';
+import 'package:brian_mdi_230308/main.dart';
 
 void main() {
   runApp(const Myapp());
