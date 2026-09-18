@@ -1,0 +1,318 @@
+﻿brian_mdi_230308/
+├── .dart_tool/
+│   ├── dartpad/
+│   │   └── web_plugin_registrant.dart
+│   ├── extension_discovery/
+│   │   └── vs_code.json
+│   ├── flutter_build/
+│   │   └── dart_plugin_registrant.dart
+│   ├── hooks_runner/
+│   │   ├── objective_c/
+│   │   │   └── 196c15e30a/
+│   │   │       ├── out/
+│   │   │       ├── .lock
+│   │   │       ├── dependencies.dependencies_hash_file.json
+│   │   │       ├── hook.dependencies_hash_file.json
+│   │   │       ├── hook.dill
+│   │   │       ├── hook.dill.d
+│   │   │       ├── input.json
+│   │   │       ├── output.json
+│   │   │       ├── stderr.txt
+│   │   │       └── stdout.txt
+│   │   └── shared/
+│   │       └── objective_c/
+│   │           ├── build/
+│   │           │   └── 196c15e30a/
+│   │           └── .lock
+│   ├── package_config.json
+│   ├── package_graph.json
+│   └── version
+├── .idea/
+│   ├── libraries/
+│   │   ├── Dart_SDK.xml
+│   │   └── KotlinJavaRuntime.xml
+│   ├── runConfigurations/
+│   │   └── main_dart.xml
+│   ├── modules.xml
+│   └── workspace.xml
+├── android/
+│   ├── app/
+│   │   ├── src/
+│   │   │   ├── debug/
+│   │   │   │   └── AndroidManifest.xml
+│   │   │   ├── main/
+│   │   │   │   ├── java/
+│   │   │   │   │   └── io/
+│   │   │   │   │       └── flutter/
+│   │   │   │   │           └── plugins/
+│   │   │   │   │               └── GeneratedPluginRegistrant.java
+│   │   │   │   ├── kotlin/
+│   │   │   │   │   └── com/
+│   │   │   │   │       └── example/
+│   │   │   │   │           └── brian_mdi_230308/
+│   │   │   │   │               └── MainActivity.kt
+│   │   │   │   ├── res/
+│   │   │   │   │   ├── drawable/
+│   │   │   │   │   │   └── launch_background.xml
+│   │   │   │   │   ├── drawable-v21/
+│   │   │   │   │   │   └── launch_background.xml
+│   │   │   │   │   ├── mipmap-hdpi/
+│   │   │   │   │   │   └── ic_launcher.png
+│   │   │   │   │   ├── mipmap-mdpi/
+│   │   │   │   │   │   └── ic_launcher.png
+│   │   │   │   │   ├── mipmap-xhdpi/
+│   │   │   │   │   │   └── ic_launcher.png
+│   │   │   │   │   ├── mipmap-xxhdpi/
+│   │   │   │   │   │   └── ic_launcher.png
+│   │   │   │   │   ├── mipmap-xxxhdpi/
+│   │   │   │   │   │   └── ic_launcher.png
+│   │   │   │   │   ├── values/
+│   │   │   │   │   │   └── styles.xml
+│   │   │   │   │   └── values-night/
+│   │   │   │   │       └── styles.xml
+│   │   │   │   └── AndroidManifest.xml
+│   │   │   └── profile/
+│   │   │       └── AndroidManifest.xml
+│   │   └── build.gradle.kts
+│   ├── gradle/
+│   │   └── wrapper/
+│   │       ├── gradle-wrapper.jar
+│   │       └── gradle-wrapper.properties
+│   ├── .gitignore
+│   ├── brian_mdi_230308_android.iml
+│   ├── build.gradle.kts
+│   ├── gradle.properties
+│   ├── gradlew
+│   ├── gradlew.bat
+│   ├── local.properties
+│   └── settings.gradle.kts
+├── build/
+│   ├── 46af278325c492e45c0d28a0a656f020/
+│   │   ├── _composite.stamp
+│   │   ├── gen_dart_plugin_registrant.stamp
+│   │   └── gen_localizations.stamp
+│   ├── flutter_assets/
+│   │   ├── fonts/
+│   │   │   └── MaterialIcons-Regular.otf
+│   │   ├── packages/
+│   │   │   └── cupertino_icons/
+│   │   │       └── assets/
+│   │   │           └── CupertinoIcons.ttf
+│   │   ├── shaders/
+│   │   │   ├── ink_sparkle.frag
+│   │   │   └── stretch_effect.frag
+│   │   ├── AssetManifest.bin
+│   │   ├── AssetManifest.bin.json
+│   │   ├── FontManifest.json
+│   │   └── NOTICES
+│   ├── native_assets/
+│   │   └── windows/
+│   │       └── native_assets.json
+│   ├── test_cache/
+│   │   └── build/
+│   │       └── 4189cf65caed1f673f0abbe75cfabebb.cache.dill.track.dill
+│   └── unit_test_assets/
+│       ├── fonts/
+│       │   └── MaterialIcons-Regular.otf
+│       ├── packages/
+│       │   └── cupertino_icons/
+│       │       └── assets/
+│       │           └── CupertinoIcons.ttf
+│       ├── shaders/
+│       │   ├── ink_sparkle.frag
+│       │   └── stretch_effect.frag
+│       ├── AssetManifest.bin
+│       ├── FontManifest.json
+│       ├── NativeAssetsManifest.json
+│       └── NOTICES.Z
+├── ios/
+│   ├── Flutter/
+│   │   ├── ephemeral/
+│   │   │   ├── Packages/
+│   │   │   │   ├── .packages/
+│   │   │   │   └── FlutterGeneratedPluginSwiftPackage/
+│   │   │   │       ├── Sources/
+│   │   │   │       │   └── FlutterGeneratedPluginSwiftPackage/
+│   │   │   │       │       └── FlutterGeneratedPluginSwiftPackage.swift
+│   │   │   │       └── Package.swift
+│   │   │   ├── .swift_pm.lock
+│   │   │   ├── flutter_lldb_helper.py
+│   │   │   ├── flutter_lldbinit
+│   │   │   └── flutter_native_integration.env
+│   │   ├── AppFrameworkInfo.plist
+│   │   ├── Debug.xcconfig
+│   │   ├── flutter_export_environment.sh
+│   │   ├── Generated.xcconfig
+│   │   └── Release.xcconfig
+│   ├── Runner/
+│   │   ├── Assets.xcassets/
+│   │   │   ├── AppIcon.appiconset/
+│   │   │   │   ├── Contents.json
+│   │   │   │   ├── Icon-App-1024x1024@1x.png
+│   │   │   │   ├── Icon-App-20x20@1x.png
+│   │   │   │   ├── Icon-App-20x20@2x.png
+│   │   │   │   ├── Icon-App-20x20@3x.png
+│   │   │   │   ├── Icon-App-29x29@1x.png
+│   │   │   │   ├── Icon-App-29x29@2x.png
+│   │   │   │   ├── Icon-App-29x29@3x.png
+│   │   │   │   ├── Icon-App-40x40@1x.png
+│   │   │   │   ├── Icon-App-40x40@2x.png
+│   │   │   │   ├── Icon-App-40x40@3x.png
+│   │   │   │   ├── Icon-App-60x60@2x.png
+│   │   │   │   ├── Icon-App-60x60@3x.png
+│   │   │   │   ├── Icon-App-76x76@1x.png
+│   │   │   │   ├── Icon-App-76x76@2x.png
+│   │   │   │   └── Icon-App-83.5x83.5@2x.png
+│   │   │   └── LaunchImage.imageset/
+│   │   │       ├── Contents.json
+│   │   │       ├── LaunchImage.png
+│   │   │       ├── LaunchImage@2x.png
+│   │   │       ├── LaunchImage@3x.png
+│   │   │       └── README.md
+│   │   ├── Base.lproj/
+│   │   │   ├── LaunchScreen.storyboard
+│   │   │   └── Main.storyboard
+│   │   ├── AppDelegate.swift
+│   │   ├── GeneratedPluginRegistrant.h
+│   │   ├── GeneratedPluginRegistrant.m
+│   │   ├── Info.plist
+│   │   ├── Runner-Bridging-Header.h
+│   │   └── SceneDelegate.swift
+│   ├── Runner.xcodeproj/
+│   │   ├── project.xcworkspace/
+│   │   │   ├── xcshareddata/
+│   │   │   │   ├── IDEWorkspaceChecks.plist
+│   │   │   │   └── WorkspaceSettings.xcsettings
+│   │   │   └── contents.xcworkspacedata
+│   │   ├── xcshareddata/
+│   │   │   └── xcschemes/
+│   │   │       └── Runner.xcscheme
+│   │   └── project.pbxproj
+│   ├── Runner.xcworkspace/
+│   │   ├── xcshareddata/
+│   │   │   ├── IDEWorkspaceChecks.plist
+│   │   │   └── WorkspaceSettings.xcsettings
+│   │   └── contents.xcworkspacedata
+│   ├── RunnerTests/
+│   │   └── RunnerTests.swift
+│   └── .gitignore
+├── lib/
+│   ├── Presentacion/
+│   │   └── Screens/
+│   │       ├── counter_functions.dart
+│   │       └── counter_screns.dart
+│   └── main.dart
+├── linux/
+│   ├── flutter/
+│   │   ├── CMakeLists.txt
+│   │   ├── generated_plugin_registrant.cc
+│   │   ├── generated_plugin_registrant.h
+│   │   └── generated_plugins.cmake
+│   ├── runner/
+│   │   ├── CMakeLists.txt
+│   │   ├── main.cc
+│   │   ├── my_application.cc
+│   │   └── my_application.h
+│   ├── .gitignore
+│   └── CMakeLists.txt
+├── macos/
+│   ├── Flutter/
+│   │   ├── ephemeral/
+│   │   │   ├── Packages/
+│   │   │   │   ├── .packages/
+│   │   │   │   └── FlutterGeneratedPluginSwiftPackage/
+│   │   │   │       ├── Sources/
+│   │   │   │       │   └── FlutterGeneratedPluginSwiftPackage/
+│   │   │   │       │       └── FlutterGeneratedPluginSwiftPackage.swift
+│   │   │   │       └── Package.swift
+│   │   │   ├── .swift_pm.lock
+│   │   │   ├── flutter_export_environment.sh
+│   │   │   ├── flutter_native_integration.env
+│   │   │   └── Flutter-Generated.xcconfig
+│   │   ├── Flutter-Debug.xcconfig
+│   │   ├── Flutter-Release.xcconfig
+│   │   └── GeneratedPluginRegistrant.swift
+│   ├── Runner/
+│   │   ├── Assets.xcassets/
+│   │   │   └── AppIcon.appiconset/
+│   │   │       ├── app_icon_1024.png
+│   │   │       ├── app_icon_128.png
+│   │   │       ├── app_icon_16.png
+│   │   │       ├── app_icon_256.png
+│   │   │       ├── app_icon_32.png
+│   │   │       ├── app_icon_512.png
+│   │   │       ├── app_icon_64.png
+│   │   │       └── Contents.json
+│   │   ├── Base.lproj/
+│   │   │   └── MainMenu.xib
+│   │   ├── Configs/
+│   │   │   ├── AppInfo.xcconfig
+│   │   │   ├── Debug.xcconfig
+│   │   │   ├── Release.xcconfig
+│   │   │   └── Warnings.xcconfig
+│   │   ├── AppDelegate.swift
+│   │   ├── DebugProfile.entitlements
+│   │   ├── Info.plist
+│   │   ├── MainFlutterWindow.swift
+│   │   └── Release.entitlements
+│   ├── Runner.xcodeproj/
+│   │   ├── project.xcworkspace/
+│   │   │   └── xcshareddata/
+│   │   │       └── IDEWorkspaceChecks.plist
+│   │   ├── xcshareddata/
+│   │   │   └── xcschemes/
+│   │   │       └── Runner.xcscheme
+│   │   └── project.pbxproj
+│   ├── Runner.xcworkspace/
+│   │   ├── xcshareddata/
+│   │   │   └── IDEWorkspaceChecks.plist
+│   │   └── contents.xcworkspacedata
+│   ├── RunnerTests/
+│   │   └── RunnerTests.swift
+│   └── .gitignore
+├── test/
+│   └── widget_test.dart
+├── web/
+│   ├── icons/
+│   │   ├── Icon-192.png
+│   │   ├── Icon-512.png
+│   │   ├── Icon-maskable-192.png
+│   │   └── Icon-maskable-512.png
+│   ├── favicon.png
+│   ├── index.html
+│   └── manifest.json
+├── windows/
+│   ├── flutter/
+│   │   ├── ephemeral/
+│   │   │   └── .plugin_symlinks/
+│   │   ├── CMakeLists.txt
+│   │   ├── generated_plugin_registrant.cc
+│   │   ├── generated_plugin_registrant.h
+│   │   └── generated_plugins.cmake
+│   ├── runner/
+│   │   ├── resources/
+│   │   │   └── app_icon.ico
+│   │   ├── CMakeLists.txt
+│   │   ├── flutter_window.cpp
+│   │   ├── flutter_window.h
+│   │   ├── main.cpp
+│   │   ├── resource.h
+│   │   ├── runner.exe.manifest
+│   │   ├── Runner.rc
+│   │   ├── utils.cpp
+│   │   ├── utils.h
+│   │   ├── win32_window.cpp
+│   │   └── win32_window.h
+│   ├── .gitignore
+│   └── CMakeLists.txt
+├── .flutter-plugins-dependencies
+├── .gitignore
+├── .metadata
+├── analysis_options.yaml
+├── arbol-directorios.html
+├── arbol-directorios.md
+├── arbol-directorios.txt
+├── brian_mdi_230308.iml
+├── pubspec.lock
+├── pubspec.yaml
+└── README.md

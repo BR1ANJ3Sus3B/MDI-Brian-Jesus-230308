@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Arquitectura de brian_mdi_230308",
+    "output": "architecture.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "startup",
+        "label": "Inicio de la aplicación",
+        "focus": ["flutter", "app", "counter"],
+        "note": "main.dart inicia Flutter, configura MaterialApp y presenta la pantalla CounterFunctionsScrens."
+      },
+      {
+        "id": "interaction",
+        "label": "Interacción del contador",
+        "focus": ["counter", "state"],
+        "note": "Los controles de suma, resta y reinicio actualizan el estado local mediante setState."
+      },
+      {
+        "id": "delivery",
+        "label": "Destinos de plataforma",
+        "focus": ["app", "platforms"],
+        "note": "El proyecto Flutter mantiene runners para Android, iOS, Linux, macOS, web y Windows."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "flutter",
+      "type": "external",
+      "label": "Flutter runtime",
+      "sublabel": "SDK y Material 3"
+    },
+    {
+      "id": "app",
+      "type": "frontend",
+      "label": "MyApp",
+      "sublabel": "MaterialApp y tema oscuro"
+    },
+    {
+      "id": "counter",
+      "type": "frontend",
+      "label": "CounterFunctionsScrens",
+      "sublabel": "pantalla principal"
+    },
+    {
+      "id": "state",
+      "type": "database",
+      "label": "Estado local",
+      "sublabel": "clickCounter, colores y estado"
+    },
+    {
+      "id": "fonts",
+      "type": "cloud",
+      "label": "google_fonts",
+      "sublabel": "Space Grotesk"
+    },
+    {
+      "id": "platforms",
+      "type": "backend",
+      "label": "Runners de plataforma",
+      "sublabel": "Android, iOS, Linux, macOS, web y Windows"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Aplicación Flutter",
+      "wraps": ["app", "counter", "state", "fonts"],
+      "pad": 24
+    }
+  ],
+  "connections": [
+    { "from": "flutter", "to": "app", "label": "runApp", "variant": "emphasis" },
+    { "from": "app", "to": "counter", "label": "home", "variant": "emphasis" },
+    { "from": "app", "to": "fonts", "label": "tema tipográfico" },
+    { "from": "counter", "to": "state", "label": "setState: +, −, reiniciar", "variant": "security" },
+    { "from": "app", "to": "platforms", "label": "compilación Flutter" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Interfaz",
+      "items": ["MyApp aplica Material 3 y un tema oscuro.", "CounterFunctionsScrens es la pantalla de inicio."]
+    },
+    {
+      "dot": "emerald",
+      "title": "Estado",
+      "items": ["El contador vive en el State del widget.", "Las acciones incrementan, decrementan o restablecen el valor."]
+    },
+    {
+      "dot": "violet",
+      "title": "Distribución",
+      "items": ["Flutter genera runners para seis plataformas.", "La documentación se publica como sitio estático en GitHub Pages."]
+    }
+  ]
+}
