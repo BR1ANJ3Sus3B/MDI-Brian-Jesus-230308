@@ -37,6 +37,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<String> _gifs = [
     'assets/Homero.gif',
     'assets/her.gif',
+    'assets/comer.gif',
+    'assets/hola.gif'
   ];
 
   @override
