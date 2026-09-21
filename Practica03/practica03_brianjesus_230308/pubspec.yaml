@@ -61,6 +61,10 @@ flutter:
   assets:
     - assets/jarvis.jpg
     - assets/Homero.gif
+    - assets/her.gif
+    - assets/comer.gif
+    - assets/hola.gif 
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

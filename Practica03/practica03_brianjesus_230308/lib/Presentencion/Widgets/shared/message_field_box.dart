@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MessageFieldBox extends StatefulWidget {
-  const MessageFieldBox({super.key});
+  final ValueChanged<String> onValue;
+
+  const MessageFieldBox({super.key, required this.onValue});
 
   @override
   State<MessageFieldBox> createState() => _MessageFieldBoxState();
@@ -35,7 +37,7 @@ class _MessageFieldBoxState extends State<MessageFieldBox> {
         onPressed: () {
           final textValue = _textController.value.text;
 
-          debugPrint('button: $textValue');
+          widget.onValue(textValue);
           _textController.clear();
         },
       ),
@@ -49,7 +51,7 @@ class _MessageFieldBoxState extends State<MessageFieldBox> {
       controller: _textController,
       decoration: inputDecoration,
       onFieldSubmitted: (value) {
-        debugPrint('Submit value $value');
+        widget.onValue(value);
         _textController.clear();
         _focusNode.requestFocus();
       },
