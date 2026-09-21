@@ -9,6 +9,7 @@ const List<Color> _colorThemes = [
   Colors.green,
   Colors.yellow,
   Colors.orange,
+  Color.fromARGB(255, 124, 77, 255),
   Color.fromARGB(255, 226, 17, 17),
 ];
 
