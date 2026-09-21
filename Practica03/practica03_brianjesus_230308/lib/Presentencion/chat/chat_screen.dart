@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:practica03_brianjesus_230308/Presentencion/Widgets/Chat/her_message_bubble.dart';
 import 'package:practica03_brianjesus_230308/Presentencion/Widgets/Chat/my_massage_bubble.dart';
+import 'package:practica03_brianjesus_230308/Presentencion/Widgets/shared/message_field_box.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -41,7 +42,9 @@ class _Chatview extends StatelessWidget {
               :const MyMassageBubble();
             },)
              ),
-            Text('Hola ')
+            ///Caja de texto
+            ///
+            const MessageFieldBox(),
         
         
           ],
