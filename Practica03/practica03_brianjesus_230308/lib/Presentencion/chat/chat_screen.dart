@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practica03_brianjesus_230308/Presentencion/Widgets/Chat/my_massage_bubble.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -31,7 +32,11 @@ class _Chatview extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
-            Expanded(child: ListView.builder(itemBuilder: itemBuilder)
+            Expanded(child: ListView.builder(
+             itemCount: 100, 
+              itemBuilder: (context, index) {
+              return MyMassageBubble();
+            },)
              ),
             Text('Hola ')
         
