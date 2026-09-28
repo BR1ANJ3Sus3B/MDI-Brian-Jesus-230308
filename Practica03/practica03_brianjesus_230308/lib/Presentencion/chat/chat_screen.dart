@@ -17,11 +17,23 @@ class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _chatScrollController = ScrollController();
 
   final List<ChatMessage> _messages = [
-    ChatMessage(text: 'Hola, ¿cómo estás?', fromWho: ChatMessageFrom.hers),
-    ChatMessage(text: 'Muy bien, ¿y tú?', fromWho: ChatMessageFrom.hers),
+    ChatMessage(
+      text: 'Hola, ¿cómo estás?',
+      fromWho: ChatMessageFrom.hers,
+      time: DateTime.now(),
+      imageUrl: 'assets/her.gif',
+    ),
+    ChatMessage(
+      text: 'Muy bien, ¿y tú?',
+      fromWho: ChatMessageFrom.hers,
+      time: DateTime.now(),
+      imageUrl: 'assets/hola.gif',
+    ),
   ];
 
   bool _isTyping = false;
+
+  String? _lastGif;
 
   final List<String> _replies = [
     'Hola, soy Jarvis, ¿en qué te puedo ayudar?',

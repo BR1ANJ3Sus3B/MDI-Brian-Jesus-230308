@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:practica03_brianjesus_230308/Presentencion/Models/chat_message.dart';
 
 class HerMessageBubble extends StatelessWidget {
   final String text;
   final String? imageUrl;
+  final DateTime time;
 
-  const HerMessageBubble({super.key, required this.text, this.imageUrl});
+  const HerMessageBubble({
+    super.key,
+    required this.text,
+    required this.time,
+    this.imageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +31,11 @@ class HerMessageBubble extends StatelessWidget {
               style: const TextStyle(color: Colors.white),
             ),
           ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          formatChatTime(time),
+          style: TextStyle(fontSize: 10, color: colors.outline),
         ),
         const SizedBox(height: 5),
         if (imageUrl != null) _ImageBubble(imageUrl: imageUrl!),

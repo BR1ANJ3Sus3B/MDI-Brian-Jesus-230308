@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:practica03_brianjesus_230308/Presentencion/Models/chat_message.dart';
 
 class MyMessageBubble extends StatelessWidget {
   final String text;
+  final DateTime time;
 
-  const MyMessageBubble({super.key, required this.text});
+  const MyMessageBubble({super.key, required this.text, required this.time});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,11 @@ class MyMessageBubble extends StatelessWidget {
               style: const TextStyle(color: Colors.white),
             ),
           ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          formatChatTime(time),
+          style: TextStyle(fontSize: 10, color: colors.outline),
         ),
         const SizedBox(height: 10),
       ],
