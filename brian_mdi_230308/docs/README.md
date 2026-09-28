@@ -3,6 +3,8 @@
 Aplicación móvil **Flutter** (Material 3, tema oscuro) con una pantalla de **contador interactivo** con estados visuales.
 
 ![Interfaz de la aplicación](imagenes/interfaz.png)
+![Interfaz de la aplicació](imagenes/image%20copy.png)
+![alt text](imagenes/image.png)
 
 ## Índice
 

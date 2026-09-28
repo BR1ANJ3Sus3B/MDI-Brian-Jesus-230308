@@ -46,3 +46,7 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Fuentes descargadas por tool/capturas/generar.ps1 para renderizar la
+# documentacion. No forman parte de la aplicacion publicada.
+/tool/capturas/.fuentes/
