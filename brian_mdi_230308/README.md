@@ -65,13 +65,28 @@ node tool/diagramas/exportar.mjs
 
 ### Publish the documentation with GitHub Pages
 
-1. Commit and push the **docs/** directory.
-2. In the GitHub repository, open **Settings** → **Pages**.
-3. Under **Build and deployment**, select **Deploy from a branch**.
-4. Select the branch to publish (for example, **main**) and the **/docs**
-   folder, then save.
-5. After deployment, open the Pages URL shown by GitHub. The landing page is
-   **index.html**, and it links to **architecture.html**.
+The site is published from the **`gh-pages` branch**, whose root is a copy of
+`brian_mdi_230308/docs/`.
+
+1. Copy the documentation into a checkout of `gh-pages`:
+
+   ```bash
+   git worktree add -B gh-pages ../gh-pages origin/gh-pages
+   # replace the site content, keeping .git
+   cp -r brian_mdi_230308/docs/. ../gh-pages/
+   cd ../gh-pages && git add -A && git commit -m "Publish documentation (GitHub Pages)"
+   ```
+
+2. Push it: `git push origin gh-pages`.
+3. In the repository, open **Settings** → **Pages** and confirm the source is
+   **Deploy from a branch** → **gh-pages** → **/(root)**.
+
+The site lands on `https://<owner>.github.io/MDI-Brian-Jesus-230308/`, with
+**index.html** as the landing page.
+
+> **The repository must be public.** GitHub Pages only serves private
+> repositories on a paid plan (Pro, Team or Enterprise). While the repository is
+> private the push succeeds but the Pages URL returns 404.
 
 The **docs/.nojekyll** marker tells GitHub Pages to serve the committed static
 files unchanged.
