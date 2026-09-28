@@ -38,7 +38,7 @@ El objetivo es aplicar los fundamentos del desarrollo de aplicaciones móviles, 
 |   No. | 📱 Práctica                                    | 📖 Descripción                                                                                                    | ⭐ Potenciador | 📌 Estatus  |
 | ----: | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------: | ----------- |
 | **1** | 📖 **Metodología**                             | Transcribir y comprender la metodología de trabajo y las fechas de evaluación de la asignatura.                   |           ⭐ 5 | ✅ Concluida |
-| **2** | 📱 **Mi primera aplicación móvil con Flutter** | Desarrollar una aplicación móvil utilizando Flutter, aplicando conceptos de `StatefulWidget` y `StatelessWidget`. |          ⭐ 20 | ✅ Concluida |
+| **2** | 📱 [**Mi primera aplicación móvil con Flutter**](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/blob/Practica03/brian_mdi_230308/docs/README.md) | Desarrollar una aplicación móvil utilizando Flutter, aplicando conceptos de `StatefulWidget` y `StatelessWidget`. |          ⭐ 20 | ✅ Concluida |
 
 > 🚧 **Las siguientes prácticas se agregarán conforme sean desarrolladas durante el curso.**
 
