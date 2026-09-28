@@ -13,10 +13,12 @@ Aplicación móvil **Flutter** (Material 3, tema oscuro) con una pantalla de **c
 3. [Arquitectura](#arquitectura)
 4. [Pantalla principal y estados](#pantalla-principal-y-estados)
 5. [Estados del contador](#estados-del-contador)
-6. [Tecnologías y dependencias](#tecnologías-y-dependencias)
-7. [Cómo ejecutar](#cómo-ejecutar)
-8. [Pruebas](#pruebas)
-9. [Publicación con GitHub Pages](#publicación-con-github-pages)
+6. [Capturas de la aplicación](#capturas-de-la-aplicación)
+7. [Tecnologías y dependencias](#tecnologías-y-dependencias)
+8. [Cómo ejecutar](#cómo-ejecutar)
+9. [Pruebas](#pruebas)
+10. [Regenerar las imágenes](#regenerar-las-imágenes)
+11. [Publicación con GitHub Pages](#publicación-con-github-pages)
 
 ---
 
@@ -40,6 +42,8 @@ Los archivos se organizan con el layout estándar de Flutter; los runners de pla
 | `lib/Presentacion/Screens/counter_functions.dart` | Pantalla principal `CounterFunctionsScrens` |
 | `lib/Presentacion/Screens/counter_screns.dart` | Pantalla simple alternativa `CounterScrens` |
 | `test/` | Pruebas de widget (`widget_test.dart`) |
+| `tool/capturas/` | Genera las capturas PNG de la app (`generar.ps1`) |
+| `tool/diagramas/` | Exporta los diagramas a PNG (`exportar.mjs`) |
 | `android/` | Runner Android (Kotlin + Gradle) |
 | `ios/` | Runner iOS (Swift + Xcode) |
 | `web/` | Runner web (HTML5 + manifest) |
@@ -68,6 +72,12 @@ brian_mdi_230308/
 │           └── counter_screns.dart
 ├── test/
 │   └── widget_test.dart
+├── tool/
+│   ├── capturas/
+│   │   ├── generar.ps1
+│   │   └── generar_capturas_test.dart
+│   └── diagramas/
+│       └── exportar.mjs
 ├── android/          # Runner Android
 ├── ios/              # Runner iOS
 ├── web/              # Runner web
@@ -146,6 +156,27 @@ Versión interactiva: [ciclo-vida.html](ciclo-vida.html)
 
 ---
 
+## Capturas de la aplicación
+
+Estas imágenes no son maquetas: se generan renderizando la pantalla real
+(`CounterFunctionsScrens`) con la tipografía y los colores de la aplicación, una
+por estado del contador. Todas son 1080×2340 px.
+
+| Estado | Valor | `counterStatus` | Captura |
+| --- | --- | --- | --- |
+| LOW | `0` | cian | ![Contador en 0, estado LOW](imagenes/app-estado-low.png) |
+| MEDIUM | `14` | verde degradado | ![Contador en 14, estado MEDIUM](imagenes/app-estado-medium.png) |
+| HIGH | `24` | verde | ![Contador en 24, estado HIGH](imagenes/app-estado-high.png) |
+| NEGATIVE | `-3` | rojo | ![Contador en -3, estado NEGATIVE](imagenes/app-estado-negative.png) |
+
+El valor `14` se elige a propósito para que `primaryColor` y `secondaryColor` caigan
+en el tramo `MEDIUM`, donde `Color.lerp` interpola el degradado según
+`(clickCounter - 10) / 10`.
+
+Para regenerarlas, ver [Regenerar las imágenes](#regenerar-las-imágenes).
+
+---
+
 ## Tecnologías y dependencias
 
 Definidas en `pubspec.yaml`:
@@ -186,6 +217,53 @@ El test `test/widget_test.dart` comprueba que la pantalla arranca en `0`, que el
 
 ---
 
+## Regenerar las imágenes
+
+Las imágenes de `docs/imagenes/` no se editan a mano: se generan desde el código.
+
+| Script | Qué produce |
+| --- | --- |
+| `tool/capturas/generar.ps1` | Las cuatro capturas de la app en `imagenes/app-estado-*.png` |
+| `node tool/diagramas/exportar.mjs` | Los PNG de los diagramas en `imagenes/diagrama-*.png` |
+
+### Capturas de la aplicación
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tool/capturas/generar.ps1
+```
+
+El script descarga los `.ttf` de Space Grotesk a `tool/capturas/.fuentes/`
+(está en `.gitignore`; solo se necesitan para renderizar) y después ejecuta
+`tool/capturas/generar_capturas_test.dart` con `--update-goldens`. El arnés
+registra las fuentes con los nombres de familia que espera `google_fonts`
+(`SpaceGrotesk_regular`, `SpaceGrotesk_300`, `SpaceGrotesk_700`) y desactiva
+la descarga en tiempo de ejecución, de modo que la captura es idéntica sin
+conexión.
+
+Este archivo **no** forma parte de la suite `flutter test`: hay que invocarlo
+explícitamente con su ruta.
+
+### PNG de los diagramas
+
+```bash
+node tool/diagramas/exportar.mjs
+```
+
+Exporta los cuatro diagramas a 1600×1000 y 1920×1080, en tema claro y oscuro.
+Reutiliza el navegador headless del skill **Archify**; si no detecta Chrome,
+Chromium ni Edge, define la ruta manualmente:
+
+```bash
+# Linux / macOS
+ARCHIFY_CHROME=/usr/bin/chromium node tool/diagramas/exportar.mjs
+
+# Windows (PowerShell)
+$env:ARCHIFY_CHROME = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+node tool\diagramas\exportar.mjs
+```
+
+---
+
 ## Publicación con GitHub Pages
 
 1. Sube el contenido de `docs/` a tu repositorio (rama `main`).
@@ -200,14 +278,21 @@ El marcador `docs/.nojekyll` permite que GitHub Pages sirva los archivos estáti
 
 ## Diagramas disponibles
 
-| Diagrama | Interactivo | Imagen PNG |
-| --- | --- | --- |
-| Arquitectura | [architecture.html](architecture.html) | [architecture.png](architecture.png) |
-| Estructura del proyecto | [estructura.html](estructura.html) | [estructura.png](imagenes/estructura.png) |
-| Interacción del contador | [interaccion.html](interaccion.html) | [interaccion.png](imagenes/interaccion.png) |
-| Ciclo de vida de estados | [ciclo-vida.html](ciclo-vida.html) | [ciclo-vida.png](imagenes/ciclo-vida.png) |
+| Diagrama | Interactivo | Imagen PNG | Claro | Oscuro |
+| --- | --- | --- | --- | --- |
+| Arquitectura | [architecture.html](architecture.html) | [architecture.png](architecture.png) | [1600×1000](imagenes/diagrama-arquitectura-1600x1000-light.png) · [1920×1080](imagenes/diagrama-arquitectura-1920x1080-light.png) | [1600×1000](imagenes/diagrama-arquitectura-1600x1000-dark.png) · [1920×1080](imagenes/diagrama-arquitectura-1920x1080-dark.png) |
+| Estructura del proyecto | [estructura.html](estructura.html) | [estructura.png](imagenes/estructura.png) | [1600×1000](imagenes/diagrama-estructura-1600x1000-light.png) · [1920×1080](imagenes/diagrama-estructura-1920x1080-light.png) | [1600×1000](imagenes/diagrama-estructura-1600x1000-dark.png) · [1920×1080](imagenes/diagrama-estructura-1920x1080-dark.png) |
+| Interacción del contador | [interaccion.html](interaccion.html) | [interaccion.png](imagenes/interaccion.png) | [1600×1000](imagenes/diagrama-interaccion-1600x1000-light.png) · [1920×1080](imagenes/diagrama-interaccion-1920x1080-light.png) | [1600×1000](imagenes/diagrama-interaccion-1600x1000-dark.png) · [1920×1080](imagenes/diagrama-interaccion-1920x1080-dark.png) |
+| Ciclo de vida de estados | [ciclo-vida.html](ciclo-vida.html) | [ciclo-vida.png](imagenes/ciclo-vida.png) | [1600×1000](imagenes/diagrama-ciclo-vida-1600x1000-light.png) · [1920×1080](imagenes/diagrama-ciclo-vida-1920x1080-light.png) | [1600×1000](imagenes/diagrama-ciclo-vida-1600x1000-dark.png) · [1920×1080](imagenes/diagrama-ciclo-vida-1920x1080-dark.png) |
 
 Los diagramas son HTML autocontenidos (sin backend ni CDN) generados con **Archify**; sus fuentes editables son los `.archify.json` correspondientes.
+
+### Galería
+
+| Estructura | Arquitectura | Interacción | Ciclo de vida |
+| --- | --- | --- | --- |
+| ![Estructura, tema oscuro](imagenes/diagrama-estructura-1600x1000-dark.png) | ![Arquitectura, tema oscuro](imagenes/diagrama-arquitectura-1600x1000-dark.png) | ![Interacción, tema oscuro](imagenes/diagrama-interaccion-1600x1000-dark.png) | ![Ciclo de vida, tema oscuro](imagenes/diagrama-ciclo-vida-1600x1000-dark.png) |
+| ![Estructura, tema claro](imagenes/diagrama-estructura-1600x1000-light.png) | ![Arquitectura, tema claro](imagenes/diagrama-arquitectura-1600x1000-light.png) | ![Interacción, tema claro](imagenes/diagrama-interaccion-1600x1000-light.png) | ![Ciclo de vida, tema claro](imagenes/diagrama-ciclo-vida-1600x1000-light.png) |
 
 ---
 

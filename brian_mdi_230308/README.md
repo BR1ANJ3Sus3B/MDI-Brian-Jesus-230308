@@ -44,6 +44,25 @@ directly from the local file system. Their editable sources are the
 - [interaccion.html](docs/interaccion.html) — counter interaction workflow
 - [ciclo-vida.html](docs/ciclo-vida.html) — counter states lifecycle
 
+### Images
+
+`docs/imagenes/` holds PNG exports of the app and of the diagrams:
+
+- `app-estado-{low,medium,high,negative}.png` — the real counter screen, one
+  capture per `counterStatus`, rendered at 1080×2340
+- `diagrama-<diagrama>-<width>x<height>-{light,dark}.png` — the four diagrams
+  exported at 1600×1000 and 1920×1080 in both themes
+
+They are generated, not hand-edited:
+
+```bash
+# App captures (downloads Space Grotesk on first run, then renders the screen)
+powershell -ExecutionPolicy Bypass -File tool/capturas/generar.ps1
+
+# Diagram PNGs (needs Chrome, Chromium or Edge; set ARCHIFY_CHROME if not found)
+node tool/diagramas/exportar.mjs
+```
+
 ### Publish the documentation with GitHub Pages
 
 1. Commit and push the **docs/** directory.

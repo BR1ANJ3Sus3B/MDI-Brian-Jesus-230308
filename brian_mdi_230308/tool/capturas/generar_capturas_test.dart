@@ -10,7 +10,6 @@
 //   flutter test tool/capturas/generar_capturas_test.dart --update-goldens
 
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:brian_mdi_230308/main.dart';
 import 'package:flutter/material.dart';
