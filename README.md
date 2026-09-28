@@ -38,9 +38,26 @@ El objetivo es aplicar los fundamentos del desarrollo de aplicaciones móviles, 
 |   No. | 📱 Práctica                                    | 📖 Descripción                                                                                                    | ⭐ Potenciador | 📌 Estatus  |
 | ----: | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------: | ----------- |
 | **1** | 📖 **Metodología**                             | Transcribir y comprender la metodología de trabajo y las fechas de evaluación de la asignatura.                   |           ⭐ 5 | ✅ Concluida |
-| **2** | 📱 [**Mi primera aplicación móvil con Flutter**](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/blob/Practica03/brian_mdi_230308/docs/README.md) | Desarrollar una aplicación móvil utilizando Flutter, aplicando conceptos de `StatefulWidget` y `StatelessWidget`. |          ⭐ 20 | ✅ Concluida |
+| **2** | 📱 [**Mi primera aplicación móvil con Flutter**](brian_mdi_230308/docs/) | Desarrollar una aplicación móvil utilizando Flutter, aplicando conceptos de `StatefulWidget` y `StatelessWidget`. |          ⭐ 20 | ✅ Concluida |
+| **3** | 💬 [**Hola Jarvis (Chat con Flutter)**](Practica03/practica03_brianjesus_230308/docs/) | Desarrollar una aplicación de chat con Flutter y generar diagramas de arquitectura con Archify. |          ⭐ 20 | ✅ Concluida |
 
 > 🚧 **Las siguientes prácticas se agregarán conforme sean desarrolladas durante el curso.**
+
+---
+
+## 🌐 Documentación publicada
+
+La documentación y los diagramas de cada práctica se publican con **GitHub
+Pages** desde la rama `Practica03`: el repositorio se sirve tal como está
+committeado —el marcador `.nojekyll` de la raíz desactiva el procesamiento de
+Jekyll— y el `index.html` de la raíz funciona como portada común.
+
+| Práctica | Documentación | Diagrama principal |
+| --- | --- | --- |
+| **2** · Contador | [`brian_mdi_230308/docs/`](brian_mdi_230308/docs/) | [`architecture.html`](brian_mdi_230308/docs/architecture.html) |
+| **3** · Hola Jarvis | [`Practica03/practica03_brianjesus_230308/docs/`](Practica03/practica03_brianjesus_230308/docs/) | [`arquitectura-practica03.html`](Practica03/practica03_brianjesus_230308/docs/arquitectura-practica03.html) |
+
+🌐 <https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/>
 
 ---
 
@@ -231,7 +248,7 @@ Los principales objetivos de este repositorio son:
 ```text
 Práctica 01  ████████████████████ 100% ✅
 Práctica 02  ████████████████████ 100% ✅
-Práctica 03  ░░░░░░░░░░░░░░░░░░░░   0% 🚧
+Práctica 03  ████████████████████ 100% ✅
 Práctica 04  ░░░░░░░░░░░░░░░░░░░░   0% 🚧
 Práctica 05  ░░░░░░░░░░░░░░░░░░░░   0% 🚧
 ```

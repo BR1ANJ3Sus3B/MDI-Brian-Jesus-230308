@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Desarrollo Móvil Integral · 230308</title>
+  <meta name="description" content="Prácticas de Desarrollo Móvil Integral: arquitectura de la Práctica 02 (contador en Flutter) y diagramas de la Práctica 03 (Hola Jarvis).">
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #0b1020; color: #e7efff; }
+    body { min-height: 100vh; margin: 0; }
+    main { max-width: 58rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    h1 { margin: 0 0 .5rem; font-size: 1.9rem; }
+    h2 { margin: 3.25rem 0 .5rem; font-size: 1.15rem; letter-spacing: .04em; text-transform: uppercase; color: #8fa6c8; }
+    h3 { margin: 0 0 .4rem; font-size: 1rem; }
+    p { color: #b9c7df; line-height: 1.6; }
+    code { color: #cbd5f5; background: #16203a; border-radius: .3rem; padding: .1rem .3rem; font-size: .9em; }
+    .badges { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0 0; }
+    .badges img { height: 20px; }
+    .links { display: grid; gap: .75rem; margin: 1.25rem 0 0; }
+    a { display: inline-block; padding: .7rem 1rem; border-radius: .5rem; background: #38bdf8; color: #082033; font-weight: 700; text-decoration: none; }
+    a.gray { background: #1f2a44; color: #e7efff; }
+    a:hover { filter: brightness(1.08); }
+    a.inline { display: inline; padding: 0; background: none; color: #38bdf8; font-weight: 600; font-size: .82rem; }
+    a.inline:hover { text-decoration: underline; filter: none; }
+
+    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+    figure { margin: 0; padding: .6rem; background: #111a30; border: 1px solid #24314d; border-radius: .75rem; }
+    figure img { display: block; width: 100%; height: auto; border-radius: .4rem; background: #020617; }
+    figcaption { padding: .6rem .25rem .2rem; font-size: .82rem; color: #8fa6c8; }
+    figcaption strong { color: #e7efff; }
+    .note { margin-top: 3.5rem; font-size: .85rem; color: #7d90ae; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Desarrollo Móvil Integral</h1>
+    <p>Brian Jesús Mendoza Márquez · Matrícula 230308 · Grado 9A · Prácticas con Flutter y Dart, con la documentación y los diagramas de arquitectura de cada una.</p>
+    <div class="badges">
+      <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&amp;logo=flutter&amp;logoColor=white" alt="Flutter">
+      <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&amp;logo=dart&amp;logoColor=white" alt="Dart">
+      <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&amp;logo=git&amp;logoColor=white" alt="Git">
+      <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&amp;logo=github&amp;logoColor=white" alt="GitHub">
+    </div>
+
+    <h2>Práctica 02 · Arquitectura de la aplicación</h2>
+    <p>Contador interactivo en Flutter con Material 3. <code>MyApp</code> configura el <code>MaterialApp</code> y selecciona <code>CounterFunctionsScrens</code> como pantalla inicial; esa pantalla es un widget con estado que posee el valor <code>clickCounter</code> y lo cambia con <code>setState</code> al sumar, restar o reiniciar. Los colores y el estado (<code>LOW</code>, <code>MEDIUM</code>, <code>HIGH</code>, <code>NEGATIVE</code>) se derivan del valor, y <code>google_fonts</code> aporta la tipografía Space Grotesk.</p>
+    <div class="links">
+      <a href="brian_mdi_230308/docs/architecture.html">Abrir el diagrama interactivo</a>
+      <a class="gray" href="brian_mdi_230308/docs/">Documentación completa de la Práctica 02</a>
+      <a class="gray" href="brian_mdi_230308/docs/README.md">Leer la documentación (Markdown)</a>
+    </div>
+    <div class="grid" style="margin-top:1.25rem">
+      <figure>
+        <img src="brian_mdi_230308/docs/imagenes/diagrama-arquitectura-1600x1000-light.png" alt="Diagrama de arquitectura de la Práctica 02, tema claro" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Arquitectura</strong> · tema claro · <a class="inline" href="brian_mdi_230308/docs/architecture.html">abrir interactivo</a></figcaption>
+      </figure>
+      <figure>
+        <img src="brian_mdi_230308/docs/imagenes/diagrama-arquitectura-1600x1000-dark.png" alt="Diagrama de arquitectura de la Práctica 02, tema oscuro" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Arquitectura</strong> · tema oscuro</figcaption>
+      </figure>
+    </div>
+    <p>Los otros diagramas de la práctica: <a class="inline" href="brian_mdi_230308/docs/estructura.html">estructura del proyecto</a>, <a class="inline" href="brian_mdi_230308/docs/interaccion.html">interacción del contador</a> y <a class="inline" href="brian_mdi_230308/docs/ciclo-vida.html">ciclo de vida de estados</a>.</p>
+
+    <h2>Práctica 03 · Hola Jarvis</h2>
+    <p>Chat en Flutter con un asistente simulado que responde tras 1.5 s con un texto aleatorio y una imagen de reacción. Incluye el diagrama de la arquitectura propuesta por capas (Flutter, Keycloak, FastAPI, PostgreSQL, MongoDB y Docker Compose) y el de la arquitectura real del chat.</p>
+    <div class="links">
+      <a href="Practica03/practica03_brianjesus_230308/docs/arquitectura-practica03.html">Abrir la arquitectura propuesta</a>
+      <a class="gray" href="Practica03/practica03_brianjesus_230308/docs/">Documentación de los diagramas</a>
+      <a class="gray" href="Practica03/practica03_brianjesus_230308/docs/hola-jarvis.html">Arquitectura del chat implementado</a>
+    </div>
+
+    <p class="note">Repositorio: <a class="inline" href="https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308">BR1ANJ3Sus3B/MDI-Brian-Jesus-230308</a> · <a class="inline" href="README.md">README del repositorio</a>. Los diagramas son HTML autónomos, con búsqueda, zoom y exportación, y funcionan también sin conexión.</p>
+  </main>
+</body>
+</html>

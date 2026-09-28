@@ -44,7 +44,23 @@ lib/
         ├── Chat/my_message_bubble.dart         # Burbuja de mensaje del usuario
         ├── Chat/her_message_bubble.dart        # Burbuja de mensaje de Jarvis
         └── shared/message_field_box.dart       # Campo de escritura de mensajes
+tool/
+└── diagramas/exportar.mjs                      # Exporta los diagramas a PNG
+docs/                                           # Diagramas y documentación (este sitio)
 ```
+
+## Documentación
+
+En [`docs/`](docs/) están los diagramas de arquitectura y la página de la
+práctica: la arquitectura **propuesta** por capas
+([`arquitectura-practica03.html`](docs/arquitectura-practica03.html)) y la
+arquitectura del **chat implementado**
+([`hola-jarvis.html`](docs/hola-jarvis.html)). La portada es
+[`docs/index.html`](docs/index.html) y la especificación en
+[`docs/arquitectura-practica03.md`](docs/arquitectura-practica03.md).
+
+Se publica con GitHub Pages desde la rama `Practica03`:
+<https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Practica03/practica03_brianjesus_230308/docs/>
 
 ## Cómo ejecutar
 

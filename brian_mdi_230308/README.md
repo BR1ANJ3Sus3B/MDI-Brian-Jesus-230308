@@ -19,8 +19,12 @@ samples, guidance on mobile development, and a full API reference.
 ## Documentation
 
 Full documentation (README, projected tree, interactive diagrams and PNG
-images) lives in **[docs/](docs/)**, available as [GitHub Pages](https://pages.github.com/) by serving the `/docs` folder from
-the `main` branch.
+images) lives in **[docs/](docs/)**.
+
+It is published with [GitHub Pages](https://pages.github.com/) from the
+`Practica03` branch: the repository root is served as it is committed and
+**[docs/index.html](docs/index.html)** is the landing page of this practice,
+linked from the site home **[index.html](../index.html)**.
 
 Home: [docs/index.html](docs/index.html) — main document:
 [docs/README.md](docs/README.md).
@@ -65,28 +69,26 @@ node tool/diagramas/exportar.mjs
 
 ### Publish the documentation with GitHub Pages
 
-The site is published from the **`gh-pages` branch**, whose root is a copy of
-`brian_mdi_230308/docs/`.
+The site is published from the **`Practica03` branch**: GitHub Pages serves the
+root of the repository exactly as it is committed, because the `.nojekyll` marker
+at the root disables Jekyll processing. Each practice keeps its documentation in
+its own project folder and the root `index.html` is the shared landing page.
 
-1. Copy the documentation into a checkout of `gh-pages`:
+| Path in the repository | Published URL |
+| --- | --- |
+| `index.html` | `https://<owner>.github.io/MDI-Brian-Jesus-230308/` |
+| `brian_mdi_230308/docs/` | `…/MDI-Brian-Jesus-230308/brian_mdi_230308/docs/` |
+| `Practica03/practica03_brianjesus_230308/docs/` | `…/MDI-Brian-Jesus-230308/Practica03/practica03_brianjesus_230308/docs/` |
 
-   ```bash
-   git worktree add -B gh-pages ../gh-pages origin/gh-pages
-   # replace the site content, keeping .git
-   cp -r brian_mdi_230308/docs/. ../gh-pages/
-   cd ../gh-pages && git add -A && git commit -m "Publish documentation (GitHub Pages)"
-   ```
-
-2. Push it: `git push origin gh-pages`.
+1. Commit the documentation on `Practica03`.
+2. Publish it: `git push origin Practica03`.
 3. In the repository, open **Settings** → **Pages** and confirm the source is
-   **Deploy from a branch** → **gh-pages** → **/(root)**.
+   **Deploy from a branch** → `Practica03` → `/(root)`.
 
-The site lands on `https://<owner>.github.io/MDI-Brian-Jesus-230308/`, with
-**index.html** as the landing page.
+GitHub Pages rebuilds the site one or two minutes after the push. Because
+`.nojekyll` is present, a committed `index.html` always wins over the README, so
+the root `index.html` is the landing page of the whole site.
 
 > **The repository must be public.** GitHub Pages only serves private
 > repositories on a paid plan (Pro, Team or Enterprise). While the repository is
 > private the push succeeds but the Pages URL returns 404.
-
-The **docs/.nojekyll** marker tells GitHub Pages to serve the committed static
-files unchanged.

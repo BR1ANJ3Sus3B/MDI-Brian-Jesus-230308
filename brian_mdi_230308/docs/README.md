@@ -266,30 +266,23 @@ node tool\diagramas\exportar.mjs
 
 ## Publicación con GitHub Pages
 
-El sitio se publica desde la rama **`gh-pages`**, cuya raíz es una copia de esta
-carpeta `docs/`.
+El sitio se publica desde la rama **`Practica03`**, la que está configurada en
+**Settings → Pages** como *Deploy from a branch*. GitHub Pages sirve la raíz del
+repositorio tal y como está en el repositorio: el marcador `.nojekyll` de la
+raíz desactiva Jekyll, de modo que el `index.html` de la raíz del repositorio
+hace de portada y esta carpeta queda enlazada desde él.
 
-1. Copia la documentación en un worktree de `gh-pages`:
+| Ruta en el repositorio | URL publicada |
+| --- | --- |
+| `index.html` (raíz del repositorio) | `https://<propietario>.github.io/MDI-Brian-Jesus-230308/` |
+| `brian_mdi_230308/docs/` (esta carpeta) | `…/MDI-Brian-Jesus-230308/brian_mdi_230308/docs/` |
 
-   ```bash
-   git worktree add -B gh-pages ../gh-pages origin/gh-pages
-   # reemplaza el contenido del sitio, conservando .git
-   cp -r docs/. ../gh-pages/
-   cd ../gh-pages && git add -A && git commit -m "Publish documentation (GitHub Pages)"
-   ```
-
-2. Súbelo: `git push origin gh-pages`.
-3. En el repositorio, abre **Settings → Pages** y confirma que el origen sea
-   **Deploy from a branch** → **gh-pages** → **/(root)**.
-
-La URL queda en `https://<propietario>.github.io/MDI-Brian-Jesus-230308/`, con
-**index.html** como portada.
+Basta con hacer `push` a `Practica03`; GitHub Pages reconstruye el sitio en uno
+o dos minutos.
 
 > **El repositorio debe ser público.** GitHub Pages solo publica repositorios
 > privados en planes de pago (Pro, Team o Enterprise). Mientras el repositorio
 > sea privado el push se completa pero la URL de Pages devuelve 404.
-
-El marcador `docs/.nojekyll` permite que GitHub Pages sirva los archivos estáticos sin procesamiento Jekyll.
 
 ---
 

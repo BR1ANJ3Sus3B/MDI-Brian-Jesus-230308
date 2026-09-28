@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Práctica 03 · Hola Jarvis — Diagrama de arquitectura</title>
+  <meta name="description" content="Diagrama de arquitectura por capas de la Práctica 03 (Hola Jarvis): Flutter, Keycloak, FastAPI, PostgreSQL, MongoDB y Docker Compose.">
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #0b1020; color: #e7efff; }
+    body { min-height: 100vh; margin: 0; }
+    main { max-width: 60rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    h1 { margin: 0 0 .5rem; font-size: 1.9rem; }
+    h2 { margin: 3.5rem 0 1.25rem; font-size: 1.15rem; letter-spacing: .04em; text-transform: uppercase; color: #8fa6c8; }
+    h3 { margin: 0 0 .35rem; font-size: .98rem; }
+    p { color: #b9c7df; line-height: 1.6; }
+    code { color: #cbd5f5; background: #16203a; border-radius: .3rem; padding: .1rem .3rem; font-size: .9em; }
+    .links { display: grid; gap: .75rem; margin-top: 1.5rem; }
+    a { display: inline-block; padding: .7rem 1rem; border-radius: .5rem; background: #38bdf8; color: #082033; font-weight: 700; text-decoration: none; }
+    a.gray { background: #1f2a44; color: #e7efff; }
+    a:hover { filter: brightness(1.08); }
+
+    .grid { display: grid; gap: 1rem; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 760px) { .grid.two { grid-template-columns: 1fr; } }
+
+    figure { margin: 0; padding: .6rem; background: #111a30; border: 1px solid #24314d; border-radius: .75rem; }
+    figure img { display: block; width: 100%; height: auto; border-radius: .4rem; background: #020617; }
+    figcaption { padding: .6rem .25rem .2rem; font-size: .82rem; color: #8fa6c8; }
+    figcaption strong { color: #e7efff; }
+    a.inline { display: inline; padding: 0; background: none; color: #38bdf8; font-weight: 600; font-size: .82rem; }
+    a.inline:hover { text-decoration: underline; filter: none; }
+
+    .capas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (max-width: 900px) { .capas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 560px) { .capas { grid-template-columns: 1fr; } }
+    .capa { background: #111a30; border: 1px solid #24314d; border-left: 3px solid #38bdf8; border-radius: .6rem; padding: .9rem 1rem; }
+    .capa span { display: block; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: #7dd3fc; margin-bottom: .2rem; }
+    .capa p { margin: 0; font-size: .88rem; }
+
+    ol.flujos { margin: 0; padding-left: 1.2rem; color: #b9c7df; line-height: 1.6; }
+    ol.flujos li { margin-bottom: .7rem; }
+    ol.flujos strong { color: #e7efff; }
+
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { text-align: left; padding: .55rem .7rem; border-bottom: 1px solid #24314d; }
+    th { color: #8fa6c8; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
+    td { color: #b9c7df; }
+    td:first-child { color: #e7efff; }
+
+    .aviso { margin-top: 1.25rem; padding: .9rem 1.1rem; background: #1b2437; border: 1px solid #3b4a6b; border-radius: .6rem; color: #b9c7df; font-size: .9rem; line-height: 1.6; }
+    .note { margin-top: 3.5rem; font-size: .85rem; color: #7d90ae; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Práctica 03 · Hola Jarvis</h1>
+    <p>Diagrama de arquitectura por capas de la solución propuesta para la Práctica 03: la aplicación Flutter del chat, la autenticación con Keycloak, el backend FastAPI, las bases de datos PostgreSQL y MongoDB, y Docker Compose como infraestructura.</p>
+    <div class="links">
+      <a href="arquitectura-practica03.html">Abrir el diagrama interactivo</a>
+      <a class="gray" href="hola-jarvis.html">Arquitectura del chat implementado</a>
+      <a class="gray" href="arquitectura-practica03.md">Especificación en Markdown</a>
+      <a class="gray" href="arquitectura-practica03.validacion.md">Comprobante de entrega</a>
+    </div>
+
+    <h2>Arquitectura propuesta</h2>
+    <div class="grid two">
+      <figure>
+        <img src="imagenes/diagrama-arquitectura-practica03-1600x1000-light.png" alt="Diagrama de arquitectura por capas, tema claro" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Capas 1 a 6</strong> · tema claro · <a class="inline" href="arquitectura-practica03.html">abrir interactivo</a></figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/diagrama-arquitectura-practica03-1600x1000-dark.png" alt="Diagrama de arquitectura por capas, tema oscuro" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Capas 1 a 6</strong> · tema oscuro</figcaption>
+      </figure>
+    </div>
+    <p class="aviso">El diagrama describe la <strong>arquitectura propuesta</strong> a partir de los requisitos de la práctica. El repositorio contiene hoy la aplicación de chat en Flutter; Keycloak, FastAPI, PostgreSQL y MongoDB todavía no están implementados. La interfaz fija del visor interactivo (búsqueda, zoom y exportación) está en inglés.</p>
+
+    <h2>Capas</h2>
+    <div class="grid capas">
+      <div class="capa">
+        <span>Capa 1</span>
+        <h3>Usuario</h3>
+        <p>Escribe mensajes, introduce sus credenciales en el navegador y consulta o crea productos.</p>
+      </div>
+      <div class="capa">
+        <span>Capa 2</span>
+        <h3>Aplicación Flutter</h3>
+        <p><code>UI</code> → <code>Provider / Controller</code> (loading, error, datos) → <code>Service</code> → <code>HTTP Client</code>. El login usa Authorization Code + PKCE y el token se adjunta como <code>Authorization: Bearer</code>.</p>
+      </div>
+      <div class="capa">
+        <span>Capa 3</span>
+        <h3>Autenticación</h3>
+        <p><strong>Keycloak</strong>: valida las credenciales, devuelve el código de autorización y genera el Access Token. Expone además sus claves públicas para validar el JWT.</p>
+      </div>
+      <div class="capa">
+        <span>Capa 4</span>
+        <h3>Backend</h3>
+        <p><strong>FastAPI</strong>: <code>GET /productos</code> y <code>POST /productos</code>. Valida el Access Token y los permisos antes de operar; responde con JSON y un código HTTP.</p>
+      </div>
+      <div class="capa">
+        <span>Capa 5</span>
+        <h3>Datos</h3>
+        <p><strong>PostgreSQL</strong> para la información estructurada de productos y <strong>MongoDB</strong> para documentos, eventos o registros. No todas las peticiones usan ambas bases.</p>
+      </div>
+      <div class="capa">
+        <span>Capa 6</span>
+        <h3>Infraestructura</h3>
+        <p><strong>Docker Compose</strong> agrupa y ejecuta Keycloak, FastAPI, PostgreSQL y MongoDB. Es un contenedor de despliegue, no un intermediario de las peticiones; Flutter se ejecuta fuera.</p>
+      </div>
+    </div>
+
+    <h2>Flujos</h2>
+    <ol class="flujos">
+      <li><strong>Inicio de sesión.</strong> Flutter inicia Authorization Code + PKCE en el navegador del sistema. El usuario introduce sus credenciales en Keycloak, que devuelve un código a la app. La app canjea el código con el <code>code_verifier</code> y recibe el Access Token; las credenciales nunca llegan a FastAPI.</li>
+      <li><strong>Consulta o creación.</strong> Usuario → UI → Controller → Service → HTTP Client → FastAPI, con <code>Authorization: Bearer TOKEN</code>. FastAPI valida el token y los permisos antes de consultar o insertar.</li>
+      <li><strong>Retorno.</strong> PostgreSQL / MongoDB → FastAPI → respuesta JSON y código HTTP → HTTP Client → Service → Controller → UI.</li>
+      <li><strong>Estado.</strong> Antes de iniciar, el Controller pone <code>loading = true</code> y la UI muestra <code>CircularProgressIndicator</code>. Al terminar, incluso si falla, <code>loading = false</code> y la UI muestra datos o el mensaje de error.</li>
+    </ol>
+
+    <h2>Respuestas HTTP</h2>
+    <table>
+      <thead>
+        <tr><th>Situación</th><th>Resultado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Consulta correcta</td><td>HTTP 200 + JSON</td></tr>
+        <tr><td>Recurso creado</td><td>HTTP 201 + JSON</td></tr>
+        <tr><td>Token ausente, inválido o vencido</td><td>HTTP 401</td></tr>
+        <tr><td>Token válido, permisos insuficientes</td><td>HTTP 403</td></tr>
+        <tr><td>Error del servidor</td><td>HTTP 500</td></tr>
+        <tr><td>Sin conexión</td><td>Error local; Flutter muestra un mensaje, sin código HTTP recibido</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Chat implementado</h2>
+    <p>El segundo diagrama documenta lo que sí está en el repositorio: <code>main.dart</code>, el tema Material 3, <code>ChatScreen</code> con la lista y el estado, el campo de escritura, las burbujas de ambos participantes y el modelo <code>ChatMessage</code> con su hora.</p>
+    <div class="grid two">
+      <figure>
+        <img src="imagenes/diagrama-hola-jarvis-1600x1000-light.png" alt="Arquitectura del chat Hola Jarvis, tema claro" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Hola Jarvis</strong> · tema claro · <a class="inline" href="hola-jarvis.html">abrir interactivo</a></figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/diagrama-hola-jarvis-1600x1000-dark.png" alt="Arquitectura del chat Hola Jarvis, tema oscuro" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Hola Jarvis</strong> · tema oscuro</figcaption>
+      </figure>
+    </div>
+
+    <p class="note">Las vistas previas se regeneran con <code>node tool/diagramas/exportar.mjs</code>; los diagramas son archivos HTML autónomos, sin CDN ni dependencias de red.</p>
+  </main>
+</body>
+</html>
