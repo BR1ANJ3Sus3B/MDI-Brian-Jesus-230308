@@ -6,6 +6,13 @@ import 'package:practica03_brianjesus_230308/Presentencion/Widgets/Chat/her_mess
 import 'package:practica03_brianjesus_230308/Presentencion/Widgets/Chat/my_message_bubble.dart';
 import 'package:practica03_brianjesus_230308/Presentencion/Widgets/shared/message_field_box.dart';
 
+/// Pantalla principal de la aplicación: el chat "Hola Jarvis".
+///
+/// Muestra la lista de mensajes de la conversación junto con el campo de
+/// texto ([MessageFieldBox]). Cuando el usuario envía un mensaje se agrega a
+/// la lista, aparece un indicador de escritura y, pasados 1.5 segundos, Jarvis
+/// responde con un texto aleatorio ([_nextReply]) siempre acompañado de un
+/// GIF/imagen de reacción ([_nextGif]).
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 
@@ -21,13 +28,11 @@ class _ChatScreenState extends State<ChatScreen> {
       text: 'Hola, ¿cómo estás?',
       fromWho: ChatMessageFrom.hers,
       time: DateTime.now(),
-      imageUrl: 'assets/her.gif',
     ),
     ChatMessage(
       text: 'Muy bien, ¿y tú?',
       fromWho: ChatMessageFrom.hers,
       time: DateTime.now(),
-      imageUrl: 'assets/hola.gif',
     ),
   ];
 
@@ -44,13 +49,33 @@ class _ChatScreenState extends State<ChatScreen> {
     'Entendido, lo tendré en cuenta.',
     '¡Jaja, me encanta esa idea!',
     'Estoy trabajando en eso, vuelve a preguntarme luego.',
+    'Eso suena genial, cuéntame más.',
+    'Interesante, nunca lo había visto de esa manera.',
+    'Déjame investigarlo un poco y te respondo.',
+    '¡Buena idea! ¿En qué más te puedo ayudar?',
+    'Claro que sí, dame un momento.',
+    'Me alegra mucho que me lo hayas contado.',
+    'Tienes razón, haré lo posible por ayudarte.',
+    'Ah, entiendo perfectamente lo que quieres decir.',
+    'Perfecto, lo anoto de inmediato.',
+    'Vamos a ver qué podemos hacer con eso.',
   ];
+
+  final List<String> _replyQueue = [];
+
+  String? _lastReply;
 
   final List<String> _gifs = [
     'assets/Homero.gif',
     'assets/her.gif',
     'assets/comer.gif',
-    'assets/hola.gif'
+    'assets/hola.gif',
+    'assets/alegre.png',
+    'assets/pensando.png',
+    'assets/risa.png',
+    'assets/jeje.png',
+    'assets/vale.png',
+    'assets/ok.png',
   ];
 
   @override
@@ -87,10 +112,11 @@ class _ChatScreenState extends State<ChatScreen> {
                     }
                     final message = _messages[index];
                     return (message.fromWho == ChatMessageFrom.mine)
-                        ? MyMessageBubble(text: message.text)
+                        ? MyMessageBubble(text: message.text, time: message.time)
                         : HerMessageBubble(
                             text: message.text,
                             imageUrl: message.imageUrl,
+                            time: message.time,
                           );
                   },
                 ),
@@ -103,16 +129,31 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
+  /// Procesa el envío de un nuevo mensaje del usuario.
+  ///
+  /// Ignora mensajes vacíos, agrega el mensaje a la conversación con la hora
+  /// actual, desplaza el scroll al final y dispara la respuesta de Jarvis.
   void _handleSubmit(String text) {
     if (text.trim().isEmpty) return;
 
     setState(() {
-      _messages.add(ChatMessage(text: text, fromWho: ChatMessageFrom.mine));
+      _messages.add(
+        ChatMessage(
+          text: text,
+          fromWho: ChatMessageFrom.mine,
+          time: DateTime.now(),
+        ),
+      );
     });
     _moveScrollToBottom();
     _generateReply();
   }
 
+  /// Simula la respuesta del asistente.
+  ///
+  /// Muestra el indicador "_TypingIndicator" y, tras 1.5 segundos, agrega a la
+  /// conversación un mensaje de Jarvis con un texto aleatorio y una imagen de
+  /// reacción aleatoria, desplazando el scroll hasta el final.
   void _generateReply() {
     setState(() => _isTyping = true);
     _moveScrollToBottom();
@@ -123,9 +164,10 @@ class _ChatScreenState extends State<ChatScreen> {
         _isTyping = false;
         _messages.add(
           ChatMessage(
-            text: _replies[Random().nextInt(_replies.length)],
+            text: _nextReply(),
             fromWho: ChatMessageFrom.hers,
-            imageUrl: _randomGif(),
+            time: DateTime.now(),
+            imageUrl: _nextGif(),
           ),
         );
       });
@@ -133,13 +175,35 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  String? _randomGif() {
-    if (Random().nextBool()) {
-      return _gifs[Random().nextInt(_gifs.length)];
-    }
-    return null;
+  /// Retorna de manera aleatoria una imagen (GIF/PNG) de [_gifs].
+  ///
+  /// Garantiza que la imagen elegida nunca sea la misma que la última usada
+  /// ([_lastGif]) para que las respuestas se vean variadas.
+  String _nextGif() {
+    final available = _gifs.where((gif) => gif != _lastGif).toList();
+    final gif = available[Random().nextInt(available.length)];
+    _lastGif = gif;
+    return gif;
   }
 
+  /// Retorna una respuesta de [_replies] sin repetir.
+  ///
+  /// Usa una cola barajada ([_replyQueue]) que recorre todas las respuestas
+  /// antes de repetir alguna; al recargar la cola evita que la primera
+  /// respuesta coincida con la última ya usada ([_lastReply]).
+  String _nextReply() {
+    if (_replyQueue.isEmpty) {
+      _replyQueue.addAll(_replies);
+      _replyQueue.shuffle();
+      if (_replyQueue.first == _lastReply) {
+        _replyQueue.add(_replyQueue.removeAt(0));
+      }
+    }
+    _lastReply = _replyQueue.removeAt(0);
+    return _lastReply!;
+  }
+
+  /// Desplaza la conversación hasta el último mensaje con una animación.
   void _moveScrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!_chatScrollController.hasClients) return;
@@ -152,6 +216,10 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
+/// Indicador de "Jarvis está escribiendo...".
+///
+/// Muestra tres puntos blancos que pulsan de forma animada mientras el
+/// asistente "piensa" su respuesta.
 class _TypingIndicator extends StatefulWidget {
   const _TypingIndicator();
 

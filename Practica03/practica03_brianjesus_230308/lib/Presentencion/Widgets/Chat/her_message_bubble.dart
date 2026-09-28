@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:practica03_brianjesus_230308/Presentencion/Models/chat_message.dart';
 
+/// Burbuja de mensaje enviado por el asistente (Jarvis).
+///
+/// Se alinea a la izquierda, usa el color secundario del tema, muestra la hora
+/// de envío (ver [formatChatTime]) y, si el mensaje incluye una [imageUrl],
+/// dibuja debajo una imagen/GIF de reacción dentro de [_ImageBubble].
 class HerMessageBubble extends StatelessWidget {
   final String text;
   final String? imageUrl;
@@ -45,6 +50,10 @@ class HerMessageBubble extends StatelessWidget {
   }
 }
 
+/// Muestra la imagen (GIF o PNG) asociada a un mensaje del asistente.
+///
+/// Renderiza el asset [imageUrl] con esquinas redondeadas, un ancho del 70%
+/// de la pantalla y una altura fija.
 class _ImageBubble extends StatelessWidget {
   final String imageUrl;
 

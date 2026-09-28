@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:practica03_brianjesus_230308/Presentencion/Models/chat_message.dart';
 
+/// Burbuja de mensaje enviado por el usuario.
+///
+/// Se alinea a la derecha, usa el color primario del tema y muestra debajo
+/// del texto la hora de envío en formato `HH:mm` (ver [formatChatTime]).
 class MyMessageBubble extends StatelessWidget {
   final String text;
   final DateTime time;

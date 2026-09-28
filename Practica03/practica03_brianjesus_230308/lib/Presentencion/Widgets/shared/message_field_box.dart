@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// Campo de texto donde el usuario escribe sus mensajes.
+///
+/// Notifica cada mensaje enviado (tanto con el botón de enviar como con la
+/// tecla "listo" en el teclado) a través del callback [onValue] y mantiene el
+/// foco en el campo para escribir el siguiente mensaje.
 class MessageFieldBox extends StatefulWidget {
+  /// Callback invocado con el texto del mensaje cuando el usuario lo envía.
   final ValueChanged<String> onValue;
 
   const MessageFieldBox({super.key, required this.onValue});
@@ -28,7 +34,7 @@ class _MessageFieldBoxState extends State<MessageFieldBox> {
     );
 
     final inputDecoration = InputDecoration(
-      hintText: 'End your message with a "??"',
+      hintText: 'Termina tu mensaje con un "??"',
       enabledBorder: outlineInputBorder,
       focusedBorder: outlineInputBorder,
       filled: true,
