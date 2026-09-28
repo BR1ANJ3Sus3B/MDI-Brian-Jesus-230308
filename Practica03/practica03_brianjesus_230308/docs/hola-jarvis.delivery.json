@@ -1,0 +1,14 @@
+{
+    "diagram_type":  "architecture",
+    "output":  "hola-jarvis.html",
+    "specification_sha256":  "b0a58963e4e5742ea7f2dcf274e0eecf1081348de5187f1b1b174a0635c6e46b",
+    "specification_bytes":  15301,
+    "artifact_sha256":  "7f2ec3eda3ec3641d94e488ad108b35f4ae0c96f627ebfd414993be8d7fd7ff9",
+    "artifact_bytes":  812619,
+    "validation":  "9/9 showcase, 0 errors, 0 warnings",
+    "deliver":  "passed",
+    "browser_evidence":  "passed",
+    "visual_review":  "passed",
+    "visual_review_scope":  "Inspección de capturas: 2048x1320 light y 1440x900 dark; rutas, etiquetas, nodos y tarjetas sin superposiciones visibles.",
+    "correction_rounds":  1
+}

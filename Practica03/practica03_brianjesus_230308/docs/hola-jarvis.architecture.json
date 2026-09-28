@@ -1,0 +1,329 @@
+{
+    "schema_version":  1,
+    "diagram_type":  "architecture",
+    "meta":  {
+                 "title":  "Hola Jarvis · Arquitectura del chat",
+                 "subtitle":  "Chat simulado en Flutter: recibe mensajes y responde tras 1.5 s con texto aleatorio y una imagen de reacción local.",
+                 "quality_profile":  "showcase",
+                 "repository":  {
+                                    "url":  "https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308",
+                                    "revision":  "7d5b833a02b4baaf5f15e6fb9f5b19f60ef169a8",
+                                    "link_mode":  "local-only"
+                                },
+                 "animation":  "none",
+                 "viewBox":  [
+                                 1380,
+                                 730
+                             ]
+             },
+    "components":  [
+                       {
+                           "id":  "usuario",
+                           "type":  "external",
+                           "label":  "Usuario",
+                           "sublabel":  "Escribe y envía",
+                           "pos":  [
+                                       30,
+                                       260
+                                   ],
+                           "size":  [
+                                        150,
+                                        70
+                                    ]
+                       },
+                       {
+                           "id":  "entrada",
+                           "type":  "frontend",
+                           "label":  "MessageFieldBox",
+                           "sublabel":  "Campo de texto",
+                           "pos":  [
+                                       290,
+                                       260
+                                   ],
+                           "size":  [
+                                        240,
+                                        70
+                                    ],
+                           "sources":  [
+                                           {
+                                               "path":  "Practica03/practica03_brianjesus_230308/lib/Presentencion/Widgets/shared/message_field_box.dart"
+                                           }
+                                       ]
+                       },
+                       {
+                           "id":  "chat",
+                           "type":  "frontend",
+                           "label":  "ChatScreen",
+                           "sublabel":  "Lista, estado y scroll",
+                           "pos":  [
+                                       660,
+                                       260
+                                   ],
+                           "size":  [
+                                        240,
+                                        70
+                                    ],
+                           "sources":  [
+                                           {
+                                               "path":  "Practica03/practica03_brianjesus_230308/lib/Presentencion/chat/chat_screen.dart"
+                                           }
+                                       ]
+                       },
+                       {
+                           "id":  "jarvis",
+                           "type":  "frontend",
+                           "label":  "HerMessageBubble",
+                           "sublabel":  "Texto + imagen + HH:mm",
+                           "pos":  [
+                                       1050,
+                                       260
+                                   ],
+                           "size":  [
+                                        270,
+                                        70
+                                    ],
+                           "sources":  [
+                                           {
+                                               "path":  "Practica03/practica03_brianjesus_230308/lib/Presentencion/Widgets/Chat/her_message_bubble.dart"
+                                           }
+                                       ]
+                       },
+                       {
+                           "id":  "app",
+                           "type":  "frontend",
+                           "label":  "main → MyApp",
+                           "sublabel":  "MaterialApp · home",
+                           "pos":  [
+                                       660,
+                                       70
+                                   ],
+                           "size":  [
+                                        240,
+                                        70
+                                    ],
+                           "sources":  [
+                                           {
+                                               "path":  "Practica03/practica03_brianjesus_230308/lib/main.dart"
+                                           }
+                                       ]
+                       },
+                       {
+                           "id":  "tema",
+                           "type":  "frontend",
+                           "label":  "AppTheme",
+                           "sublabel":  "Material 3 · 8 colores",
+                           "pos":  [
+                                       290,
+                                       70
+                                   ],
+                           "size":  [
+                                        240,
+                                        70
+                                    ],
+                           "sources":  [
+                                           {
+                                               "path":  "Practica03/practica03_brianjesus_230308/lib/config/theme/app_theme.dart"
+                                           }
+                                       ]
+                       },
+                       {
+                           "id":  "modelo",
+                           "type":  "frontend",
+                           "label":  "ChatMessage",
+                           "sublabel":  "text · fromWho · imageUrl? · time",
+                           "pos":  [
+                                       660,
+                                       480
+                                   ],
+                           "size":  [
+                                        280,
+                                        70
+                                    ],
+                           "sources":  [
+                                           {
+                                               "path":  "Practica03/practica03_brianjesus_230308/lib/Presentencion/Models/chat_message.dart"
+                                           }
+                                       ]
+                       },
+                       {
+                           "id":  "propia",
+                           "type":  "frontend",
+                           "label":  "MyMessageBubble",
+                           "sublabel":  "Texto + HH:mm",
+                           "pos":  [
+                                       290,
+                                       480
+                                   ],
+                           "size":  [
+                                        240,
+                                        70
+                                    ],
+                           "sources":  [
+                                           {
+                                               "path":  "Practica03/practica03_brianjesus_230308/lib/Presentencion/Widgets/Chat/my_message_bubble.dart"
+                                           }
+                                       ]
+                       },
+                       {
+                           "id":  "typing",
+                           "type":  "frontend",
+                           "label":  "_TypingIndicator",
+                           "sublabel":  "Escribiendo… · 1.5 s",
+                           "pos":  [
+                                       660,
+                                       650
+                                   ],
+                           "size":  [
+                                        240,
+                                        70
+                                    ],
+                           "sources":  [
+                                           {
+                                               "path":  "Practica03/practica03_brianjesus_230308/lib/Presentencion/chat/chat_screen.dart"
+                                           }
+                                       ]
+                       },
+                       {
+                           "id":  "imagenes",
+                           "type":  "frontend",
+                           "label":  "Assets locales",
+                           "sublabel":  "4 GIF + 6 PNG de reacción",
+                           "pos":  [
+                                       1050,
+                                       480
+                                   ],
+                           "size":  [
+                                        270,
+                                        70
+                                    ],
+                           "sources":  [
+                                           {
+                                               "path":  "Practica03/practica03_brianjesus_230308/pubspec.yaml"
+                                           }
+                                       ]
+                       },
+                       {
+                           "id":  "pruebas",
+                           "type":  "external",
+                           "label":  "widget_test.dart",
+                           "sublabel":  "Smoke + enviar / recibir",
+                           "pos":  [
+                                       1050,
+                                       70
+                                   ],
+                           "size":  [
+                                        270,
+                                        70
+                                    ],
+                           "sources":  [
+                                           {
+                                               "path":  "Practica03/practica03_brianjesus_230308/test/widget_test.dart"
+                                           }
+                                       ]
+                       }
+                   ],
+    "connections":  [
+                        {
+                            "from":  "usuario",
+                            "to":  "entrada",
+                            "label":  "Escribe",
+                            "variant":  "emphasis"
+                        },
+                        {
+                            "from":  "entrada",
+                            "to":  "chat",
+                            "label":  "onValue",
+                            "variant":  "emphasis"
+                        },
+                        {
+                            "from":  "chat",
+                            "to":  "jarvis",
+                            "label":  "hers · tras 1.5 s",
+                            "variant":  "emphasis"
+                        },
+                        {
+                            "from":  "tema",
+                            "to":  "app",
+                            "label":  "theme()"
+                        },
+                        {
+                            "from":  "app",
+                            "to":  "chat",
+                            "label":  "home",
+                            "labelDy":  65
+                        },
+                        {
+                            "from":  "pruebas",
+                            "to":  "app",
+                            "label":  "pumpWidget",
+                            "variant":  "dashed"
+                        },
+                        {
+                            "from":  "chat",
+                            "to":  "modelo",
+                            "label":  "Agrega mine / hers",
+                            "fromSide":  "bottom",
+                            "toSide":  "top"
+                        },
+                        {
+                            "from":  "chat",
+                            "to":  "propia",
+                            "label":  "Muestra mine"
+                        },
+                        {
+                            "from":  "imagenes",
+                            "to":  "jarvis",
+                            "label":  "Image.asset"
+                        },
+                        {
+                            "from":  "chat",
+                            "to":  "typing",
+                            "label":  "_isTyping",
+                            "fromSide":  "bottom",
+                            "toSide":  "right",
+                            "via":  [
+                                        [
+                                            780,
+                                            360
+                                        ],
+                                        [
+                                            980,
+                                            360
+                                        ],
+                                        [
+                                            980,
+                                            685
+                                        ]
+                                    ]
+                        }
+                    ],
+    "cards":  [
+                  {
+                      "dot":  "cyan",
+                      "title":  "Envío y respuesta local",
+                      "items":  [
+                                    "onValue → _handleSubmit agrega mine con DateTime.now().",
+                                    "_generateReply activa escritura; a los 1.5 s agrega hers.",
+                                    "_moveScrollToBottom anima el scroll durante 300 ms."
+                                ]
+                  },
+                  {
+                      "dot":  "emerald",
+                      "title":  "Selección de Jarvis",
+                      "items":  [
+                                    "_nextReply: 18 textos, cola barajada sin repetir por ciclo.",
+                                    "_nextGif: 10 reacciones; excluye la última imagen.",
+                                    "_ImageBubble: ClipRRect; formatChatTime: HH:mm."
+                                ]
+                  },
+                  {
+                      "dot":  "violet",
+                      "title":  "Recursos del proyecto",
+                      "items":  [
+                                    "AppBar usa assets/jarvis.jpg como avatar.",
+                                    "Homero.gif, her.gif, comer.gif, hola.gif.",
+                                    "alegre, pensando, risa, jeje, vale y ok: PNG."
+                                ]
+                  }
+              ]
+}
