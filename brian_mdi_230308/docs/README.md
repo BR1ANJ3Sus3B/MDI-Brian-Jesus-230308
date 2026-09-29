@@ -274,5 +274,8 @@ Los diagramas son HTML autocontenidos (sin backend ni CDN) generados con **Archi
 | ![Estructura, tema claro](imagenes/diagrama-estructura-1600x1000-light.png) | ![Arquitectura, tema claro](imagenes/diagrama-arquitectura-1600x1000-light.png) | ![Interacción, tema claro](imagenes/diagrama-interaccion-1600x1000-light.png) | ![Ciclo de vida, tema claro](imagenes/diagrama-ciclo-vida-1600x1000-light.png) |
 
 ---
+### Link Arquitectura 
+
+https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/
 
 *Documentación generada el 18 de septiembre de 2026.*
