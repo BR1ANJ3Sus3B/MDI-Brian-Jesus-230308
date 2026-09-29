@@ -40,7 +40,7 @@ El objetivo es aplicar los fundamentos del desarrollo de aplicaciones móviles, 
 | ----: | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------: | ----------- |
 | **1** | 📖 **Metodología**                             | Transcribir y comprender la metodología de trabajo y las fechas de evaluación de la asignatura.                   |           ⭐ 5 | ✅ Concluida |
 | **2** | 📱 [**Mi primera aplicación móvil con Flutter**](brian_mdi_230308/docs/) | Desarrollar una aplicación móvil utilizando Flutter, aplicando conceptos de `StatefulWidget` y `StatelessWidget`. |          ⭐ 20 | ✅ Concluida |
-| **3** | 💬 [**Hola Jarvis (Chat con Flutter)**](Practica03/practica03_brianjesus_230308/docs/) | Desarrollar una aplicación de chat con Flutter y generar diagramas de arquitectura con Archify. |          ⭐ 20 | ✅ Concluida |
+| **3** | 💬 [**Hola Jarvis (Chat con Flutter)**](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/blob/main/Practica03/practica03_brianjesus_230308/README.md) | Desarrollar una aplicación de chat con Flutter y generar diagramas de arquitectura con Archify. |          ⭐ 20 | ✅ Concluida |
 
 
 
