@@ -76,32 +76,31 @@ Jekyll— y el `index.html` de la raíz funciona como portada común.
 ## 📂 Estructura del repositorio
 
 ```text
-Practicas_DMI_230308/
+MDI-Brian-Jesus-230308/
 │
-├── 📁 Practica_01/
-│   └── 📄 Documentación de la práctica
+├── 📄 index.html            Portada de GitHub Pages
+├── 📄 .nojekyll             Desactiva el procesamiento de Jekyll
 │
-├── 📁 Practica_02/
-│   └── 📱 Proyecto Flutter
+├── 📁 brian_mdi_230308/     Práctica 02 · Contador en Flutter
+│   ├── 📱 lib/
+│   ├── 📄 pubspec.yaml
+│   └── 📁 docs/             Documentación y diagramas
 │
-├── 📁 lib/
-│   ├── 📁 Presentacion/
-│   │   └── 📁 Screens/
-│   │
-│   └── 📄 main.dart
-│
-├── 📁 android/
-├── 📁 ios/
-├── 📁 linux/
-├── 📁 macos/
-├── 📁 web/
-├── 📁 windows/
-│
-├── 📁 test/
-│
-├── 📄 pubspec.yaml
-├── 📄 pubspec.lock
-└── 📄 README.md
+└── 📁 Practica03/
+    └── 📁 practica03_brianjesus_230308/   Práctica 03 · Hola Jarvis
+        ├── 📱 lib/
+        │   ├── 📄 main.dart
+        │   ├── 📁 config/theme/
+        │   └── 📁 Presentencion/
+        │       ├── 📁 Models/
+        │       ├── 📁 Widgets/Chat/
+        │       ├── 📁 Widgets/shared/
+        │       └── 📁 chat/
+        ├── 🖼️ assets/        Imágenes y GIF de reacción
+        ├── 📁 test/          Smoke test y envío/recepción de mensajes
+        ├── 📁 tool/diagramas/exportar.mjs
+        ├── 📄 pubspec.yaml
+        └── 📁 docs/          Documentación y diagramas
 ```
 
 ---
@@ -136,28 +135,40 @@ Para ejecutar cualquiera de los proyectos Flutter, es necesario contar con Flutt
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/angelJesus13/Practicas_DMI_230308.git
+git clone https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308.git
 ```
 
 ### 2. Entrar al proyecto
 
 ```bash
-cd Practicas_DMI_230308
+cd MDI-Brian-Jesus-230308
 ```
 
-### 3. Instalar dependencias
+### 3. Entrar a la práctica
+
+Cada práctica es un proyecto Flutter independiente:
+
+```bash
+# Práctica 02 · Contador
+cd brian_mdi_230308
+
+# Práctica 03 · Hola Jarvis
+cd Practica03/practica03_brianjesus_230308
+```
+
+### 4. Instalar dependencias
 
 ```bash
 flutter pub get
 ```
 
-### 4. Verificar dispositivos disponibles
+### 5. Verificar dispositivos disponibles
 
 ```bash
 flutter devices
 ```
 
-### 5. Ejecutar la aplicación
+### 6. Ejecutar la aplicación
 
 ```bash
 flutter run
@@ -224,6 +235,11 @@ Las evidencias de las prácticas se irán incorporando en esta sección conforme
 ### Práctica 02 — Mi primera aplicación móvil con Flutter
 
 📱 Aplicación desarrollada utilizando Flutter y Dart.
+
+### Práctica 03 — Hola Jarvis
+
+💬 Chat en Flutter con un asistente simulado que responde tras 1.5 s con un texto
+aleatorio y un GIF de reacción, documentado con diagramas de arquitectura.
 
 ---
 

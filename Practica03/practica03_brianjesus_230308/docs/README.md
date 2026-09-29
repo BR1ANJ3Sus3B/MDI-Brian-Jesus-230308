@@ -106,7 +106,7 @@ supone un inicio de sesión ni una llamada a Keycloak por petición.
 | `HerMessageBubble` | `lib/Presentencion/Widgets/Chat/her_message_bubble.dart` | Burbuja de Jarvis con texto, imagen y hora |
 | `ChatMessage` | `lib/Presentencion/Models/chat_message.dart` | Modelo: `text`, `fromWho`, `imageUrl?` y `time` |
 | `_TypingIndicator` | `lib/Presentencion/chat/chat_screen.dart` | Indicador «escribiendo…» durante 1.5 s |
-| Assets locales | `assets/` | 4 GIF y 6 PNG de reacción |
+| Assets locales | `assets/` | `jarvis.jpg` como avatar y 4 GIF de reacción |
 | `widget_test.dart` | `test/widget_test.dart` | Smoke test y envío/recepción de un mensaje |
 
 ---

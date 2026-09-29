@@ -7,7 +7,7 @@
                  "quality_profile":  "showcase",
                  "repository":  {
                                     "url":  "https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308",
-                                    "revision":  "7d5b833a02b4baaf5f15e6fb9f5b19f60ef169a8",
+                                     "revision":  "d8ac19b46c0ff6db8b61c97aef0903b641a5fa91",
                                     "link_mode":  "local-only"
                                 },
                  "animation":  "none",
@@ -187,7 +187,7 @@
                            "id":  "imagenes",
                            "type":  "frontend",
                            "label":  "Assets locales",
-                           "sublabel":  "4 GIF + 6 PNG de reacción",
+                            "sublabel":  "jarvis.jpg + 4 GIF de reacción",
                            "pos":  [
                                        1050,
                                        480
@@ -311,18 +311,17 @@
                       "dot":  "emerald",
                       "title":  "Selección de Jarvis",
                       "items":  [
-                                    "_nextReply: 18 textos, cola barajada sin repetir por ciclo.",
-                                    "_nextGif: 10 reacciones; excluye la última imagen.",
-                                    "_ImageBubble: ClipRRect; formatChatTime: HH:mm."
+                                     "_nextReply: 18 textos, cola barajada sin repetir por ciclo.",
+                                     "_nextGif: 4 reacciones; excluye la última imagen.",
+                                     "_ImageBubble: ClipRRect; formatChatTime: HH:mm."
                                 ]
                   },
                   {
                       "dot":  "violet",
                       "title":  "Recursos del proyecto",
                       "items":  [
-                                    "AppBar usa assets/jarvis.jpg como avatar.",
-                                    "Homero.gif, her.gif, comer.gif, hola.gif.",
-                                    "alegre, pensando, risa, jeje, vale y ok: PNG."
+                                     "AppBar usa assets/jarvis.jpg como avatar.",
+                                     "Homero.gif, her.gif, comer.gif, hola.gif."
                                 ]
                   }
               ]

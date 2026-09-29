@@ -1,0 +1,8 @@
+# Paquetes comprimidos de entrega; no forman parte del sitio de Pages.
+*.zip
+
+# Editores y sistema operativo
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

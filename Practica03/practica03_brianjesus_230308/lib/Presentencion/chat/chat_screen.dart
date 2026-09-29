@@ -70,12 +70,6 @@ class _ChatScreenState extends State<ChatScreen> {
     'assets/her.gif',
     'assets/comer.gif',
     'assets/hola.gif',
-    'assets/alegre.png',
-    'assets/pensando.png',
-    'assets/risa.png',
-    'assets/jeje.png',
-    'assets/vale.png',
-    'assets/ok.png',
   ];
 
   @override
@@ -175,7 +169,7 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  /// Retorna de manera aleatoria una imagen (GIF/PNG) de [_gifs].
+  /// Retorna de manera aleatoria una imagen (GIF) de [_gifs].
   ///
   /// Garantiza que la imagen elegida nunca sea la misma que la última usada
   /// ([_lastGif]) para que las respuestas se vean variadas.

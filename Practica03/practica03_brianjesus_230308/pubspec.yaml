@@ -67,12 +67,6 @@ flutter:
     - assets/her.gif
     - assets/comer.gif
     - assets/hola.gif
-    - assets/alegre.png
-    - assets/pensando.png
-    - assets/risa.png
-    - assets/jeje.png
-    - assets/vale.png
-    - assets/ok.png 
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
