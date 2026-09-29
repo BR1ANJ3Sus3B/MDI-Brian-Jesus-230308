@@ -156,26 +156,7 @@ Versión interactiva: [ciclo-vida.html](ciclo-vida.html)
 
 ---
 
-## Capturas de la aplicación
 
-Estas imágenes no son maquetas: se generan renderizando la pantalla real
-(`CounterFunctionsScrens`) con la tipografía y los colores de la aplicación, una
-por estado del contador. Todas son 1080×2340 px.
-
-| Estado | Valor | `counterStatus` | Captura |
-| --- | --- | --- | --- |
-| LOW | `0` | cian | ![Contador en 0, estado LOW](imagenes/app-estado-low.png) |
-| MEDIUM | `14` | verde degradado | ![Contador en 14, estado MEDIUM](imagenes/app-estado-medium.png) |
-| HIGH | `24` | verde | ![Contador en 24, estado HIGH](imagenes/app-estado-high.png) |
-| NEGATIVE | `-3` | rojo | ![Contador en -3, estado NEGATIVE](imagenes/app-estado-negative.png) |
-
-El valor `14` se elige a propósito para que `primaryColor` y `secondaryColor` caigan
-en el tramo `MEDIUM`, donde `Color.lerp` interpola el degradado según
-`(clickCounter - 10) / 10`.
-
-Para regenerarlas, ver [Regenerar las imágenes](#regenerar-las-imágenes).
-
----
 
 ## Tecnologías y dependencias
 
@@ -215,22 +196,10 @@ flutter test
 
 El test `test/widget_test.dart` comprueba que la pantalla arranca en `0`, que el botón de sumar incrementa a `1` y que la interfaz responde al toque.
 
----
 
-## Regenerar las imágenes
 
-Las imágenes de `docs/imagenes/` no se editan a mano: se generan desde el código.
 
-| Script | Qué produce |
-| --- | --- |
-| `tool/capturas/generar.ps1` | Las cuatro capturas de la app en `imagenes/app-estado-*.png` |
-| `node tool/diagramas/exportar.mjs` | Los PNG de los diagramas en `imagenes/diagrama-*.png` |
 
-### Capturas de la aplicación
-
-```powershell
-powershell -ExecutionPolicy Bypass -File tool/capturas/generar.ps1
-```
 
 El script descarga los `.ttf` de Space Grotesk a `tool/capturas/.fuentes/`
 (está en `.gitignore`; solo se necesitan para renderizar) y después ejecuta
