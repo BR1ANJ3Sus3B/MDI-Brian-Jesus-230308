@@ -117,9 +117,61 @@ Entre los conceptos trabajados se encuentran:
 
 Para ejecutar cualquiera de los proyectos Flutter, es necesario contar con Flutter instalado y configurado.
 
+### 1. Clonar el repositorio
 
+```bash
+git clone https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308.git
+```
 
+### 2. Entrar al proyecto
 
+```bash
+cd MDI-Brian-Jesus-230308
+```
+
+### 3. Entrar a la práctica
+
+Cada práctica es un proyecto Flutter independiente:
+
+```bash
+# Práctica 02 · Contador
+cd brian_mdi_230308
+
+# Práctica 03 · Hola Jarvis
+cd Practica03/practica03_brianjesus_230308
+```
+
+### 4. Instalar dependencias
+
+```bash
+flutter pub get
+```
+
+### 5. Verificar dispositivos disponibles
+
+```bash
+flutter devices
+```
+
+### 6. Ejecutar la aplicación
+
+```bash
+flutter run
+```
+
+También es posible ejecutar el proyecto en un dispositivo específico:
+
+```bash
+flutter run -d windows
+```
+
+o:
+
+```bash
+flutter run -d edge
+```
+
+---
 
 ## 📸 Evidencias
 

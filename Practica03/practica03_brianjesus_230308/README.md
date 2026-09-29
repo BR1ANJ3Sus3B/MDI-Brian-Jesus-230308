@@ -15,6 +15,24 @@ acompaña su mensaje con un GIF o imagen de reacción.
   un repertorio de 4 assets, sin repetir el último usado.
 - Tema `Material 3` con paleta configurable (`AppTheme`).
 
+
+## Capturas de la aplicación
+
+### 1. Pantalla principal del chat
+<img src="/Practica03/practica03_brianjesus_230308/assets/1.jpeg" width="250">
+
+### 2. Envío de mensaje
+<img src="/Practica03/practica03_brianjesus_230308/assets/2.jpeg" width="250">
+
+### 3. Respuesta de Jarvis
+<img src="/Practica03/practica03_brianjesus_230308/assets/3.jpeg" width="250">
+
+### 4. GIF de reacción
+<img src="/Practica03/practica03_brianjesus_230308/assets/5.jpeg" width="250">
+
+### 5. Conversación completa
+<img src="/Practica03/practica03_brianjesus_230308/assets/WhatsApp%20Image%202026-09-29%20at%209.04.08%20AM.jpeg" width="250">
+
 ## Assets incluidos
 
 | Archivo | Tipo | Uso |
