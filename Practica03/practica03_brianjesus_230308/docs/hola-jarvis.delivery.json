@@ -1,0 +1,13 @@
+{
+    "diagram_type":  "architecture",
+    "output":  "hola-jarvis.html",
+    "specification_sha256":  "07d292b4dc6f96eee357eac18eb6b06fa9aaef970457dfa77814231e188ddff9",
+    "specification_bytes":  15222,
+    "artifact_sha256":  "838c26341cde45de70caf425dd2cfa6d8ff767cf44d0ca130d60d093a007186b",
+    "artifact_bytes":  812566,
+    "validation":  "9/9 showcase, 0 errors, 0 warnings",
+    "deliver":  "passed",
+    "browser_evidence":  "passed",
+    "visual_review":  "pending",
+    "correction_rounds":  1
+}

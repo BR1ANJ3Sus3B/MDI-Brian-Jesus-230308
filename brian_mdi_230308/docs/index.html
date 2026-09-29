@@ -1,22 +1,106 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>brian_mdi_230308 architecture</title>
+  <title>brian_mdi_230308 — Documentación</title>
   <style>
     :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #0b1020; color: #e7efff; }
-    body { min-height: 100vh; display: grid; place-items: center; margin: 0; }
-    main { max-width: 42rem; padding: 2.5rem; text-align: center; }
-    a { display: inline-block; margin-top: 1rem; padding: .75rem 1rem; border-radius: .5rem; background: #38bdf8; color: #082033; font-weight: 700; text-decoration: none; }
+    body { min-height: 100vh; margin: 0; }
+    main { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; text-align: center; }
+    h1 { margin: 0 0 .5rem; }
+    h2 { margin: 3.5rem 0 1.25rem; font-size: 1.15rem; letter-spacing: .04em; text-transform: uppercase; color: #8fa6c8; }
     p { color: #b9c7df; line-height: 1.6; }
+    .links { display: grid; gap: .75rem; margin-top: 1.5rem; }
+    a { display: inline-block; padding: .7rem 1rem; border-radius: .5rem; background: #38bdf8; color: #082033; font-weight: 700; text-decoration: none; }
+    a.gray { background: #1f2a44; color: #e7efff; }
+
+    .grid { display: grid; gap: 1rem; text-align: left; }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 900px) { .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 560px) { .grid.four, .grid.two { grid-template-columns: 1fr; } }
+
+    figure { margin: 0; padding: .6rem; background: #111a30; border: 1px solid #24314d; border-radius: .75rem; }
+    figure img { display: block; width: 100%; height: auto; border-radius: .4rem; background: #020617; }
+    figcaption { padding: .6rem .25rem .2rem; font-size: .82rem; color: #8fa6c8; }
+    figcaption strong { color: #e7efff; }
+    a.inline { display: inline; padding: 0; background: none; color: #38bdf8; font-weight: 600; font-size: .82rem; }
+    a.inline:hover { text-decoration: underline; }
+    .shots figure img { border: 1px solid #24314d; }
+    .note { margin-top: 3.5rem; font-size: .85rem; color: #7d90ae; }
   </style>
 </head>
 <body>
   <main>
     <h1>brian_mdi_230308</h1>
-    <p>Interactive, self-contained architecture diagram for the Flutter application.</p>
-    <a href="architecture.html">Open the architecture diagram</a>
+    <p>Aplicación Flutter (Material 3) con un contador interactivo y estados visuales. Documentación completa, diagramas interactivos e imágenes de referencia.</p>
+    <div class="links">
+      <a href="README.md">Ver la documentación completa (README)</a>
+      <a href="architecture.html">Arquitectura de la aplicación</a>
+      <a class="gray" href="estructura.html">Estructura del proyecto</a>
+      <a class="gray" href="interaccion.html">Interacción del contador</a>
+      <a class="gray" href="ciclo-vida.html">Ciclo de vida de estados</a>
+    </div>
+
+    <h2>Capturas de la aplicación</h2>
+    <p>Renderizadas desde la pantalla real, una por estado del contador.</p>
+    <div class="grid four shots">
+      <figure>
+        <img src="imagenes/app-estado-low.png" alt="Contador en 0, estado LOW, degradado cian" width="1080" height="2340" loading="lazy">
+        <figcaption><strong>LOW</strong> · valor 0 · cian</figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/app-estado-medium.png" alt="Contador en 14, estado MEDIUM, degradado verde" width="1080" height="2340" loading="lazy">
+        <figcaption><strong>MEDIUM</strong> · valor 14 · verde</figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/app-estado-high.png" alt="Contador en 24, estado HIGH, degradado verde intenso" width="1080" height="2340" loading="lazy">
+        <figcaption><strong>HIGH</strong> · valor 24 · verde</figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/app-estado-negative.png" alt="Contador en -3, estado NEGATIVE, degradado rojo" width="1080" height="2340" loading="lazy">
+        <figcaption><strong>NEGATIVE</strong> · valor −3 · rojo</figcaption>
+      </figure>
+    </div>
+
+    <h2>Diagramas</h2>
+    <div class="grid two">
+      <figure>
+        <img src="imagenes/diagrama-arquitectura-1600x1000-dark.png" alt="Diagrama de arquitectura de la aplicación" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Arquitectura</strong> · tema oscuro · <a class="inline" href="architecture.html">abrir interactivo</a></figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/diagrama-arquitectura-1600x1000-light.png" alt="Diagrama de arquitectura de la aplicación, tema claro" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Arquitectura</strong> · tema claro</figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/diagrama-estructura-1600x1000-dark.png" alt="Diagrama de estructura del proyecto" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Estructura</strong> · tema oscuro · <a class="inline" href="estructura.html">abrir interactivo</a></figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/diagrama-estructura-1600x1000-light.png" alt="Diagrama de estructura del proyecto, tema claro" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Estructura</strong> · tema claro</figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/diagrama-interaccion-1600x1000-dark.png" alt="Diagrama del flujo de interacción del contador" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Interacción</strong> · tema oscuro · <a class="inline" href="interaccion.html">abrir interactivo</a></figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/diagrama-interaccion-1600x1000-light.png" alt="Diagrama del flujo de interacción del contador, tema claro" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Interacción</strong> · tema claro</figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/diagrama-ciclo-vida-1600x1000-dark.png" alt="Diagrama del ciclo de vida de estados del contador" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Ciclo de vida</strong> · tema oscuro · <a class="inline" href="ciclo-vida.html">abrir interactivo</a></figcaption>
+      </figure>
+      <figure>
+        <img src="imagenes/diagrama-ciclo-vida-1600x1000-light.png" alt="Diagrama del ciclo de vida de estados del contador, tema claro" width="1600" height="1000" loading="lazy">
+        <figcaption><strong>Ciclo de vida</strong> · tema claro</figcaption>
+      </figure>
+    </div>
+
+    <p class="note">Las imágenes se regeneran con <code>tool/capturas/generar.ps1</code> y <code>node tool/diagramas/exportar.mjs</code>.</p>
   </main>
 </body>
 </html>

@@ -1,0 +1,251 @@
+{
+    "schema_version":  1,
+    "diagram_type":  "architecture",
+    "meta":  {
+                 "title":  "Práctica 03 · Arquitectura propuesta",
+                 "quality_profile":  "showcase",
+                 "viewBox":  [
+                                 1390,
+                                 720
+                             ]
+             },
+    "components":  [
+                       {
+                           "id":  "usuario",
+                           "type":  "external",
+                           "label":  "Usuario",
+                           "sublabel":  "CAPA 1 · Interacción",
+                           "pos":  [
+                                       40,
+                                       20
+                                   ],
+                           "size":  [
+                                        290,
+                                        70
+                                    ]
+                       },
+                       {
+                           "id":  "ui",
+                           "type":  "frontend",
+                           "label":  "Flutter UI",
+                           "sublabel":  "Pantallas · datos o error",
+                           "pos":  [
+                                       40,
+                                       130
+                                   ],
+                           "size":  [
+                                        290,
+                                        70
+                                    ]
+                       },
+                       {
+                           "id":  "controller",
+                           "type":  "frontend",
+                           "label":  "Provider / Controller",
+                           "sublabel":  "loading · error · datos",
+                           "pos":  [
+                                       40,
+                                       240
+                                   ],
+                           "size":  [
+                                        290,
+                                        70
+                                    ]
+                       },
+                       {
+                           "id":  "service",
+                           "type":  "frontend",
+                           "label":  "Service",
+                           "sublabel":  "Operaciones y resultados",
+                           "pos":  [
+                                       40,
+                                       350
+                                   ],
+                           "size":  [
+                                        290,
+                                        70
+                                    ]
+                       },
+                       {
+                           "id":  "http",
+                           "type":  "frontend",
+                           "label":  "HTTP Client",
+                           "sublabel":  "GET /productos · POST /productos",
+                           "pos":  [
+                                       40,
+                                       460
+                                   ],
+                           "size":  [
+                                        290,
+                                        80
+                                    ]
+                       },
+                       {
+                           "id":  "keycloak",
+                           "type":  "security",
+                           "label":  "Keycloak",
+                           "sublabel":  "CAPA 3 · Autenticación",
+                           "pos":  [
+                                       830,
+                                       130
+                                   ],
+                           "size":  [
+                                        350,
+                                        90
+                                    ]
+                       },
+                       {
+                           "id":  "api",
+                           "type":  "backend",
+                           "label":  "FastAPI",
+                           "sublabel":  "CAPA 4 · Valida token y permisos",
+                           "pos":  [
+                                       830,
+                                       460
+                                   ],
+                           "size":  [
+                                        350,
+                                        80
+                                    ]
+                       },
+                       {
+                           "id":  "postgres",
+                           "type":  "database",
+                           "label":  "PostgreSQL",
+                           "sublabel":  "CAPA 5 · Productos estructurados",
+                           "pos":  [
+                                       560,
+                                       600
+                                   ],
+                           "size":  [
+                                        320,
+                                        70
+                                    ]
+                       },
+                       {
+                           "id":  "mongo",
+                           "type":  "database",
+                           "label":  "MongoDB",
+                           "sublabel":  "CAPA 5 · Eventos / documentos",
+                           "pos":  [
+                                       1000,
+                                       600
+                                   ],
+                           "size":  [
+                                        320,
+                                        70
+                                    ]
+                       }
+                   ],
+    "boundaries":  [
+                       {
+                           "kind":  "region",
+                           "label":  "CAPA 2 · Aplicación Flutter",
+                           "wraps":  [
+                                         "ui",
+                                         "controller",
+                                         "service",
+                                         "http"
+                                     ],
+                           "pad":  30
+                       },
+                       {
+                           "kind":  "region",
+                           "label":  "CAPA 6 · Docker Compose · agrupa y ejecuta servicios",
+                           "wraps":  [
+                                         "keycloak",
+                                         "api",
+                                         "postgres",
+                                         "mongo"
+                                     ],
+                           "pad":  35
+                       }
+                   ],
+    "connections":  [
+                        {
+                            "from":  "usuario",
+                            "to":  "ui",
+                            "label":  "Interactúa",
+                            "variant":  "emphasis",
+                            "labelDy":  35,
+                            "labelDx":  170
+                        },
+                        {
+                            "from":  "ui",
+                            "to":  "controller",
+                            "label":  "Acción / actualizar UI",
+                            "labelDy":  35
+                        },
+                        {
+                            "from":  "controller",
+                            "to":  "service",
+                            "label":  "Solicitar operación",
+                            "labelDy":  35
+                        },
+                        {
+                            "from":  "service",
+                            "to":  "http",
+                            "label":  "Preparar petición",
+                            "labelDy":  35
+                        },
+                        {
+                            "from":  "ui",
+                            "to":  "keycloak",
+                            "label":  "Login · Authorization Code + PKCE",
+                            "variant":  "security"
+                        },
+                        {
+                            "from":  "keycloak",
+                            "to":  "api",
+                            "label":  "Claves públicas para validar JWT",
+                            "variant":  "security",
+                            "labelDy":  65
+                        },
+                        {
+                            "from":  "http",
+                            "to":  "api",
+                            "label":  "Authorization: Bearer Token",
+                            "variant":  "emphasis"
+                        },
+                        {
+                            "from":  "api",
+                            "to":  "postgres",
+                            "label":  "Consultas / inserciones",
+                            "fromSide":  "bottom",
+                            "toSide":  "top"
+                        },
+                        {
+                            "from":  "api",
+                            "to":  "mongo",
+                            "label":  "Lectura / escritura",
+                            "fromSide":  "bottom",
+                            "toSide":  "top"
+                        }
+                    ],
+    "cards":  [
+                  {
+                      "dot":  "violet",
+                      "title":  "Login y retorno",
+                      "items":  [
+                                    "Usuario introduce credenciales en Keycloak; Keycloak valida.",
+                                    "Código → Flutter; canje con code_verifier → Access Token → Flutter."
+                                ]
+                  },
+                  {
+                      "dot":  "emerald",
+                      "title":  "Respuesta de la API",
+                      "items":  [
+                                    "BD → FastAPI → JSON Response → HTTP Client → Service → Controller → UI.",
+                                    "HTTP 200: correcto · HTTP 201: recurso creado."
+                                ]
+                  },
+                  {
+                      "dot":  "rose",
+                      "title":  "Errores y estado",
+                      "items":  [
+                                    "HTTP 401: sin token válido · HTTP 403: sin permisos · HTTP 500: error del servidor.",
+                                    "loading = true → CircularProgressIndicator; al terminar, loading = false → datos o error. Sin conexión → mensaje en Flutter."
+                                ]
+                  }
+              ]
+}
