@@ -27,6 +27,10 @@ android {
         // flag during build.
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        // flutter_appauth recibe el callback de Keycloak por este esquema.
+        // Debe coincidir con el redirectUri que se configure en la app.
+        manifestPlaceholders["appAuthRedirectScheme"] = "com.example.practica03_brianjesus_230308"
     }
 
     buildTypes {

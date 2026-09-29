@@ -11,8 +11,8 @@ acompaña su mensaje con un GIF o imagen de reacción.
 - Jarvis responde tras 1.5 segundos con un indicador de "escribiendo...".
 - **Respuestas variadas**: un texto aleatorio de una lista de 18 mensajes,
   sin repetir hasta agotarla.
-- **Imágenes de reacción variadas**: cada respuesta incluye un GIF/imagen
-  aleatorio de un repertorio de 10 assets, sin repetir el último usado.
+- **Imágenes de reacción variadas**: cada respuesta incluye un GIF aleatorio de
+  un repertorio de 4 assets, sin repetir el último usado.
 - Tema `Material 3` con paleta configurable (`AppTheme`).
 
 ## Assets incluidos
@@ -24,12 +24,6 @@ acompaña su mensaje con un GIF o imagen de reacción.
 | `assets/her.gif` | GIF | Reacción de Jarvis |
 | `assets/comer.gif` | GIF | Reacción de Jarvis |
 | `assets/hola.gif` | GIF | Reacción de Jarvis |
-| `assets/alegre.png` | Imagen | Reacción: alegre (`:D`) |
-| `assets/pensando.png` | Imagen | Reacción: pensando (`?`) |
-| `assets/risa.png` | Imagen | Reacción: risa |
-| `assets/jeje.png` | Imagen | Reacción: guiño |
-| `assets/vale.png` | Imagen | Reacción: OK (`OK!`) |
-| `assets/ok.png` | Imagen | Reacción: OK (`OK`) |
 
 ## Estructura del proyecto
 
