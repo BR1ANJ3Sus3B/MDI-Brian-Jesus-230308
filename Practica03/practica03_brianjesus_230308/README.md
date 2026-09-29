@@ -42,7 +42,7 @@ acompaña su mensaje con un GIF o imagen de reacción.
 | `assets/her.gif` | GIF | Reacción de Jarvis |
 | `assets/comer.gif` | GIF | Reacción de Jarvis |
 | `assets/hola.gif` | GIF | Reacción de Jarvis |
-
+w
 ## Estructura del proyecto
 
 ```
