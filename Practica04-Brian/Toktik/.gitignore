@@ -46,3 +46,12 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Videos locales del feed de TokTik.
+#
+# Los .mp4 pesan decenas de MB cada uno (el set completo ronda los 350 MB), asi
+# que se excluyen del repositorio para no inflar el historial de git. Los
+# archivos se conservan en tu maquina y la app los reproduce igual.
+#
+# Para compartirlos usa Git LFS en lugar de subirlos directamente.
+assets/videos/*.mp4

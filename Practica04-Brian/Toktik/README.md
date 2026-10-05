@@ -211,9 +211,15 @@ test/
     └── discover_screen_test.dart
 
 assets/
-└── videos/
+└── videos/                                     # NO versionado en git
     ├── 1.mp4
-    └── 2.mp4
+    ├── 2.mp4
+    ├── 3.mp4
+    ├── 4.mp4
+    ├── 5.mp4
+    ├── 6.mp4
+    ├── 7.mp4
+    └── 8.mp4
 ```
 
 ---
@@ -270,18 +276,43 @@ la carga de la siguiente pagina.
 
 ## Recursos de video
 
-Los videos incluidos son los dos clips de ejemplo oficiales de Flutter
-(`bee.mp4` y `butterfly.mp4`, del repositorio
-[flutter/assets-for-api-docs](https://github.com/flutter/assets-for-api-docs)),
-renombrados como `assets/videos/1.mp4` y `assets/videos/2.mp4`. Las
-publicaciones de `lib/shared/data/local_video_posts.dart` los referencian de
-forma alterna.
+> **Importante:** los videos **no estan versionados en git**. Cada `.mp4` pesa
+> entre 5 y 112 MB (el set completo ronda los **350 MB**), por lo que
+> `.gitignore` los excluye del repositorio para no inflar el historial.
+>Ver [Videos no incluidos en el repo](#videos-no-incluidos-en-el-repo).
 
-Para usar videos propios:
+`lib/shared/data/local_video_posts.dart` define 8 publicaciones y cada una
+apunta a un clip distinto:
 
-1. Copia los archivos `.mp4` a `assets/videos/`.
-2. Actualiza las rutas en `lib/shared/data/local_video_posts.dart`.
-3. Si agregas una carpeta nueva, registrala en `pubspec.yaml` bajo `assets:`.
+| Publicacion | Archivo | Likes | Vistas |
+| --- | --- | --- | --- |
+| Subiendo escaleras automaticas | `assets/videos/1.mp4` | 23.230 | 1.523 |
+| Planta apreciada por peatones | `assets/videos/2.mp4` | 24.230 | 1.343 |
+| Que borroso veo todo! | `assets/videos/3.mp4` | 21.564.320 | 123.563 |
+| Esto es trigo? que interesante | `assets/videos/4.mp4` | 320 | 2.300 |
+| El COVID no me afecta | `assets/videos/5.mp4` | 3.230 | 31.030 |
+| No quiero ir a trabajar hoy senor Stark | `assets/videos/6.mp4` | 10 | 330 |
+| Limpiar nunca fue tan divertido | `assets/videos/7.mp4` | 1.320 | 33.032 |
+| Ya llegamos a la India?... umm si | `assets/videos/8.mp4` | 342 | 3.332 |
+
+### Videos no incluidos en el repo
+
+Quien clone el proyecto **no recibira los `.mp4`**. Para que la app funcione:
+
+1. Copia 8 videos `.mp4` a `assets/videos/`, nombrados `1.mp4` a `8.mp4`.
+2. Ejecuta `flutter pub get` y `flutter run`.
+
+Si falta algun archivo, `FullScreenPlayer` no se rompe: muestra un aviso
+*"No se pudo cargar el video"* con el nombre de la publicacion.
+
+Si necesitas compartir los videos por git, usa
+[Git LFS](https://git-lfs.com/) en lugar de subirlos como blobs normales:
+
+```bash
+git lfs install
+git lfs track "assets/videos/*.mp4"
+git add .gitattributes
+```
 
 ---
 
@@ -319,7 +350,7 @@ flutter analyze   # => No issues found!
 | --- | --- | --- |
 | 1 | Los 7 archivos de `lib/` importaban `package:toktik/...`, pero el paquete se llama `practica04_brian`: **el proyecto no compilaba**. | Imports corregidos en toda la carpeta `lib/`. |
 | 2 | `pubspec.yaml` no declaraba `provider`, `video_player`, `intl` ni `animate_do`, aunque el codigo los usaba. | Dependencias agregadas con `flutter pub get`. |
-| 3 | No existia la seccion `assets` ni la carpeta `assets/videos`, aunque los datos apuntan a `assets/videos/1.mp4` ... `8.mp4`. | Carpeta creada, clips de ejemplo descargados y recursos declarados. |
+| 3 | No existia la seccion `assets` ni la carpeta `assets/videos`, aunque los datos apuntan a `assets/videos/1.mp4` ... `8.mp4`. | Carpeta creada, seccion `assets` declarada en `pubspec.yaml` y los 8 clips agregados. |
 | 4 | `controller.initialize()` se ejecutaba dentro de `build()`, por lo que se relanzaba en cada rebuild y el video parpadeaba. | Inicializacion unica en `initState` con estado `_initialized` + `setState`. |
 | 5 | `HumanFormats.humanReadbleNumber` tenia un error de escritura y usaba `compactCurrency` (muestra simbolos) en vez de `NumberFormat.compact`. | Renombrado a `humanReadableNumber` y corregido el formateo. |
 | 6 | `_CustomIconButton` declaraba `iconColor` **sin tipo**, cayendo en `dynamic`. | Parametro tipado como `Color?`. |
@@ -330,3 +361,4 @@ flutter analyze   # => No issues found!
 | 11 | No habia forma de recuperar la app si la carga fallaba. | Estado de error con mensaje y boton **Reintentar** (`reload()`). |
 | 12 | `VideoBackground` interceptaba los toques del video por ser un `DecoratedBox` a pantalla completa. | Envoltura con `IgnorePointer`. |
 | 13 | Sin `dispose` en la `PageController` del feed. | `PageController` creado en el `State` y liberado en `dispose`. |
+| 14 | Los 8 videos del feed pesan ~350 MB en total: subirlos a git habria inflado el historial de forma permanente. | `assets/videos/*.mp4` agregado a `.gitignore` y los archivos sacados del indice con `git rm --cached`. Siguen en disco y la app los reproduce; el repo solo guarda codigo. Alternativa documentada: Git LFS. |
