@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:practica04_brian/config/theme/app_colors.dart';
 import 'package:practica04_brian/domain/entities/video_post.dart';
 import 'package:practica04_brian/presentation/providers/discover_provider.dart';
 import 'package:practica04_brian/presentation/widgets/shared/video_buttons.dart';
+import 'package:practica04_brian/presentation/widgets/shared/video_header.dart';
 import 'package:practica04_brian/presentation/widgets/video/fullscreen_player.dart';
+import 'package:practica04_brian/presentation/widgets/video/video_background.dart';
 import 'package:provider/provider.dart';
 
 /// Feed vertical de videos, estilo TikTok: un video por pagina.
@@ -26,10 +29,12 @@ class VideoScrollableView extends StatefulWidget {
 }
 
 class _VideoScrollableViewState extends State<VideoScrollableView> {
-  /// Numero de paginas del provider que se consideran "cercanas" al final.
+  /// Distancia en paginas al final a partir de la cual se pide la siguiente.
   static const int _prefetchDistance = 1;
 
   final PageController _pageController = PageController();
+
+  int _selectedTab = VideoHeader.forYouTab;
 
   @override
   void dispose() {
@@ -60,26 +65,43 @@ class _VideoScrollableViewState extends State<VideoScrollableView> {
         final VideoPost videoPost = widget.videos[index];
 
         return Stack(
+          fit: StackFit.expand,
           children: [
-            // Video a pantalla completa + gradiente + caption
-            Positioned.fill(
-              child: FullScreenPlayer(
-                caption: videoPost.caption,
-                videoUrl: videoPost.videoUrl,
+            // Video + degradado inferior + autor/caption/audio.
+            FullScreenPlayer(
+              caption: videoPost.caption,
+              videoUrl: videoPost.videoUrl,
+              userName: videoPost.userName,
+              songName: videoPost.songName,
+            ),
+
+            // Degradado superior para que la cabecera se lea sobre el video.
+            const VideoBackground.top(),
+
+            // Cabecera con pestanas.
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: VideoHeader(
+                selectedTab: _selectedTab,
+                onTabSelected: (int tab) {
+                  setState(() => _selectedTab = tab);
+                },
               ),
             ),
 
-            // Botones de like / vistas / audio
+            // Acciones: avatar, like, comentarios, compartir, guardar, audio.
             Positioned(
-              bottom: 40,
-              right: 20,
+              bottom: 20,
+              right: 10,
               child: VideoButtons(video: videoPost),
             ),
 
-            // Indicador de carga de la siguiente pagina
+            // Aviso de carga de la siguiente pagina.
             if (widget.isLoadingMore)
               const Positioned(
-                top: 12,
+                top: 90,
                 left: 0,
                 right: 0,
                 child: Center(
@@ -92,20 +114,46 @@ class _VideoScrollableViewState extends State<VideoScrollableView> {
               ),
 
             if (widget.hasReachedEnd)
-              const Positioned(
-                top: 12,
+              Positioned(
+                top: 90,
                 left: 0,
                 right: 0,
-                child: Center(
-                  child: Text(
-                    'Has visto todos los videos',
-                    style: TextStyle(color: Colors.white70, fontSize: 12),
-                  ),
-                ),
+                child: Center(child: const _EndOfFeed()),
               ),
           ],
         );
       },
+    );
+  }
+}
+
+/// Pastilla que se muestra cuando ya no hay mas videos que cargar.
+class _EndOfFeed extends StatelessWidget {
+  const _EndOfFeed();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      decoration: BoxDecoration(
+        color: const Color(0x99000000),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: const Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.check_circle, size: 15, color: AppColors.secondary),
+          SizedBox(width: 8),
+          Text(
+            'Has visto todos los videos',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textPrimary,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

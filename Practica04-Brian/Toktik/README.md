@@ -15,6 +15,7 @@ Proyecto de la materia **MDI** (Desarrollo Movil) - Flutter.
 - [Dependencias](#dependencias)
 - [Arquitectura del proyecto](#arquitectura-del-proyecto)
 - [Estructura de carpetas](#estructura-de-carpetas)
+- [Diseno de la interfaz](#diseno-de-la-interfaz)
 - [Componentes principales](#componentes-principales)
 - [Recursos de video](#recursos-de-video)
 - [Pruebas](#pruebas)
@@ -33,9 +34,11 @@ La app cumple con:
 - Feed vertical con un video por pantalla (`PageView` vertical).
 - Scroll infinito: al llegar cerca del final se carga la siguiente pagina.
 - Botones de likes y vistas con formato compacto (`23.2K`, `21.6M`).
+- Like interactivo que cambia de color y suma o resta 1.
 - Reproduccion en loop y silenciada; un toque pausa o reanuda.
-- Tema oscuro (Material 3) con el color semilla de TikTik.
+- Tema oscuro (Material 3) con la paleta de marca de TikTok.
 - Estados de carga, de pagina vacia y de error con opcion de reintentar.
+- Cabecera con pestanas, avatar con boton de seguir y overlay de autor.
 
 ---
 
@@ -168,7 +171,8 @@ lib/
 │   ├── helpers/
 │   │   └── human_formats.dart                  # 23230 -> "23.2K"
 │   └── theme/
-│       └── app_theme.dart                      # Tema oscuro Material 3
+│       ├── app_colors.dart                       # Paleta de marca
+│       └── app_theme.dart                        # Tema oscuro Material 3
 │
 ├── domain/                                     # Reglas de negocio (sin Flutter)
 │   ├── entities/
@@ -193,11 +197,12 @@ lib/
 │   │       └── discover_screen.dart            # Pantalla principal
 │   └── widgets/
 │       ├── shared/
-│       │   ├── video_buttons.dart              # Likes, vistas y audio
+│       │   ├── video_buttons.dart              # Avatar, like, compartir, audio
+│       │   ├── video_header.dart               # Pestanas + busqueda
 │       │   └── video_scrollable_view.dart      # PageView + scroll infinito
 │       └── video/
-│           ├── fullscreen_player.dart          # Reproductor y caption
-│           └── video_background.dart           # Degradado inferior
+│           ├── fullscreen_player.dart          # Reproductor y overlay de autor
+│           └── video_background.dart           # Degradados superior e inferior
 │
 └── shared/
     └── data/
@@ -208,7 +213,11 @@ test/
 ├── infrastructure/local_video_model_test.dart
 └── presentation/
     ├── discover_provider_test.dart
-    └── discover_screen_test.dart
+    ├── discover_screen_test.dart
+    ├── video_buttons_test.dart
+    ├── video_header_test.dart
+    ├── video_scrollable_view_test.dart
+    └── fullscreen_player_test.dart
 
 assets/
 └── videos/                                     # NO versionado en git
@@ -221,6 +230,86 @@ assets/
     ├── 7.mp4
     └── 8.mp4
 ```
+
+---
+
+## Diseno de la interfaz
+
+### Paleta de marca
+
+Todo el color vive en `lib/config/theme/app_colors.dart`. Evita "magas" como
+`Colors.red` sueltos en los widgets y permite re-tematizar la app desde un solo
+archivo.
+
+| Color | Uso |
+| --- | --- |
+| `#FE2C55` | Rojo de marca: like activo, boton de seguir, boton primario. |
+| `#25F4EE` | Cian de marca: acentos y confirmaciones. |
+| `#000000` | Fondo de la app. |
+| `#121212` | Superficies elevadas (iconos de estado, `snackbar`). |
+| `FFFFFF` / `B3FFFFFF` / `80FFFFFF` | Texto en tres niveles de jerarquia. |
+
+`AppTheme` engancha esa paleta al tema global de `MaterialApp` y define una
+escala tipografica con pesos fuertes (`w600` / `w700`), porque el contenido se
+lee rapido, en vertical y sobre un fondo cambiante.
+
+### Composicion de cada pagina de video
+
+```
+┌─────────────────────────────────┐
+│░░ degradado superior ░░░░░░░░░░│  <- VideoBackground.top()
+│   Siguiendo  Para ti    🔍    │  <- VideoHeader
+│      ━━━━                      │     (subrayado animado en la activa)
+│                                 │
+│         VIDEO A FULL           │  <- FullScreenPlayer
+│      (Center + AspectRatio)    │
+│                                 │
+│░░ degradado inferior ░░░░░░░░░░│  <- VideoBackground.bottom()
+│ @autor.1        ♪ un audio     │  <- _VideoInfo
+│ Descripcion del video           │
+│                          ◯  👤 │  <- VideoButtons
+│                          👁     │     (avatar, like, comentarios,
+│                          ⤴     │      compartir, guardar, disco)
+│                          🔖     │
+│                          💿     │
+└─────────────────────────────────┘
+```
+
+Decisiones de diseño relevantes:
+
+- **Doble degradado.** El superior oscurece para que la cabecera se lea sobre
+  cualquier video; el inferior hace lo mismo con el autor y la descripcion. Se
+  usan tres paradas cada uno para que la transicion sea gradual y no una banda
+  plana de negro.
+- **Sombra en el texto.** Iconos y textos sobre el video llevan
+  `Shadow` para mantener contraste sin necesidad de un chip opaco.
+- **Video sin deformar.** `Center` + `AspectRatio` centrados: el clip mantiene
+  su proporcion y las bandas negras quedan a los lados.
+- **Sin zona segura en la pantalla.** El video ocupa toda la pantalla y el
+  `SafeArea` vive dentro de `VideoHeader`, para que solo la cabecera respete la
+  muesca o la barra de gestos.
+- **Indicador de pausa.** Al pausar con un toque aparece un icono con
+  `AnimatedOpacity`, en lugar de detener el video de golpe.
+
+### Interacciones
+
+| Elemento | Comportamiento |
+| --- | --- |
+| Pestanas del header | Cambian la seleccionada y mueven el subrayado con `AnimatedContainer`. |
+| Like | Alterna `favorite` / `favorite_border`, cambia a rojo, suma o resta 1 y se envuelve en un `Pulse` al activarse. |
+| Toque sobre el video | Pausa o reanuda. |
+| Seguir | Boton `+` superpuesto al avatar (decorativo). |
+| Comentarios / compartir / guardar | Botones con ripple; la accion todavia no esta implementada. |
+| Disco de audio | Gira en loop con `SpinPerfect`. |
+
+### Accesibilidad
+
+- Cada accion usa `Semantics(button: true, label: ...)` para que el lector de
+  pantalla anuncie los botones con su contador.
+- Los contadores tienen `overflow: TextOverflow.ellipsis`, igual que autor,
+  descripcion y audio.
+- Las acciones usan `InkResponse` con ripple y area tactile ampliada
+  (`radius: 26`), no un `IconButton` pelado.
 
 ---
 
@@ -318,7 +407,7 @@ git add .gitattributes
 
 ## Pruebas
 
-Se ejecutan con `flutter test` (**24 pruebas, todas en verde**):
+Se ejecutan con `flutter test` (**46 pruebas, todas en verde**):
 
 ```bash
 flutter test
@@ -332,9 +421,37 @@ Cobertura actual:
 | `test/infrastructure/local_video_model_test.dart` | Mapeo del JSON a entidad, `int` y `double`, y valores por defecto. |
 | `test/presentation/discover_provider_test.dart` | Carga inicial, acumulacion de paginas, fin de los datos, llamadas concurrentes, errores y `reload()`. |
 | `test/presentation/discover_screen_test.dart` | Estados de la pantalla: spinner, vacio, error, reintento y tema. |
+| `test/presentation/video_buttons_test.dart` | Like interactivo (suma y resta 1), contadores, avatar con inicial y acciones secundarias. |
+| `test/presentation/video_header_test.dart` | Pestanas, boton de busqueda y notificacion del cambio de pestana. |
+| `test/presentation/video_scrollable_view_test.dart` | El feed se monta sin desbordar el layout, avisos de carga y de fin de datos. |
+| `test/presentation/fullscreen_player_test.dart` | Spinner de carga y estado de error cuando el video no se puede cargar. |
 
 Las pruebas del provider usan repositorios falsos, por lo que corren sin
 necesidad de los assets de video y sin timers.
+
+### Probar widgets con animaciones infinitas
+
+`VideoButtons` y `VideoScrollableView` usan `animate_do` con animaciones que
+se repiten para siempre (`SpinPerfect`, `Pulse`). Eso deja un timer pendiente y
+hace fallar el test con *"A Timer is still pending even after the widget tree
+was disposed"*. El patron que hay que usar es:
+
+```dart
+await tester.pumpWidget(
+  MaterialApp(
+    home: TickerMode(
+      enabled: false,          // 1. detiene los tickers infinitos
+      child: MiWidget(),
+    ),
+  ),
+);
+
+// 2. animate_do arranca con Future.delayed: hay que avanzar el reloj para
+//    que ese timer se dispare. Se hace dos veces porque al marcar un like se
+//    monta la animacion Pulse en el frame siguiente al toque.
+await tester.pump(const Duration(milliseconds: 1));
+await tester.pump(const Duration(milliseconds: 1));
+```
 
 Calidad de codigo:
 
@@ -357,8 +474,10 @@ flutter analyze   # => No issues found!
 | 7 | El `TODO: Repository, DataSource` del provider estaba sin implementar. | Capa completa `domain/repositories` + `infrastructure/{models,repositories,datasources}`. |
 | 8 | `loadNextPage()` no tenia control de concurrencia ni de fin de paginacion: duplicaba videos al hacer scroll. | Banderas `_isLoading` y `_hasReachedEnd`, mas `_currentPage`. |
 | 9 | El `AspectRatio` del video se renderizaba estirado dentro de `SizedBox.expand`. | `Center` + `AspectRatio` para conservar la proporcion. |
-| 10 | `test/widget_test.dart` era la prueba del contador por defecto de Flutter y fallaba al compilar. | Reemplazada por 24 pruebas organizadas por capa. |
+| 10 | `test/widget_test.dart` era la prueba del contador por defecto de Flutter y fallaba al compilar. | Reemplazada por 46 pruebas organizadas por capa. |
 | 11 | No habia forma de recuperar la app si la carga fallaba. | Estado de error con mensaje y boton **Reintentar** (`reload()`). |
 | 12 | `VideoBackground` interceptaba los toques del video por ser un `DecoratedBox` a pantalla completa. | Envoltura con `IgnorePointer`. |
 | 13 | Sin `dispose` en la `PageController` del feed. | `PageController` creado en el `State` y liberado en `dispose`. |
 | 14 | Los 8 videos del feed pesan ~350 MB en total: subirlos a git habria inflado el historial de forma permanente. | `assets/videos/*.mp4` agregado a `.gitignore` y los archivos sacados del indice con `git rm --cached`. Siguen en disco y la app los reproduce; el repo solo guarda codigo. Alternativa documentada: Git LFS. |
+| 15 | `_ActionButton` usaba `InkResponse` sin un `Material` ancestor, lo que lanzaba *"No Material widget found"* al superponerse sobre el video. | Cada boton envuelto en `Material(type: MaterialType.transparency)`: el ripple funciona sin tapar el video. |
+| 16 | Sin capa de diseno: colores magos (`Colors.red`, `Colors.white`) repartidos por los widgets y tipografia por defecto. | Nueva `app_colors.dart` con la paleta de marca y `AppTheme` con escala tipografica, `colorScheme`, botones, `snackbar` e indicador de progreso. |

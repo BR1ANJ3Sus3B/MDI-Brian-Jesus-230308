@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practica04_brian/config/theme/app_colors.dart';
 import 'package:practica04_brian/presentation/providers/discover_provider.dart';
 import 'package:practica04_brian/presentation/widgets/shared/video_scrollable_view.dart';
 import 'package:provider/provider.dart';
@@ -24,19 +25,17 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final DiscoverProvider discoverProvider = context.watch<DiscoverProvider>();
+    final DiscoverProvider provider = context.watch<DiscoverProvider>();
 
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: _buildBody(context, discoverProvider),
-      ),
+      backgroundColor: AppColors.background,
+      body: _buildBody(context, provider),
     );
   }
 
   Widget _buildBody(BuildContext context, DiscoverProvider provider) {
     if (provider.initialLoading) {
-      return const Center(child: CircularProgressIndicator(strokeWidth: 2));
+      return const _LoadingView();
     }
 
     if (provider.videos.isEmpty) {
@@ -54,6 +53,26 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   }
 }
 
+/// Estado de carga inicial: marca de la app girando.
+class _LoadingView extends StatelessWidget {
+  const _LoadingView();
+
+  @override
+  Widget build(BuildContext context) {
+    return const ColoredBox(
+      color: AppColors.background,
+      child: Center(
+        child: SizedBox(
+          width: 34,
+          height: 34,
+          child: CircularProgressIndicator(strokeWidth: 2.5),
+        ),
+      ),
+    );
+  }
+}
+
+/// Estado vacio o de error, con icono, mensaje y accion de reintento.
 class _ErrorView extends StatelessWidget {
   final String message;
   final VoidCallback onRetry;
@@ -62,22 +81,41 @@ class _ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            message,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleMedium,
+    return ColoredBox(
+      color: AppColors.background,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(18),
+                decoration: const BoxDecoration(
+                  color: AppColors.surface,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.video_library_outlined,
+                  size: 36,
+                  color: AppColors.textTertiary,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 24),
+              FilledButton.icon(
+                onPressed: onRetry,
+                icon: const Icon(Icons.refresh, size: 20),
+                label: const Text('Reintentar'),
+              ),
+            ],
           ),
-          const SizedBox(height: 16),
-          FilledButton.icon(
-            onPressed: onRetry,
-            icon: const Icon(Icons.refresh),
-            label: const Text('Reintentar'),
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:practica04_brian/config/theme/app_colors.dart';
 import 'package:practica04_brian/presentation/widgets/video/video_background.dart';
 import 'package:video_player/video_player.dart';
 
-/// Reproductor de video a pantalla completa con caption y gradiente.
+/// Reproductor de video a pantalla completa.
 ///
 /// `initialize()` se dispara una sola vez en `initState` (nunca dentro de
 /// `build`, que se ejecuta en cada rebuild) y se refleja en el estado mediante
@@ -11,10 +12,16 @@ class FullScreenPlayer extends StatefulWidget {
   final String videoUrl;
   final String caption;
 
+  /// Autor y audio mostrados en el overlay inferior.
+  final String userName;
+  final String songName;
+
   const FullScreenPlayer({
     super.key,
     required this.videoUrl,
     required this.caption,
+    this.userName = 'usuario',
+    this.songName = 'sonido original',
   });
 
   @override
@@ -37,25 +44,24 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
   }
 
   Future<void> _initialize() async {
-    _controller
-      ..setLooping(true)
-      ..setVolume(0)
-      ..initialize()
-          .then((_) {
-        if (!mounted) return;
-        setState(() {
-          _initialized = true;
-          _error = null;
-        });
-        _controller.play();
-      })
-          .catchError((Object error) {
-        if (!mounted) return;
-        setState(() {
-          _initialized = false;
-          _error = error;
-        });
+    try {
+      await _controller.setLooping(true);
+      await _controller.setVolume(0);
+      await _controller.initialize();
+      await _controller.play();
+
+      if (!mounted) return;
+      setState(() {
+        _initialized = true;
+        _error = null;
       });
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _initialized = false;
+        _error = error;
+      });
+    }
   }
 
   @override
@@ -94,49 +100,97 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
             ),
           ),
 
-          // Gradiente inferior para que el texto sea legible.
-          VideoBackground(stops: const [0.8, 1.0]),
+          // Degradado inferior para que el texto sea legible.
+          const VideoBackground.bottom(),
 
-          // Caption del video.
+          // Autor, caption y audio.
           Positioned(
-            bottom: 50,
-            left: 20,
-            child: _VideoCaption(caption: widget.caption),
+            left: 16,
+            right: 96,
+            bottom: 24,
+            child: _VideoInfo(
+              caption: widget.caption,
+              userName: widget.userName,
+              songName: widget.songName,
+            ),
           ),
 
-          // Indicador de pausa.
-          if (!_controller.value.isPlaying)
-            const Center(
+          // Indicador de pausa: aparece al pausar con un toque.
+          AnimatedOpacity(
+            opacity: _initialized && !_controller.value.isPlaying ? 1 : 0,
+            duration: const Duration(milliseconds: 150),
+            child: const Center(
               child: Icon(
-                Icons.play_circle_outline,
-                size: 70,
-                color: Colors.white70,
+                Icons.play_circle_fill,
+                size: 72,
+                color: Color(0xB3FFFFFF),
               ),
             ),
+          ),
         ],
       ),
     );
   }
 }
 
-class _VideoCaption extends StatelessWidget {
+/// Bloque inferior con el autor, la descripcion y el audio del video.
+class _VideoInfo extends StatelessWidget {
   final String caption;
+  final String userName;
+  final String songName;
 
-  const _VideoCaption({required this.caption});
+  const _VideoInfo({
+    required this.caption,
+    required this.userName,
+    required this.songName,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.sizeOf(context);
-    final TextStyle? titleStyle = Theme.of(context).textTheme.titleLarge;
+    final TextTheme textTheme = Theme.of(context).textTheme;
 
-    return SizedBox(
-      width: size.width * 0.6,
-      child: Text(
-        caption,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        style: titleStyle,
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '@$userName',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: textTheme.titleLarge?.copyWith(fontSize: 16),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          caption,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: textTheme.bodyMedium?.copyWith(
+            color: AppColors.textPrimary,
+            shadows: const [
+              Shadow(color: Color(0x80000000), blurRadius: 4),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            const Icon(
+              Icons.music_note,
+              size: 15,
+              color: AppColors.textPrimary,
+            ),
+            const SizedBox(width: 6),
+            Expanded(
+              child: Text(
+                songName,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.labelSmall,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -151,30 +205,38 @@ class _ErrorVideo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: Colors.black,
+      color: AppColors.background,
       child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
-                Icons.videocam_off_outlined,
-                color: Colors.white38,
-                size: 48,
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.videocam_off_outlined,
+                  color: AppColors.textTertiary,
+                  size: 36,
+                ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 16),
               Text(
                 'No se pudo cargar el video',
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 6),
               Text(
                 message,
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: Colors.white38),
+                style: const TextStyle(color: AppColors.textTertiary),
               ),
             ],
           ),
