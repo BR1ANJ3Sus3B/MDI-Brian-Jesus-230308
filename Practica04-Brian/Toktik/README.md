@@ -1,17 +1,332 @@
-# practica04_brian
+# Practica 04 - TokTik
 
-A new Flutter project.
+Clone de TikTok hecho en Flutter: un feed vertical de videos con scroll
+infinito, likes, vistas y reproductor a pantalla completa con caption y
+gradiente.
 
-## Getting Started
+Proyecto de la materia **MDI** (Desarrollo Movil) - Flutter.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## Tabla de contenidos
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- [Objetivo](#objetivo)
+- [Como ejecutar](#como-ejecutar)
+- [Dependencias](#dependencias)
+- [Arquitectura del proyecto](#arquitectura-del-proyecto)
+- [Estructura de carpetas](#estructura-de-carpetas)
+- [Componentes principales](#componentes-principales)
+- [Recursos de video](#recursos-de-video)
+- [Pruebas](#pruebas)
+- [Problemas corregidos en esta practica](#problemas-corregidos-en-esta-practica)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## Objetivo
+
+Practicar la organizacion de un proyecto Flutter en capas (**Clean
+Architecture**), el uso de `provider` para la gestion de estado, la
+paginacion de datos y el manejo del paquete `video_player`.
+
+La app cumple con:
+
+- Feed vertical con un video por pantalla (`PageView` vertical).
+- Scroll infinito: al llegar cerca del final se carga la siguiente pagina.
+- Botones de likes y vistas con formato compacto (`23.2K`, `21.6M`).
+- Reproduccion en loop y silenciada; un toque pausa o reanuda.
+- Tema oscuro (Material 3) con el color semilla de TikTik.
+- Estados de carga, de pagina vacia y de error con opcion de reintentar.
+
+---
+
+## Como ejecutar
+
+Requisitos: **Flutter 3.47+** (Dart **3.13.3+**), que es lo que pide el
+`environment.sdk` del `pubspec.yaml`. Verificar la instalacion con:
+
+```bash
+flutter doctor
+```
+
+Luego, desde la raiz del proyecto:
+
+```bash
+# 1. Instalar dependencias
+flutter pub get
+
+# 2. Ejecutar en un dispositivo o emulador
+flutter run
+
+# 3. Generar una compilacion de release
+flutter build apk      # Android
+flutter build ipa      # iOS
+flutter build web      # Web
+```
+
+> En iOS, `video_player` reproduce videos locales sin permisos de red, asi que
+> no hace falta agregar nada al `Info.plist`.
+
+---
+
+## Dependencias
+
+Declaradas en `pubspec.yaml`:
+
+| Paquete | Version | Para que se usa |
+| --- | --- | --- |
+| [`provider`](https://pub.dev/packages/provider) | `^6.1.2` | Inyeccion de dependencias y `ChangeNotifier` para el estado del feed. |
+| [`video_player`](https://pub.dev/packages/video_player) | `^2.9.2` | Reproduccion de los videos locales a pantalla completa. |
+| [`intl`](https://pub.dev/packages/intl) | `^0.20.2` | Formato compacto de numeros en los likes y las vistas. |
+| [`animate_do`](https://pub.dev/packages/animate_do) | `^3.2.0` | Animacion `SpinPerfect` del boton de audio. |
+| [`cupertino_icons`](https://pub.dev/packages/cupertino_icons) | `^1.0.8` | Iconos de estilo iOS. |
+| [`flutter_lints`](https://pub.dev/packages/flutter_lints) | `^6.0.0` | Reglas de analisis estatico (solo desarrollo). |
+
+Ademas, en `flutter:` se declara el recurso de video:
+
+```yaml
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/videos/
+```
+
+---
+
+## Arquitectura del proyecto
+
+El proyecto sigue una arquitectura por capas, en la que las dependencias
+apuntan **hacia adentro**:
+
+```
+┌──────────────────────────────────────────────────────────┐
+│  presentation   DiscoverProvider (ChangeNotifier)         │
+│                 DiscoverScreen, VideoScrollableView,      │
+│                 VideoButtons, FullScreenPlayer            │
+│                         ▲                                │
+│                         │ depende de la interfaz         │
+├──────────────────────────────────────────────────────────┤
+│  domain         VideoPost (entidad)                      │
+│                 VideoRepository, VideoDataSource          │
+│                   (contratos abstractos)                  │
+│                         ▲                                │
+│                         │ implementan los contratos        │
+├──────────────────────────────────────────────────────────┤
+│  infrastructure LocalVideoModel (data model)              │
+│                 LocalVideoRepository                      │
+│                 LocalVideoDataSource                      │
+└──────────────────────────────────────────────────────────┘
+
+  shared/data     Datos crudos locales (simulan la respuesta de una API)
+  config          Tema y utilidades de formato
+```
+
+Reglas que se respetan:
+
+1. **`domain` no depende de nada.** Solo define la entidad `VideoPost` y las
+   interfaces `VideoRepository` / `VideoDataSource`. No importa Flutter.
+2. **`infrastructure` implementa los contratos de `domain`.** Aqui viven el
+   *data model* (`LocalVideoModel`), la fuente de datos y el repositorio que
+   transforma los mapas crudos en entidades.
+3. **`presentation` solo conoce `domain`.** El `DiscoverProvider` recibe un
+   `VideoRepository` por el constructor y nunca importa el modelo concreto.
+4. **La inyeccion se decide en `main.dart`.** Cambiar la fuente de datos
+   (local a API) es modificar una sola linea, sin tocar la interfaz de usuario.
+
+### Flujo de datos de una pagina
+
+```
+DiscoverScreen (initState)
+        │  loadNextPage()
+        ▼
+DiscoverProvider ──── _currentPage = 0
+        │  getVideosByPage(0)
+        ▼
+LocalVideoRepository
+        │
+        ▼
+LocalVideoDataSource  ──►  videoPosts (lista local, con latencia simulada)
+        │  List<Map<String, dynamic>>
+        ▼
+LocalVideoModel.fromJson(...).toVideoPostEntity()
+        │  List<VideoPost>
+        ▼
+DiscoverProvider._videos  ──►  notifyListeners()
+        │
+        ▼
+VideoScrollableView  ──►  FullScreenPlayer + VideoButtons
+```
+
+---
+
+## Estructura de carpetas
+
+```
+lib/
+├── main.dart                                   # Composition root y providers
+│
+├── config/                                     # Configuracion transversal
+│   ├── helpers/
+│   │   └── human_formats.dart                  # 23230 -> "23.2K"
+│   └── theme/
+│       └── app_theme.dart                      # Tema oscuro Material 3
+│
+├── domain/                                     # Reglas de negocio (sin Flutter)
+│   ├── entities/
+│   │   └── video_post.dart                     # Entidad VideoPost
+│   └── repositories/
+│       ├── video_repository.dart               # Contrato de negocio
+│       └── video_data_source.dart              # Contrato de datos crudos
+│
+├── infrastructure/                             # Implementaciones tecnicas
+│   ├── datasources/
+│   │   └── local_video_data_source.dart        # Lee la lista local
+│   ├── models/
+│   │   └── local_video_model.dart              # Data model + fromJson
+│   └── repositories/
+│       └── local_video_repository.dart         # Implementa VideoRepository
+│
+├── presentation/                               # UI y estado
+│   ├── providers/
+│   │   └── discover_provider.dart              # ChangeNotifier del feed
+│   ├── screens/
+│   │   └── discover/
+│   │       └── discover_screen.dart            # Pantalla principal
+│   └── widgets/
+│       ├── shared/
+│       │   ├── video_buttons.dart              # Likes, vistas y audio
+│       │   └── video_scrollable_view.dart      # PageView + scroll infinito
+│       └── video/
+│           ├── fullscreen_player.dart          # Reproductor y caption
+│           └── video_background.dart           # Degradado inferior
+│
+└── shared/
+    └── data/
+        └── local_video_posts.dart              # Datos crudos de ejemplo
+
+test/
+├── helpers/human_formats_test.dart
+├── infrastructure/local_video_model_test.dart
+└── presentation/
+    ├── discover_provider_test.dart
+    └── discover_screen_test.dart
+
+assets/
+└── videos/
+    ├── 1.mp4
+    └── 2.mp4
+```
+
+---
+
+## Componentes principales
+
+### `main.dart`
+
+Es el *composition root*: decide que implementacion se inyecta y registra los
+providers.
+
+```dart
+const VideoRepository _videoRepository = LocalVideoRepository(
+  LocalVideoDataSource(),
+);
+```
+
+### `DiscoverProvider` (`presentation/providers/discover_provider.dart`)
+
+`ChangeNotifier` que expone el estado del feed:
+
+| Propiedad | Descripcion |
+| --- | --- |
+| `videos` | Videos cargados (lista no modificable). |
+| `initialLoading` | `true` durante la primera carga. |
+| `isLoading` | `true` mientras se pide cualquier pagina. |
+| `hasReachedEnd` | `true` cuando la ultima pagina vino vacia. |
+| `errorMessage` | Mensaje de error, o `null`. |
+
+- `loadNextPage()` ignora llamadas concurrentes y no vuelve a pedir paginas si
+  ya se alcanzo el final.
+- `reload()` reinicia el feed desde la primera pagina (boton **Reintentar**).
+
+### `LocalVideoRepository` / `LocalVideoDataSource`
+
+`LocalVideoDataSource` simula una latencia de 900 ms y devuelve paginas de 4
+videos, haciendo visible el estado de carga. `LocalVideoRepository` convierte
+cada mapa en un `VideoPost` usando `toVideoPostEntity()`.
+
+### `FullScreenPlayer` (`presentation/widgets/video/fullscreen_player.dart`)
+
+Inicializa `VideoPlayerController.asset()` **una sola vez** en `initState` y
+refleja el resultado con `setState`. Al tocar el video alterna entre pausa y
+reproduccion. Si el asset no se puede cargar, muestra un mensaje de error en
+lugar de dejar la pantalla en negro.
+
+### `VideoScrollableView` (`presentation/widgets/shared/video_scrollable_view.dart`)
+
+`PageView.builder` vertical con `BouncingScrollPhysics`. En `onPageChanged`
+avisa al provider cuando la pagina actual esta a una de la ultima, disparando
+la carga de la siguiente pagina.
+
+---
+
+## Recursos de video
+
+Los videos incluidos son los dos clips de ejemplo oficiales de Flutter
+(`bee.mp4` y `butterfly.mp4`, del repositorio
+[flutter/assets-for-api-docs](https://github.com/flutter/assets-for-api-docs)),
+renombrados como `assets/videos/1.mp4` y `assets/videos/2.mp4`. Las
+publicaciones de `lib/shared/data/local_video_posts.dart` los referencian de
+forma alterna.
+
+Para usar videos propios:
+
+1. Copia los archivos `.mp4` a `assets/videos/`.
+2. Actualiza las rutas en `lib/shared/data/local_video_posts.dart`.
+3. Si agregas una carpeta nueva, registrala en `pubspec.yaml` bajo `assets:`.
+
+---
+
+## Pruebas
+
+Se ejecutan con `flutter test` (**24 pruebas, todas en verde**):
+
+```bash
+flutter test
+```
+
+Cobertura actual:
+
+| Archivo | Que se verifica |
+| --- | --- |
+| `test/helpers/human_formats_test.dart` | Formato compacto de miles, millones y cifras cortas. |
+| `test/infrastructure/local_video_model_test.dart` | Mapeo del JSON a entidad, `int` y `double`, y valores por defecto. |
+| `test/presentation/discover_provider_test.dart` | Carga inicial, acumulacion de paginas, fin de los datos, llamadas concurrentes, errores y `reload()`. |
+| `test/presentation/discover_screen_test.dart` | Estados de la pantalla: spinner, vacio, error, reintento y tema. |
+
+Las pruebas del provider usan repositorios falsos, por lo que corren sin
+necesidad de los assets de video y sin timers.
+
+Calidad de codigo:
+
+```bash
+flutter analyze   # => No issues found!
+```
+
+---
+
+## Problemas corregidos en esta practica
+
+| # | Problema | Solucion |
+| --- | --- | --- |
+| 1 | Los 7 archivos de `lib/` importaban `package:toktik/...`, pero el paquete se llama `practica04_brian`: **el proyecto no compilaba**. | Imports corregidos en toda la carpeta `lib/`. |
+| 2 | `pubspec.yaml` no declaraba `provider`, `video_player`, `intl` ni `animate_do`, aunque el codigo los usaba. | Dependencias agregadas con `flutter pub get`. |
+| 3 | No existia la seccion `assets` ni la carpeta `assets/videos`, aunque los datos apuntan a `assets/videos/1.mp4` ... `8.mp4`. | Carpeta creada, clips de ejemplo descargados y recursos declarados. |
+| 4 | `controller.initialize()` se ejecutaba dentro de `build()`, por lo que se relanzaba en cada rebuild y el video parpadeaba. | Inicializacion unica en `initState` con estado `_initialized` + `setState`. |
+| 5 | `HumanFormats.humanReadbleNumber` tenia un error de escritura y usaba `compactCurrency` (muestra simbolos) en vez de `NumberFormat.compact`. | Renombrado a `humanReadableNumber` y corregido el formateo. |
+| 6 | `_CustomIconButton` declaraba `iconColor` **sin tipo**, cayendo en `dynamic`. | Parametro tipado como `Color?`. |
+| 7 | El `TODO: Repository, DataSource` del provider estaba sin implementar. | Capa completa `domain/repositories` + `infrastructure/{models,repositories,datasources}`. |
+| 8 | `loadNextPage()` no tenia control de concurrencia ni de fin de paginacion: duplicaba videos al hacer scroll. | Banderas `_isLoading` y `_hasReachedEnd`, mas `_currentPage`. |
+| 9 | El `AspectRatio` del video se renderizaba estirado dentro de `SizedBox.expand`. | `Center` + `AspectRatio` para conservar la proporcion. |
+| 10 | `test/widget_test.dart` era la prueba del contador por defecto de Flutter y fallaba al compilar. | Reemplazada por 24 pruebas organizadas por capa. |
+| 11 | No habia forma de recuperar la app si la carga fallaba. | Estado de error con mensaje y boton **Reintentar** (`reload()`). |
+| 12 | `VideoBackground` interceptaba los toques del video por ser un `DecoratedBox` a pantalla completa. | Envoltura con `IgnorePointer`. |
+| 13 | Sin `dispose` en la `PageController` del feed. | `PageController` creado en el `State` y liberado en `dispose`. |
