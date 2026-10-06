@@ -4,7 +4,7 @@ import 'package:practica04_brian/shared/data/local_video_posts.dart';
 /// Implementacion de [VideoDataSource] que lee de la lista local `videoPosts`.
 ///
 /// Simula la latencia de una peticion real para que el estado de carga de la
-/// interfaz sea visible y WORK.
+/// interfaz sea visible.
 class LocalVideoDataSource implements VideoDataSource {
   const LocalVideoDataSource();
 
