@@ -1,47 +1,50 @@
-/// Entidad de dominio: un video publicado en el feed.
-///
-/// Pertenece a la capa `domain`, por lo que no depende de ningun modelo
-/// concreto de datos ni de Flutter.
+enum VideoPlatform { local, facebook, tiktok, instagram }
+
+enum VideoPlaybackType { asset, network, embed }
+
+/// Entidad de dominio normalizada para videos provenientes de distintas APIs.
 class VideoPost {
+  final String id;
   final String caption;
-
-  /// Autor de la publicacion, mostrado como `@usuario`.
   final String userName;
-
-  /// Audio del video, mostrado junto al icono de nota musical.
   final String songName;
-
   final String videoUrl;
+  final String? externalUrl;
+  final String? thumbnailUrl;
   final int likes;
   final int views;
+  final VideoPlatform platform;
+  final VideoPlaybackType playbackType;
 
   const VideoPost({
     required this.caption,
     required this.videoUrl,
+    this.id = '',
     this.userName = 'usuario',
     this.songName = 'sonido original',
+    this.externalUrl,
+    this.thumbnailUrl,
     this.likes = 0,
     this.views = 0,
+    this.platform = VideoPlatform.local,
+    this.playbackType = VideoPlaybackType.asset,
   });
+
+  String get platformLabel => switch (platform) {
+        VideoPlatform.facebook => 'Facebook',
+        VideoPlatform.tiktok => 'TikTok',
+        VideoPlatform.instagram => 'Instagram',
+        VideoPlatform.local => 'Local',
+      };
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is VideoPost &&
-          runtimeType == other.runtimeType &&
-          caption == other.caption &&
-          userName == other.userName &&
-          songName == other.songName &&
-          videoUrl == other.videoUrl &&
-          likes == other.likes &&
-          views == other.views;
+          id == other.id &&
+          platform == other.platform &&
+          videoUrl == other.videoUrl;
 
   @override
-  int get hashCode =>
-      Object.hash(caption, userName, songName, videoUrl, likes, views);
-
-  @override
-  String toString() =>
-      'VideoPost(caption: $caption, userName: $userName, songName: $songName, '
-      'videoUrl: $videoUrl, likes: $likes, views: $views)';
+  int get hashCode => Object.hash(id, platform, videoUrl);
 }

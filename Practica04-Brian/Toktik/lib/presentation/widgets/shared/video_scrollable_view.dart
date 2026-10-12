@@ -73,6 +73,10 @@ class _VideoScrollableViewState extends State<VideoScrollableView> {
               videoUrl: videoPost.videoUrl,
               userName: videoPost.userName,
               songName: videoPost.songName,
+              playbackType: videoPost.playbackType,
+              platform: videoPost.platform,
+              externalUrl: videoPost.externalUrl,
+              thumbnailUrl: videoPost.thumbnailUrl,
             ),
 
             // Degradado superior para que la cabecera se lea sobre el video.
