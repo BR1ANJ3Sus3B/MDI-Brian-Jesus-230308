@@ -68,7 +68,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
 
       _videoController = controller;
       await controller.setLooping(true);
-      await controller.setVolume(0);
+      await controller.setVolume(1);
       await controller.initialize();
       await controller.play();
 
@@ -169,9 +169,6 @@ class _ExternalVideoPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = switch (platform) {
-      VideoPlatform.facebook => 'Facebook',
-      VideoPlatform.tiktok => 'TikTok',
-      VideoPlatform.instagram => 'Instagram',
       VideoPlatform.local => 'Video',
     };
 
@@ -238,9 +235,6 @@ class _VideoInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
     final platformLabel = switch (platform) {
-      VideoPlatform.facebook => 'Facebook',
-      VideoPlatform.tiktok => 'TikTok',
-      VideoPlatform.instagram => 'Instagram',
       VideoPlatform.local => 'Local',
     };
 

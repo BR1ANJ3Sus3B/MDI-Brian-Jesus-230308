@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:practica04_brian/config/theme/app_theme.dart';
 import 'package:practica04_brian/domain/repositories/video_repository.dart';
-import 'package:practica04_brian/infrastructure/datasources/remote_video_data_source.dart';
-import 'package:practica04_brian/infrastructure/repositories/remote_video_repository.dart';
+import 'package:practica04_brian/infrastructure/datasources/local_video_data_source.dart';
+import 'package:practica04_brian/infrastructure/repositories/local_video_repository.dart';
 import 'package:practica04_brian/presentation/providers/discover_provider.dart';
-import 'package:practica04_brian/presentation/screens/discover/discover_screen.dart';
+import 'package:practica04_brian/presentation/screens/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(const TokTikApp());
 
-/// Feed remoto unificado: Facebook + TikTok + Instagram.
-final VideoRepository _videoRepository = RemoteVideoRepository(
-  RemoteVideoDataSource(),
+/// Feed local: reproduce todos los clips de `assets/videos/` definidos en
+/// `videoPosts`.
+final VideoRepository _videoRepository = LocalVideoRepository(
+  LocalVideoDataSource(),
 );
 
 class TokTikApp extends StatelessWidget {
@@ -30,7 +31,7 @@ class TokTikApp extends StatelessWidget {
         title: 'TokTik',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.getTheme(),
-        home: const DiscoverScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

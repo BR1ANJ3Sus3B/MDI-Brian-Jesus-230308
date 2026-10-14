@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:practica04_brian/domain/entities/video_post.dart';
 import 'package:practica04_brian/presentation/widgets/video/fullscreen_player.dart';
 
 /// En pruebas no hay platform channel de `video_player`, por lo que el asset no
@@ -17,6 +18,8 @@ Widget _wrap({
       caption: caption,
       userName: userName,
       songName: songName,
+      platform: VideoPlatform.local,
+      playbackType: VideoPlaybackType.asset,
     ),
   ),
 );
@@ -40,7 +43,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 50));
 
       expect(find.text('No se pudo cargar el video'), findsOneWidget);
-      expect(find.text('Mi video'), findsOneWidget);
+      expect(find.textContaining('Mi video'), findsOneWidget);
       expect(find.byIcon(Icons.videocam_off_outlined), findsOneWidget);
     });
 

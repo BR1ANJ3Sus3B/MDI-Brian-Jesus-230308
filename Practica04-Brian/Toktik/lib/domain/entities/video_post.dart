@@ -1,4 +1,4 @@
-enum VideoPlatform { local, facebook, tiktok, instagram }
+enum VideoPlatform { local }
 
 enum VideoPlaybackType { asset, network, embed }
 
@@ -31,9 +31,6 @@ class VideoPost {
   });
 
   String get platformLabel => switch (platform) {
-        VideoPlatform.facebook => 'Facebook',
-        VideoPlatform.tiktok => 'TikTok',
-        VideoPlatform.instagram => 'Instagram',
         VideoPlatform.local => 'Local',
       };
 

@@ -29,7 +29,6 @@ class LocalVideoModel {
   });
 
   factory LocalVideoModel.fromJson(Map<String, dynamic> json) {
-    final String platformValue = (json['platform'] as String? ?? 'local').toLowerCase();
     final String playbackValue = (json['playbackType'] as String? ?? 'asset').toLowerCase();
 
     return LocalVideoModel(
@@ -42,12 +41,7 @@ class LocalVideoModel {
       thumbnailUrl: json['thumbnailUrl'] as String?,
       likes: (json['likes'] as num?)?.toInt() ?? 0,
       views: (json['views'] as num?)?.toInt() ?? 0,
-      platform: switch (platformValue) {
-        'facebook' => VideoPlatform.facebook,
-        'tiktok' => VideoPlatform.tiktok,
-        'instagram' => VideoPlatform.instagram,
-        _ => VideoPlatform.local,
-      },
+      platform: VideoPlatform.local,
       playbackType: switch (playbackValue) {
         'network' => VideoPlaybackType.network,
         'embed' => VideoPlaybackType.embed,

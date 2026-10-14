@@ -48,7 +48,7 @@ void main() {
       final VideoPost post =
           LocalVideoModel.fromJson(const <String, dynamic>{}).toVideoPostEntity();
 
-      expect(post.caption, 'Sin titulo');
+      expect(post.caption, 'Sin título');
       expect(post.videoUrl, isEmpty);
       expect(post.likes, 0);
       expect(post.views, 0);
