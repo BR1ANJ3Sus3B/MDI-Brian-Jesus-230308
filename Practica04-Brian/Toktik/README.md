@@ -16,6 +16,8 @@ Proyecto de la materia **MDI** (Desarrollo Movil) - Flutter.
 
 ## Capturas
 
+### Navegador (build web)
+
 <p align="center">
   <img src="docs/capturas/captura-feed-1.png" width="300" alt="Feed vertical de TokTik con la cabecera, el video y los botones de accion" />
   <img src="docs/capturas/captura-feed-2.png" width="300" alt="Segunda pagina del feed cargada con el scroll infinito" />
@@ -23,11 +25,41 @@ Proyecto de la materia **MDI** (Desarrollo Movil) - Flutter.
 
 Capturas tomadas ejecutando la app en un viewport movil (412x915 px).
 
+### Telefono (capturas reales)
+
+<p align="center">
+  <img src="docs/capturas/captura-01.jpg" width="170" alt="Captura 1 de TokTik en telefono" />
+  <img src="docs/capturas/captura-02.jpg" width="170" alt="Captura 2 de TokTik en telefono" />
+  <img src="docs/capturas/captura-03.jpg" width="170" alt="Captura 3 de TokTik en telefono" />
+  <img src="docs/capturas/captura-04.jpg" width="170" alt="Captura 4 de TokTik en telefono" />
+</p>
+<p align="center">
+  <img src="docs/capturas/captura-05.jpg" width="170" alt="Captura 5 de TokTik en telefono" />
+  <img src="docs/capturas/captura-06.jpg" width="170" alt="Captura 6 de TokTik en telefono" />
+  <img src="docs/capturas/captura-07.jpg" width="170" alt="Captura 7 de TokTik en telefono" />
+  <img src="docs/capturas/captura-08.jpg" width="170" alt="Captura 8 de TokTik en telefono" />
+</p>
+
+---
+
+## Videos
+
+Grabaciones de la app en ejecucion.
+
+<p align="center">
+  <video src="docs/capturas/video-01.mp4" width="280" controls preload="metadata" muted></video>
+  <video src="docs/capturas/video-02.mp4" width="280" controls preload="metadata" muted></video>
+</p>
+
+Si el reproductor no aparece, descarga los archivos directamente:
+[video-01.mp4](docs/capturas/video-01.mp4) y [video-02.mp4](docs/capturas/video-02.mp4).
+
 ---
 
 ## Tabla de contenidos
 
 - [Capturas](#capturas)
+- [Videos](#videos)
 - [Objetivo](#objetivo)
 - [Como ejecutar](#como-ejecutar)
 - [Dependencias](#dependencias)
