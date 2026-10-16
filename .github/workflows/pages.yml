@@ -31,10 +31,10 @@ jobs:
             --exclude '**/.venv/' \
             --exclude '**/build/' \
             ./ _site/
+      # Pages debe estar habilitado una sola vez en Settings > Pages con
+      # origen "GitHub Actions"; el GITHUB_TOKEN no puede crear el sitio.
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Subir el artefacto del sitio
         uses: actions/upload-pages-artifact@v3
         with:
