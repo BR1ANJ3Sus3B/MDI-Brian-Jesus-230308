@@ -25,6 +25,7 @@ class VideoHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.watch<ThemeProvider?>();
     return SafeArea(
       bottom: false,
       child: Padding(
@@ -56,7 +57,7 @@ class VideoHeader extends StatelessWidget {
             PopupMenuButton<ThemePreset>(
               tooltip: 'Cambiar modo visual',
               icon: const Icon(Icons.palette_outlined, color: Colors.white),
-              onSelected: (preset) => context.read<ThemeProvider>().setPreset(preset),
+              onSelected: (preset) => theme?.setPreset(preset),
               itemBuilder: (_) => ThemePreset.values.map((preset) => PopupMenuItem(
                     value: preset,
                     child: Row(children: [
@@ -65,6 +66,27 @@ class VideoHeader extends StatelessWidget {
                       Text(preset.label),
                     ]),
                   )).toList(),
+            ),
+            IconButton(
+              tooltip: theme?.musicPlaying == true
+                  ? 'Pausar música'
+                  : 'Reproducir ${theme?.musicTitle ?? 'música temática'}',
+              onPressed: theme == null
+                  ? null
+                  : () async {
+                      await theme.toggleMusic();
+                      if (context.mounted && theme.musicError != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(theme.musicError!)),
+                        );
+                      }
+                    },
+              icon: Icon(
+                theme?.musicPlaying == true ? Icons.music_off : Icons.music_note,
+                color: theme?.musicPlaying == true
+                    ? Theme.of(context).colorScheme.secondary
+                    : Colors.white,
+              ),
             ),
           ],
         ),

@@ -48,3 +48,8 @@ Navidad, Día de Muertos y Día de Reyes. El modo elegido se guarda en Localstor
 (`settings/theme`) y se restaura al abrir la aplicación. El selector funciona
 desde cualquier video y cambia colores de botones, superficies, indicadores y
 acentos sin afectar los videos ni los likes.
+
+Cada modo incluye una pista instrumental pública distinta. El botón de nota
+musical en la cabecera la reproduce en bucle o la detiene; al cambiar de modo
+se detiene la pista anterior. Si el servidor musical no responde, la app
+conserva el modo y el feed y muestra el error en el estado del reproductor.

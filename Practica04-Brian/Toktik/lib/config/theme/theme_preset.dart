@@ -18,6 +18,22 @@ extension ThemePresetData on ThemePreset {
         ThemePreset.diaDeReyes => '👑',
       };
 
+  String get musicTitle => switch (this) {
+        ThemePreset.toktik => 'Sonido TokTik',
+        ThemePreset.navidad => 'Melodía navideña',
+        ThemePreset.diaDeMuertos => 'Melodía de Día de Muertos',
+        ThemePreset.diaDeReyes => 'Melodía de Día de Reyes',
+      };
+
+  /// Pistas instrumentales públicas de demostración, una por celebración.
+  /// Se reproducen en bucle y no requieren cuenta ni token.
+  String get musicUrl => switch (this) {
+        ThemePreset.toktik => 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+        ThemePreset.navidad => 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+        ThemePreset.diaDeMuertos => 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+        ThemePreset.diaDeReyes => 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+      };
+
   Color get primary => switch (this) {
         ThemePreset.toktik => const Color(0xFFFE2C55),
         ThemePreset.navidad => const Color(0xFFE53935),

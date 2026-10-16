@@ -12,6 +12,14 @@ void main() {
         hasLength(4));
   });
 
+  test('cada modo tiene una pista temática configurada', () {
+    expect(ThemePreset.values.map((preset) => preset.musicUrl).toSet(),
+        hasLength(4));
+    expect(ThemePreset.values.map((preset) => preset.musicTitle), containsAll(
+        <String>['Melodía navideña', 'Melodía de Día de Muertos',
+          'Melodía de Día de Reyes']));
+  });
+
   testWidgets('el selector muestra los cuatro modos', (tester) async {
     await tester.pumpWidget(MaterialApp(
       theme: AppTheme.getTheme(ThemePreset.navidad),
