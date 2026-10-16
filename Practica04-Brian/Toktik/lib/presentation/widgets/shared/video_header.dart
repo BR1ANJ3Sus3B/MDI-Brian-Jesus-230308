@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:practica04_brian/config/theme/app_colors.dart';
+import 'package:practica04_brian/config/theme/theme_preset.dart';
+import 'package:practica04_brian/presentation/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 /// Cabecera superpuesta al video con las pestanas "Siguiendo" / "Para ti" y el
 /// boton de busqueda, al estilo de TikTok.
@@ -50,6 +53,19 @@ class VideoHeader extends StatelessWidget {
               tooltip: 'Buscar',
               icon: const Icon(Icons.search, color: Colors.white, size: 26),
             ),
+            PopupMenuButton<ThemePreset>(
+              tooltip: 'Cambiar modo visual',
+              icon: const Icon(Icons.palette_outlined, color: Colors.white),
+              onSelected: (preset) => context.read<ThemeProvider>().setPreset(preset),
+              itemBuilder: (_) => ThemePreset.values.map((preset) => PopupMenuItem(
+                    value: preset,
+                    child: Row(children: [
+                      Text(preset.emoji, style: const TextStyle(fontSize: 20)),
+                      const SizedBox(width: 10),
+                      Text(preset.label),
+                    ]),
+                  )).toList(),
+            ),
           ],
         ),
       ),
@@ -84,7 +100,7 @@ class _Tab extends StatelessWidget {
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
                 color: isSelected
-                    ? AppColors.textPrimary
+                    ? Theme.of(context).colorScheme.secondary
                     : AppColors.textTertiary,
                 shadows: const [
                   Shadow(color: Color(0x80000000), blurRadius: 6),
@@ -99,7 +115,7 @@ class _Tab extends StatelessWidget {
               height: 3,
               width: isSelected ? 32 : 0,
               decoration: BoxDecoration(
-                color: AppColors.textPrimary,
+                color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),

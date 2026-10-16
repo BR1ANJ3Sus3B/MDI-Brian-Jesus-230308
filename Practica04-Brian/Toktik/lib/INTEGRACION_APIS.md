@@ -40,3 +40,11 @@ Borrar los datos del sitio elimina estos likes. Para desarrollo web usa un
 puerto fijo, por ejemplo `flutter run -d chrome --web-port=8080`.
 La copia de Localstore en `packages/localstore` incluye una corrección para
 esperar la escritura antes de confirmarla en pantalla.
+
+## Modos visuales
+
+El botón de paleta en la cabecera permite cambiar entre TokTik clásico,
+Navidad, Día de Muertos y Día de Reyes. El modo elegido se guarda en Localstore
+(`settings/theme`) y se restaura al abrir la aplicación. El selector funciona
+desde cualquier video y cambia colores de botones, superficies, indicadores y
+acentos sin afectar los videos ni los likes.

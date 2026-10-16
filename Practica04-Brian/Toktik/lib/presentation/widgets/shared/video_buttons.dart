@@ -108,10 +108,11 @@ class _VideoButtonsState extends State<VideoButtons> {
 
   @override
   Widget build(BuildContext context) {
+    final accent = Theme.of(context).colorScheme.primary;
     // El like se envuelve en un pulso solo mientras esta activado.
     Widget likeButton = _ActionButton(
       icon: _isLiked ? Icons.favorite : Icons.favorite_border,
-      iconColor: _isLiked ? AppColors.primary : AppColors.textPrimary,
+      iconColor: _isLiked ? accent : AppColors.textPrimary,
       label: HumanFormats.humanReadableNumber(_likes.toDouble()),
       onTap: _toggleLike,
     );

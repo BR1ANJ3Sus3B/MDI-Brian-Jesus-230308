@@ -28,7 +28,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     final DiscoverProvider provider = context.watch<DiscoverProvider>();
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: _buildBody(context, provider),
     );
   }

@@ -7,6 +7,8 @@ gradiente.
 El feed combina los MP4 locales con NASA, Internet Archive y Wikimedia Commons.
 Incluye un botón de altavoz para silenciar o activar el sonido. Consulta
 [la integración actual](lib/INTEGRACION_APIS.md) para ejecutar y verificar las fuentes.
+Desde la paleta de la cabecera también puedes elegir TokTik clásico, Navidad,
+Día de Muertos o Día de Reyes; la selección queda guardada localmente.
 
 Proyecto de la materia **MDI** (Desarrollo Movil) - Flutter.
 

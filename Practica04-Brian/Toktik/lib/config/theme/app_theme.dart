@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:practica04_brian/config/theme/app_colors.dart';
+import 'package:practica04_brian/config/theme/theme_preset.dart';
 
 /// Define el tema visual de la aplicacion: dark mode estilo TokTik.
 ///
@@ -8,29 +9,33 @@ import 'package:practica04_brian/config/theme/app_colors.dart';
 class AppTheme {
   const AppTheme._();
 
-  static ThemeData getTheme() {
+  static ThemeData getTheme([ThemePreset preset = ThemePreset.toktik]) {
+    final primary = preset.primary;
+    final secondary = preset.secondary;
+    final surface = preset.surface;
     final ColorScheme colorScheme = ColorScheme.fromSeed(
-      seedColor: AppColors.primary,
+      seedColor: primary,
       brightness: Brightness.dark,
     ).copyWith(
-      primary: AppColors.primary,
-      surface: AppColors.surface,
+      primary: primary,
+      secondary: secondary,
+      surface: surface,
     );
 
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
       colorScheme: colorScheme,
-      scaffoldBackgroundColor: AppColors.background,
+      scaffoldBackgroundColor: Colors.black,
       splashFactory: InkSparkle.splashFactory,
       textTheme: _textTheme,
-      progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: AppColors.primary,
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: primary,
         strokeWidth: 2.5,
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: AppColors.primary,
+          backgroundColor: primary,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -43,7 +48,7 @@ class AppTheme {
         ),
       ),
       snackBarTheme: SnackBarThemeData(
-        backgroundColor: AppColors.surface,
+        backgroundColor: surface,
         contentTextStyle: const TextStyle(color: AppColors.textPrimary),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
