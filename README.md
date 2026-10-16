@@ -190,6 +190,16 @@ Las evidencias de las prácticas se irán incorporando en esta sección conforme
 💬 Chat en Flutter con un asistente simulado que responde tras 1.5 s con un texto
 aleatorio y un GIF de reacción, documentado con diagramas de arquitectura.
 
+### Manual de instalación publicado en GitHub Pages
+
+📘 Manual de 41 capítulos con la instalación desde cero de Windows, Android
+Studio, Visual Studio Code y dispositivos Android, incluido el proyecto
+integrador y su verificación.
+
+[Ver el manual en línea](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Manual-Flutter/proyecto-movil/docs/)
+
+![Captura del manual publicado en GitHub Pages](Manual-Flutter/proyecto-movil/Assets/captura-manual-sitio.png)
+
 ---
 
 ## 🎯 Objetivos
