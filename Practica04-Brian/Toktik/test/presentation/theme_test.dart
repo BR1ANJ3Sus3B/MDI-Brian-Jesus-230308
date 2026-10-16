@@ -6,33 +6,56 @@ import 'package:practica04_brian/config/theme/theme_preset.dart';
 void main() {
   test('cada modo tiene identidad visual propia', () {
     final themes = ThemePreset.values.map(AppTheme.getTheme).toList();
-    expect(themes.map((theme) => theme.colorScheme.primary).toSet(),
-        hasLength(4));
-    expect(themes.map((theme) => theme.colorScheme.secondary).toSet(),
-        hasLength(4));
+    expect(
+      themes.map((theme) => theme.colorScheme.primary).toSet(),
+      hasLength(4),
+    );
+    expect(
+      themes.map((theme) => theme.colorScheme.secondary).toSet(),
+      hasLength(4),
+    );
   });
 
   test('cada modo tiene una pista temática configurada', () {
-    expect(ThemePreset.values.map((preset) => preset.musicUrl).toSet(),
-        hasLength(4));
-    expect(ThemePreset.values.map((preset) => preset.musicTitle), containsAll(
-        <String>['Melodía navideña', 'Melodía de Día de Muertos',
-          'Melodía de Día de Reyes']));
-    expect(ThemePreset.navidad.musicAssetPath,
-        'Audio/El Reno Rodolfo Canción popular navideña Villancico para niñas y niños.mp3');
+    expect(
+      ThemePreset.values.map((preset) => preset.musicUrl).toSet(),
+      hasLength(4),
+    );
+    expect(
+      ThemePreset.values.map((preset) => preset.musicTitle),
+      containsAll(<String>[
+        'Melodía navideña',
+        'El Latido de mi Corazón - Luis Ángel Gómez',
+        'Melodía de Día de Reyes',
+      ]),
+    );
+    expect(
+      ThemePreset.navidad.musicAssetPath,
+      'Audio/El Reno Rodolfo Canción popular navideña Villancico para niñas y niños.mp3',
+    );
+    expect(
+      ThemePreset.diaDeMuertos.musicAssetPath,
+      'Audio/Luis Ángel Gómez Jaramillo - El Latido de mi Corazón (De “Coco” Con letra).mp3',
+    );
   });
 
   testWidgets('el selector muestra los cuatro modos', (tester) async {
-    await tester.pumpWidget(MaterialApp(
-      theme: AppTheme.getTheme(ThemePreset.navidad),
-      home: Scaffold(
-        body: PopupMenuButton<ThemePreset>(
-          tooltip: 'Cambiar modo visual',
-          itemBuilder: (_) => ThemePreset.values.map((preset) =>
-              PopupMenuItem(value: preset, child: Text(preset.label))).toList(),
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: AppTheme.getTheme(ThemePreset.navidad),
+        home: Scaffold(
+          body: PopupMenuButton<ThemePreset>(
+            tooltip: 'Cambiar modo visual',
+            itemBuilder: (_) => ThemePreset.values
+                .map(
+                  (preset) =>
+                      PopupMenuItem(value: preset, child: Text(preset.label)),
+                )
+                .toList(),
+          ),
         ),
       ),
-    ));
+    );
     await tester.tap(find.byTooltip('Cambiar modo visual'));
     await tester.pumpAndSettle();
     expect(find.text('Navidad'), findsOneWidget);

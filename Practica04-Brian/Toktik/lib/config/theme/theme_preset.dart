@@ -21,7 +21,7 @@ extension ThemePresetData on ThemePreset {
   String get musicTitle => switch (this) {
         ThemePreset.toktik => 'Sonido TokTik',
         ThemePreset.navidad => 'Melodía navideña',
-        ThemePreset.diaDeMuertos => 'Melodía de Día de Muertos',
+        ThemePreset.diaDeMuertos => 'El Latido de mi Corazón - Luis Ángel Gómez',
         ThemePreset.diaDeReyes => 'Melodía de Día de Reyes',
       };
 
@@ -34,9 +34,13 @@ extension ThemePresetData on ThemePreset {
         ThemePreset.diaDeReyes => 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
       };
 
-  String? get musicAssetPath => this == ThemePreset.navidad
-      ? 'Audio/El Reno Rodolfo Canción popular navideña Villancico para niñas y niños.mp3'
-      : null;
+  String? get musicAssetPath => switch (this) {
+        ThemePreset.navidad =>
+          'Audio/El Reno Rodolfo Canción popular navideña Villancico para niñas y niños.mp3',
+        ThemePreset.diaDeMuertos =>
+          'Audio/Luis Ángel Gómez Jaramillo - El Latido de mi Corazón (De “Coco” Con letra).mp3',
+        _ => null,
+      };
 
   Color get primary => switch (this) {
         ThemePreset.toktik => const Color(0xFFFE2C55),

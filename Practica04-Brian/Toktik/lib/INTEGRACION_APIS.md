@@ -56,3 +56,5 @@ conserva el modo y el feed y muestra el error en el estado del reproductor.
 Navidad usa el archivo local `assets/Audio/El Reno Rodolfo Canción popular
 navideña Villancico para niñas y niños.mp3`; se reproduce dentro de la app y no
 depende de Internet. Los demás modos conservan sus pistas públicas.
+Día de Muertos usa el archivo local de Luis Ángel Gómez Jaramillo, `El Latido
+de mi Corazón (De “Coco” Con letra).mp3`.
