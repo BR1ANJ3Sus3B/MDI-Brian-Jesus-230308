@@ -12,6 +12,10 @@ Herramienta de desarrollo, no servicio en producción. Requiere Windows compatib
 
 Instala desde [VS Code](https://code.visualstudio.com/docs/setup/windows), abre `proyecto-movil` con **File → Open Folder** y usa **Terminal → New Terminal**. Selecciona PowerShell. En extensiones instala según el módulo:
 
+![Instalación de Visual Studio Code](../../Assets/instalar-vscode.png)
+
+*Descarga e instalación de Visual Studio Code.*
+
 | Extensión | Publicador a comprobar | Uso |
 | --- | --- | --- |
 | Flutter y Dart | Dart Code | Análisis, depuración y dispositivos |
@@ -22,6 +26,14 @@ Instala desde [VS Code](https://code.visualstudio.com/docs/setup/windows), abre 
 | MongoDB for VS Code | MongoDB | Documentos y consultas |
 
 Los nombres del catálogo pueden cambiar: revisa publicador y permisos antes de instalar. Elige `.venv` como intérprete Python y la carpeta del Flutter SDK cuando el editor lo solicite.
+
+![Visual Studio Code en Windows](../../Assets/vscode-windows.png)
+
+*Visual Studio Code abierto en Windows con el proyecto cargado.*
+
+![Interfaz de Visual Studio Code](../../Assets/vscode-interfaz.png)
+
+*Zona de archivos, editor, terminal integrada y panel de extensiones.*
 
 ## Comandos principales y ejemplo práctico
 

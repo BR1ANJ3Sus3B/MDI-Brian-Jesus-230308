@@ -17,6 +17,10 @@ flowchart TD
   Git -. versiona .-> Flutter
 ```
 
+![Arquitectura DevOps para una aplicación Flutter](../../Assets/arquitectura-devops-flutter.png)
+
+*Vista general de la arquitectura DevOps: Flutter, backend, PostgreSQL, MongoDB, Keycloak, Docker y Git.*
+
 FastAPI y Express implementan el mismo contrato; elige una alternativa. Keycloak mantiene su propia base de identidad y credenciales, separada de las tablas de aplicación. No se conectan PostgreSQL o MongoDB directamente desde Flutter.
 
 En el laboratorio HTTP facilita la configuración local; en producción se utiliza HTTPS. El backend usa nombres de servicio (`postgres`, `mongo`, `keycloak`) dentro de Docker. Un teléfono necesita una dirección accesible desde su red o el puente USB descrito en el capítulo 32.

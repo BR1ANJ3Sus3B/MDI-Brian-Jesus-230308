@@ -8,6 +8,14 @@ SDK para construir aplicaciones mediante widgets. Resuelve la necesidad de mante
 
 Necesitas Git y una carpeta de herramientas con permisos de escritura. Descarga el SDK **stable** para Windows desde la [instalación oficial](https://docs.flutter.dev/install/manual), extrae en `C:\Users\TuUsuario\develop\flutter` y agrega su carpeta `bin` al PATH. Comprueba que exista `bin\flutter.bat`.
 
+![Descarga e instalación de Flutter en Windows](../../Assets/instalar-flutter-windows-1.png)
+
+*Descarga del SDK stable de Flutter para Windows.*
+
+![Extracción y configuración de Flutter en Windows](../../Assets/instalar-flutter-windows-2.png)
+
+*Extracción del SDK y adición de la carpeta `bin` al PATH.*
+
 ## Configuración y comandos principales
 
 ```powershell

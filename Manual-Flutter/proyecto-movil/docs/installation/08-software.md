@@ -24,3 +24,7 @@
 | Cliente PostgreSQL | Consultas SQL | `psql` incluido en el contenedor |
 
 No instales servidores nativos de PostgreSQL o MongoDB si seguirás la ruta Docker: podrían ocupar los mismos puertos. Sí puedes utilizar sus clientes gráficos desde Windows.
+
+![Instalación de las herramientas de desarrollo en Windows](../../Assets/herramientas-desarrollo.png)
+
+*Resumen visual de las herramientas de desarrollo que se instalan en esta ruta.*

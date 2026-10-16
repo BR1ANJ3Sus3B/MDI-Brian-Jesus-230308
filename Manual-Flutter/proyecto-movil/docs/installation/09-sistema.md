@@ -11,6 +11,10 @@ PowerShell es un intérprete de comandos. La terminal es la ventana que lo aloja
 3. Instala WSL 2 siguiendo el asistente de Docker Desktop. Reinicia cuando se solicite.
 4. Abre PowerShell normal para trabajar; eleva permisos solo cuando un instalador del sistema lo requiera.
 
+![Instalaciones en Windows](../../Assets/instalaciones-windows.png)
+
+*Secuencia visual de la preparación e instalación en Windows.*
+
 Ejemplo de configuración de la sesión después de instalar los SDK:
 
 ```powershell

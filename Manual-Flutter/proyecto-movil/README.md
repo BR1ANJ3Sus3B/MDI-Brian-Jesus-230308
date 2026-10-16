@@ -18,6 +18,7 @@ Proyecto académico para pasar de la instalación de herramientas a una aplicaci
 
 ```text
 proyecto-movil/
+├── Assets/                    Imágenes del manual
 ├── mobile/flutter_app/       Aplicación Android en Flutter
 ├── backend/                 Alternativa A: FastAPI
 ├── backend-node/            Alternativa B: Express
