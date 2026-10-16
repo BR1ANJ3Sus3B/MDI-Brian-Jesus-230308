@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "TOKTIK · Arquitectura propuesta",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "Usuario",
+      "sublabel": "Abrir · deslizar · pausar",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        70
+      ]
+    },
+    {
+      "id": "app",
+      "type": "frontend",
+      "label": "Toktik · Flutter App",
+      "sublabel": "Presentation · Video Feed",
+      "pos": [
+        380,
+        60
+      ],
+      "size": [
+        230,
+        70
+      ]
+    },
+    {
+      "id": "provider",
+      "type": "messagebus",
+      "label": "Video Provider",
+      "sublabel": "loadNextPage() · estado",
+      "pos": [
+        750,
+        60
+      ],
+      "size": [
+        230,
+        70
+      ]
+    },
+    {
+      "id": "repo",
+      "type": "backend",
+      "label": "Video Repository",
+      "sublabel": "Combinar · deduplicar",
+      "pos": [
+        750,
+        270
+      ],
+      "size": [
+        230,
+        70
+      ]
+    },
+    {
+      "id": "local",
+      "type": "database",
+      "label": "Videos locales",
+      "sublabel": "assets/videos/ · MP4",
+      "pos": [
+        380,
+        270
+      ],
+      "size": [
+        230,
+        70
+      ]
+    },
+    {
+      "id": "remote",
+      "type": "cloud",
+      "label": "Remote Data Source",
+      "sublabel": "HTTP Client · adaptadores",
+      "pos": [
+        750,
+        480
+      ],
+      "size": [
+        230,
+        70
+      ]
+    },
+    {
+      "id": "tiktok",
+      "type": "external",
+      "label": "TikTok API",
+      "sublabel": "HTTPS · JSON · embed",
+      "pos": [
+        380,
+        480
+      ],
+      "size": [
+        230,
+        70
+      ]
+    },
+    {
+      "id": "instagram",
+      "type": "external",
+      "label": "Instagram API",
+      "sublabel": "Meta Graph API · VIDEO",
+      "pos": [
+        750,
+        690
+      ],
+      "size": [
+        230,
+        70
+      ]
+    },
+    {
+      "id": "facebook",
+      "type": "external",
+      "label": "Facebook API",
+      "sublabel": "Meta Graph API · videos",
+      "pos": [
+        1110,
+        480
+      ],
+      "size": [
+        230,
+        70
+      ]
+    },
+    {
+      "id": "normalizer",
+      "type": "backend",
+      "label": "Video Normalizer",
+      "sublabel": "Video Model · cuatro fuentes",
+      "pos": [
+        1110,
+        270
+      ],
+      "size": [
+        230,
+        70
+      ]
+    },
+    {
+      "id": "feed",
+      "type": "frontend",
+      "label": "Unified Video Feed",
+      "sublabel": "Provider → Vertical Player",
+      "pos": [
+        1110,
+        60
+      ],
+      "size": [
+        230,
+        70
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "user",
+      "to": "app",
+      "label": "Abrir"
+    },
+    {
+      "from": "app",
+      "to": "provider",
+      "label": "Load Videos"
+    },
+    {
+      "from": "provider",
+      "to": "repo",
+      "label": "Solicitar página",
+      "labelDy": 84
+    },
+    {
+      "from": "local",
+      "to": "repo",
+      "label": "Local File"
+    },
+    {
+      "from": "repo",
+      "to": "remote",
+      "label": "HTTP Request",
+      "labelDy": 84
+    },
+    {
+      "from": "tiktok",
+      "to": "remote",
+      "label": "JSON Response"
+    },
+    {
+      "from": "instagram",
+      "to": "remote",
+      "label": "JSON Response"
+    },
+    {
+      "from": "facebook",
+      "to": "remote",
+      "label": "JSON Response"
+    },
+    {
+      "from": "repo",
+      "to": "normalizer",
+      "label": "Normalizar"
+    },
+    {
+      "from": "normalizer",
+      "to": "feed",
+      "label": "Video List"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Capa común de datos",
+      "items": [
+        "Las respuestas regresan al Repository vía sus Data Sources.",
+        "Normalizer transforma los cuatro formatos; Repository elimina duplicados."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Entrega y reproducción",
+      "items": [
+        "Repository → Provider → Unified Video Feed → Usuario.",
+        "MP4: reproductor nativo. TikTok: reproducción incrustada."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Continuidad",
+      "items": [
+        "Errores aislados por fuente; las demás continúan.",
+        "Contenido local sin conexión y cache remota opcional."
+      ]
+    }
+  ]
+}
