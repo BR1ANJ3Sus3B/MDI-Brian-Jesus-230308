@@ -4,6 +4,14 @@ import 'package:flutter/material.dart';
 enum ThemePreset { toktik, navidad, diaDeMuertos, diaDeReyes }
 
 extension ThemePresetData on ThemePreset {
+  /// Icono que representa el modo activo dentro de la aplicacion.
+  String get iconAssetPath => switch (this) {
+        ThemePreset.toktik => 'assets/icon/normal.png',
+        ThemePreset.navidad => 'assets/icon/navidad.png',
+        ThemePreset.diaDeMuertos => 'assets/icon/dia de muertos.png',
+        ThemePreset.diaDeReyes => 'assets/icon/dia de reyes.png',
+      };
+
   String get label => switch (this) {
         ThemePreset.toktik => 'TokTik clásico',
         ThemePreset.navidad => 'Navidad',
@@ -22,7 +30,7 @@ extension ThemePresetData on ThemePreset {
         ThemePreset.toktik => 'Sonido TokTik',
         ThemePreset.navidad => 'Melodía navideña',
         ThemePreset.diaDeMuertos => 'El Latido de mi Corazón - Luis Ángel Gómez',
-        ThemePreset.diaDeReyes => 'Melodía de Día de Reyes',
+        ThemePreset.diaDeReyes => 'Los Villancicos - Ya Vienen los Reyes Magos',
       };
 
   /// Pistas instrumentales públicas de demostración, una por celebración.
@@ -39,6 +47,8 @@ extension ThemePresetData on ThemePreset {
           'Audio/El Reno Rodolfo Canción popular navideña Villancico para niñas y niños.mp3',
         ThemePreset.diaDeMuertos =>
           'Audio/Luis Ángel Gómez Jaramillo - El Latido de mi Corazón (De “Coco” Con letra).mp3',
+        ThemePreset.diaDeReyes =>
+          'Audio/Los Villancicos - Ya Vienen los Reyes Magos (Cover Audio).mp3',
         _ => null,
       };
 

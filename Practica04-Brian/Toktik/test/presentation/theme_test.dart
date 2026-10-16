@@ -26,7 +26,7 @@ void main() {
       containsAll(<String>[
         'Melodía navideña',
         'El Latido de mi Corazón - Luis Ángel Gómez',
-        'Melodía de Día de Reyes',
+        'Los Villancicos - Ya Vienen los Reyes Magos',
       ]),
     );
     expect(
@@ -34,8 +34,25 @@ void main() {
       'Audio/El Reno Rodolfo Canción popular navideña Villancico para niñas y niños.mp3',
     );
     expect(
+      ThemePreset.diaDeReyes.musicAssetPath,
+      'Audio/Los Villancicos - Ya Vienen los Reyes Magos (Cover Audio).mp3',
+    );
+    expect(
       ThemePreset.diaDeMuertos.musicAssetPath,
       'Audio/Luis Ángel Gómez Jaramillo - El Latido de mi Corazón (De “Coco” Con letra).mp3',
+    );
+  });
+
+  test('cada modo tiene su icono de temporada', () {
+    expect(ThemePreset.toktik.iconAssetPath, 'assets/icon/normal.png');
+    expect(ThemePreset.navidad.iconAssetPath, 'assets/icon/navidad.png');
+    expect(
+      ThemePreset.diaDeMuertos.iconAssetPath,
+      'assets/icon/dia de muertos.png',
+    );
+    expect(
+      ThemePreset.diaDeReyes.iconAssetPath,
+      'assets/icon/dia de reyes.png',
     );
   });
 

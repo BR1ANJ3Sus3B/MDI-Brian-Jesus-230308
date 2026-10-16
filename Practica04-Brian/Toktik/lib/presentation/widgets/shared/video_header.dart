@@ -56,7 +56,19 @@ class VideoHeader extends StatelessWidget {
             ),
             PopupMenuButton<ThemePreset>(
               tooltip: 'Cambiar modo visual',
-              icon: const Icon(Icons.palette_outlined, color: Colors.white),
+              icon: theme == null
+                  ? const Icon(Icons.palette_outlined, color: Colors.white)
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        theme.preset.iconAssetPath,
+                        width: 30,
+                        height: 30,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.palette_outlined, color: Colors.white),
+                      ),
+                    ),
               onSelected: (preset) => theme?.setPreset(preset),
               itemBuilder: (_) => ThemePreset.values.map((preset) => PopupMenuItem(
                     value: preset,

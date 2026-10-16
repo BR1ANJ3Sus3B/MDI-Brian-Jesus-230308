@@ -58,3 +58,4 @@ navideña Villancico para niñas y niños.mp3`; se reproduce dentro de la app y 
 depende de Internet. Los demás modos conservan sus pistas públicas.
 Día de Muertos usa el archivo local de Luis Ángel Gómez Jaramillo, `El Latido
 de mi Corazón (De “Coco” Con letra).mp3`.
+Día de Reyes usa `Los Villancicos - Ya Vienen los Reyes Magos (Cover Audio).mp3`.

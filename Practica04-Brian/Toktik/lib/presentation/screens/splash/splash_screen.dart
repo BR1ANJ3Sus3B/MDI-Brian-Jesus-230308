@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:practica04_brian/config/theme/app_colors.dart';
+import 'package:practica04_brian/config/theme/theme_preset.dart';
 import 'package:practica04_brian/presentation/screens/discover/discover_screen.dart';
+import 'package:practica04_brian/presentation/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 /// Pantalla de bienvenida que se muestra mientras la aplicacion arranca.
 ///
@@ -65,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const _Logo(),
+              _Logo(preset: context.watch<ThemeProvider?>()?.preset ?? ThemePreset.toktik),
               const SizedBox(height: 36),
               const SizedBox(
                 width: 30,
@@ -89,7 +92,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
 /// Marca de la app: nota musical con degradado y el nombre "TokTik".
 class _Logo extends StatelessWidget {
-  const _Logo();
+  final ThemePreset preset;
+
+  const _Logo({required this.preset});
 
   @override
   Widget build(BuildContext context) {
@@ -100,11 +105,6 @@ class _Logo extends StatelessWidget {
           width: 96,
           height: 96,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [AppColors.secondary, AppColors.primary],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
             borderRadius: BorderRadius.circular(28),
             boxShadow: [
               BoxShadow(
@@ -114,10 +114,16 @@ class _Logo extends StatelessWidget {
               ),
             ],
           ),
-          child: const Icon(
-            Icons.music_note_rounded,
-            color: Colors.white,
-            size: 52,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(28),
+            child: Image.asset(
+              preset.iconAssetPath,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => const ColoredBox(
+                color: AppColors.background,
+                child: Icon(Icons.music_note_rounded, color: Colors.white, size: 52),
+              ),
+            ),
           ),
         ),
         const SizedBox(height: 20),
