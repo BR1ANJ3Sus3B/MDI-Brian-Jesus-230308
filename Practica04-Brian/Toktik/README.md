@@ -4,6 +4,10 @@ Clone de TikTok hecho en Flutter: un feed vertical de videos con scroll
 infinito, likes, vistas y reproductor a pantalla completa con caption y
 gradiente.
 
+El feed combina los MP4 locales con NASA, Internet Archive y Wikimedia Commons.
+Incluye un botón de altavoz para silenciar o activar el sonido. Consulta
+[la integración actual](lib/INTEGRACION_APIS.md) para ejecutar y verificar las fuentes.
+
 Proyecto de la materia **MDI** (Desarrollo Movil) - Flutter.
 
 ---
@@ -18,7 +22,7 @@ Proyecto de la materia **MDI** (Desarrollo Movil) - Flutter.
 - [Diseno de la interfaz](#diseno-de-la-interfaz)
 - [Componentes principales](#componentes-principales)
 - [Recursos de video](#recursos-de-video)
-- [Consumir videos de TikTok](#consumir-videos-de-tiktok)
+- [Fuentes públicas y reproducción](#fuentes-públicas-y-reproducción)
 - [Pruebas](#pruebas)
 - [Problemas corregidos en esta practica](#problemas-corregidos-en-esta-practica)
 
@@ -78,8 +82,9 @@ Declaradas en `pubspec.yaml`:
 
 | Paquete | Version | Para que se usa |
 | --- | --- | --- |
+| [`http`](https://pub.dev/packages/http) | `^1.2.2` | Consultas a las tres APIs públicas. |
 | [`provider`](https://pub.dev/packages/provider) | `^6.1.2` | Inyeccion de dependencias y `ChangeNotifier` para el estado del feed. |
-| [`video_player`](https://pub.dev/packages/video_player) | `^2.9.2` | Reproduccion de los videos locales a pantalla completa. |
+| [`video_player`](https://pub.dev/packages/video_player) | `^2.9.2` | Reproduccion de videos locales y remotos a pantalla completa. |
 | [`intl`](https://pub.dev/packages/intl) | `^0.20.2` | Formato compacto de numeros en los likes y las vistas. |
 | [`animate_do`](https://pub.dev/packages/animate_do) | `^3.2.0` | Animacion `SpinPerfect` del boton de audio. |
 | [`cupertino_icons`](https://pub.dev/packages/cupertino_icons) | `^1.0.8` | Iconos de estilo iOS. |
@@ -148,7 +153,7 @@ DiscoverProvider ──── _currentPage = 0
 LocalVideoRepository
         │
         ▼
-LocalVideoDataSource  ──►  videoPosts (lista local, con latencia simulada)
+LocalVideoDataSource  ──►  AssetManifest (archivos locales existentes)
         │  List<Map<String, dynamic>>
         ▼
 LocalVideoModel.fromJson(...).toVideoPostEntity()
@@ -322,9 +327,7 @@ Es el *composition root*: decide que implementacion se inyecta y registra los
 providers.
 
 ```dart
-const VideoRepository _videoRepository = LocalVideoRepository(
-  LocalVideoDataSource(),
-);
+final VideoRepository _videoRepository = FeedVideoRepository();
 ```
 
 ### `DiscoverProvider` (`presentation/providers/discover_provider.dart`)
@@ -345,14 +348,14 @@ const VideoRepository _videoRepository = LocalVideoRepository(
 
 ### `LocalVideoRepository` / `LocalVideoDataSource`
 
-`LocalVideoDataSource` simula una latencia de 900 ms y devuelve paginas de 4
-videos, haciendo visible el estado de carga. `LocalVideoRepository` convierte
+`LocalVideoDataSource` lee AssetManifest y devuelve páginas de cuatro MP4
+existentes en `assets/videos/`. `LocalVideoRepository` convierte
 cada mapa en un `VideoPost` usando `toVideoPostEntity()`.
 
 ### `FullScreenPlayer` (`presentation/widgets/video/fullscreen_player.dart`)
 
-Inicializa `VideoPlayerController.asset()` **una sola vez** en `initState` y
-refleja el resultado con `setState`. Al tocar el video alterna entre pausa y
+Inicializa un controlador local o de red y conserva la preferencia de sonido.
+Pausa al perder visibilidad y permite reintentar archivos que fallen. Al tocar el video alterna entre pausa y
 reproduccion. Si el asset no se puede cargar, muestra un mensaje de error en
 lugar de dejar la pantalla en negro.
 
@@ -406,170 +409,9 @@ git add .gitattributes
 
 ---
 
-## Consumir videos de TikTok
+## Fuentes públicas y reproducción
 
-Hoy el feed se alimenta de un fichero local
-(`shared/data/local_video_posts.dart`). Si lo que quieres es mostrar videos
-reales de TikTok hay que separar dos escenarios muy distintos: una cosa es
-**mostrar los videos de una cuenta**, y otra muy distinta es **buscar
-cualquier video de la plataforma**.
-
-### 1. Los videos de una cuenta: Display API
-
-TikTok publica la **Display API**, pensada exactamente para esto: que tu
-plataforma muestre el perfil y los videos publicados por una cuenta que ha
-dado su permiso. El flujo adaptado a **esta app Flutter** queda asi:
-
-```text
-App Flutter (TokTik)
-   |
-   | 1. "Entrar con TikTok" abre el flujo OAuth
-   v
-WebView / navegador  ->  open.tiktokapis.com/v2/auth/
-   |
-   | 2. el usuario autoriza
-   |    (scope = user.info.basic, video.list)
-   v
-Tu backend (Node.js / Express)
-   |
-   | 3. cambia el código por un access_token
-   |    (ahi vive el client_secret, nunca en la app)
-   v
-TikTok Display API
-   |
-   | 4. GET /v2/user/info/   +   POST /v2/video/list/
-   v
-Tu endpoint /videos  (devuelve datos ya normalizados)
-   |
-   | 5. http.get(...)
-   v
-VideoDataSource  ->  VideoRepository  ->  DiscoverProvider
-   ->  VideoScrollableView  ->  pantalla
-```
-
-**Endpoints oficiales**
-
-| Endpoint | Metodo | Scope | Para que sirve |
-| --- | --- | --- | --- |
-| `https://open.tiktokapis.com/v2/user/info/` | `GET` | `user.info.basic` | Perfil: avatar, nombre, bio. |
-| `https://open.tiktokapis.com/v2/video/list/` | `POST` | `video.list` | Lista paginada de los videos publicados. `max_count` por defecto 10, maximo 20. |
-| `https://open.tiktokapis.com/v2/video/query/` | `POST` | `video.list` | Detalle de hasta 20 videos concretos por su id. |
-
-**Ejemplo de llamada**
-
-```bash
-curl -L -X POST \
-  'https://open.tiktokapis.com/v2/video/list/?fields=id,title,video_description,duration,cover_image_url,share_url' \
-  -H 'Authorization: Bearer <access_token>' \
-  -H 'Content-Type: application/json' \
-  --data-raw '{ "max_count": 20 }'
-```
-
-**Respuesta** (forma conceptual de los datos que llegarian a la app):
-
-```json
-{
-  "data": {
-    "videos": [
-      {
-        "id": "1234567890123456789",
-        "title": "Mi video",
-        "video_description": "Tutorial de Flutter",
-        "duration": 42,
-        "cover_image_url": "https://p16-sign.tiktokcdn.com/....webp",
-        "share_url": "https://www.tiktok.com/@usuario/video/1234567890123456789",
-        "embed_link": "https://www.tiktok.com/embed/v2/1234567890123456789",
-        "like_count": 1523
-      }
-    ],
-    "cursor": 1643332803000,
-    "has_more": true
-  }
-}
-```
-
-### Como encajaria en este proyecto
-
-La arquitectura en capas ya esta preparada: basta con cambiar la fuente de
-datos y dejar el resto igual.
-
-| Capa actual | Con una fuente remota de TikTok |
-| --- | --- |
-| `LocalVideoDataSource` | `TikTokVideoDataSource implements VideoDataSource` |
-| `LocalVideoModel.fromJson` | `TikTokVideoModel.fromJson` con los campos reales de la API |
-| `LocalVideoRepository` | `TikTokVideoRepository` (misma interface `VideoRepository`) |
-| `local_video_posts.dart` | Se sustituye por `http.get(...)` a tu backend |
-| `DiscoverProvider`, `VideoScrollableView`, `VideoButtons` | **Sin cambios**: consumen `VideoRepository`, no la fuente concreta |
-
-Es decir, al `DiscoverProvider` le da igual si los datos vienen de un fichero
-local o de un endpoint: el contrato (`VideoRepository.getVideosByPage`) no se
-toca.
-
-### Pantalla que se obtendria
-
-```text
-┌────────────────────────────┐
-│   TikTok      [Buscar] 🔍 │
-│ ────────────────────────── │
-│  @usuario   ● Siguiendo    │
-│                            │
-│      ┌──────────────┐      │
-│      │   ▶ VIDEO    │      │
-│      │  (embed de   │      │
-│      │   TikTok)    │      │
-│      └──────────────┘      │
-│                            │
-│  Tutorial de Flutter       │
-│  ♫ sonido original         │
-│          Ver en TikTok →   │
-└────────────────────────────┘
-```
-
-### 2. Buscar cualquier video de TikTok
-
-Ahi cambia la situacion. **No se puede hacer** una peticion tipo:
-
-```js
-fetch("https://tiktok.com/api/videos"); // no existe
-```
-
-TikTok no expone un endpoint publico de busqueda libre de la plataforma. El
-control de acceso pasa por APIs con permisos concretos y productos
-aprobados:
-
-- **Display API** (la de arriba): solo los videos de **una cuenta que ha
-  autorizado** a tu app.
-- **Content Posting API**: para subir videos, no para leerlos.
-- **Research API**: la unica con busqueda analitica, pero esta **restringida**
-  a investigadores y requiere aprobacion de TikTok; no esta pensada para una
-  app de consumo.
-
-Por eso la respuesta honesta es: *se pueden mostrar los videos de una cuenta,
-no el catalogo completo de TikTok*.
-
-### Limitaciones que hay que tener en cuenta
-
-- **No entrega el MP4.** La Display API devuelve metadatos
-  (`cover_image_url`, `embed_link`, `share_url`), no el archivo de video. Para
-  reproducir hay que embeber el reproductor de TikTok en un `WebView`, o abrir
-  el `share_url` en el navegador/app.
-- **`cover_image_url` caduca.** Los enlaces de portada tienen TTL corto: hay
-  que refrescarlos con `/v2/video/query/` antes de mostrarlos.
-- **Requisitos previos:** cuenta de desarrollador en el
-  [TikTok Developer Portal](https://developers.tiktok.com/), aprobacion del
-  *Login Kit* y del producto de API, y los scopes `user.info.basic` y
-  `video.list` concedidos a la app.
-- **El `client_secret` y el `access_token` van en el backend**, nunca dentro
-  del binario de Flutter. La app solo debe manejar el `code` del flujo OAuth.
-
-**Documentacion oficial**
-
-- [Display API: Overview](https://developers.tiktok.com/docs/en/display-api-overview)
-- [Get Started (OAuth)](https://developers.tiktok.com/docs/en/display-api-get-started)
-- [List Videos](https://developers.tiktok.com/docs/en/tiktok-api-v2-video-list)
-- [Query Videos](https://developers.tiktok.com/docs/en/tiktok-api-v2-video-query)
-
----
+Consulta [Integración de APIs](lib/INTEGRACION_APIS.md) para las tres fuentes activas, videos locales, sonido y pruebas.
 
 ## Pruebas
 

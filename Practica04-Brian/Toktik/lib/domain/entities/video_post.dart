@@ -1,4 +1,4 @@
-enum VideoPlatform { local }
+enum VideoPlatform { local, nasa, archive, wikimedia }
 
 enum VideoPlaybackType { asset, network, embed }
 
@@ -31,8 +31,11 @@ class VideoPost {
   });
 
   String get platformLabel => switch (platform) {
-        VideoPlatform.local => 'Local',
-      };
+    VideoPlatform.local => 'Local',
+    VideoPlatform.nasa => 'NASA',
+    VideoPlatform.archive => 'Internet Archive',
+    VideoPlatform.wikimedia => 'Wikimedia Commons',
+  };
 
   @override
   bool operator ==(Object other) =>

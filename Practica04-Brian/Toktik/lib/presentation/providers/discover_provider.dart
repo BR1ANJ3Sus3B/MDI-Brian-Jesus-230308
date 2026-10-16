@@ -12,6 +12,14 @@ class DiscoverProvider extends ChangeNotifier {
   DiscoverProvider(this._repository);
 
   final List<VideoPost> _videos = [];
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
   bool _initialLoading = true;
   bool _isLoading = false;
   bool _hasReachedEnd = false;
@@ -29,7 +37,7 @@ class DiscoverProvider extends ChangeNotifier {
   /// Es segura de llamar varias veces: si ya hay una carga en curso o si se
   /// alcanzo el final de los datos, no vuelve a disparar la peticion.
   Future<void> loadNextPage() async {
-    if (_isLoading || _hasReachedEnd) return;
+    if (_disposed || _isLoading || _hasReachedEnd) return;
 
     _isLoading = true;
     if (_videos.isEmpty) _initialLoading = true;
@@ -37,9 +45,11 @@ class DiscoverProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final List<VideoPost> newVideos =
-          await _repository.getVideosByPage(_currentPage);
+      final List<VideoPost> newVideos = await _repository.getVideosByPage(
+        _currentPage,
+      );
 
+      if (_disposed) return;
       if (newVideos.isEmpty) {
         _hasReachedEnd = true;
       } else {
@@ -52,7 +62,7 @@ class DiscoverProvider extends ChangeNotifier {
     } finally {
       _isLoading = false;
       _initialLoading = false;
-      notifyListeners();
+      if (!_disposed) notifyListeners();
     }
   }
 
@@ -61,6 +71,7 @@ class DiscoverProvider extends ChangeNotifier {
   /// Se usa en el boton "Reintentar" de la pantalla: descarta los videos ya
   /// cargados y limpia `hasReachedEnd` para que la peticion vuelva a ejecutarse.
   Future<void> reload() async {
+    if (_disposed || _isLoading) return;
     _videos.clear();
     _currentPage = 0;
     _hasReachedEnd = false;

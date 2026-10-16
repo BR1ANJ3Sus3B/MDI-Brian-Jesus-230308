@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:practica04_brian/infrastructure/repositories/likes_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:practica04_brian/config/helpers/human_formats.dart';
 import 'package:practica04_brian/config/theme/app_colors.dart';
@@ -11,29 +12,98 @@ import 'package:practica04_brian/domain/entities/video_post.dart';
 /// dispara un pulso al activarse.
 class VideoButtons extends StatefulWidget {
   final VideoPost video;
+  final LikesRepository? likesRepository;
 
-  const VideoButtons({super.key, required this.video});
+  const VideoButtons({super.key, required this.video, this.likesRepository});
 
   @override
   State<VideoButtons> createState() => _VideoButtonsState();
 }
 
 class _VideoButtonsState extends State<VideoButtons> {
-  late bool _isLiked;
-  late int _likes;
+  bool _isLiked = false;
+  bool _loading = true;
+  bool _saving = false;
+  bool _loadFailed = false;
+  int _generation = 0;
+  late LikesRepository _repository;
+  int get _likes => widget.video.likes + (_isLiked ? 1 : 0);
 
   @override
   void initState() {
     super.initState();
-    _isLiked = false;
-    _likes = widget.video.likes;
+    _repository = widget.likesRepository ?? LocalstoreLikesRepository();
+    _restoreLike();
   }
 
-  void _toggleLike() {
+  @override
+  void didUpdateWidget(covariant VideoButtons oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (LocalstoreLikesRepository.keyFor(oldWidget.video) !=
+            LocalstoreLikesRepository.keyFor(widget.video) ||
+        oldWidget.likesRepository != widget.likesRepository) {
+      _repository = widget.likesRepository ?? LocalstoreLikesRepository();
+      _isLiked = false;
+      _saving = false;
+      _restoreLike();
+    }
+  }
+
+  Future<void> _restoreLike() async {
+    final generation = ++_generation;
+    _loading = true;
+    _loadFailed = false;
+    try {
+      final liked = await _repository.isLiked(widget.video);
+      if (!mounted || generation != _generation) return;
+      setState(() {
+        _isLiked = liked;
+        _loading = false;
+      });
+    } catch (_) {
+      if (!mounted || generation != _generation) return;
+      setState(() {
+        _loading = false;
+        _loadFailed = true;
+      });
+    }
+  }
+
+  Future<void> _toggleLike() async {
+    if (_loading || _saving) return;
+    if (_loadFailed) {
+      await _restoreLike();
+      if (!mounted) return;
+      if (_loadFailed) {
+        _showStorageError();
+        return;
+      }
+    }
+    final generation = _generation;
+    final previous = _isLiked;
     setState(() {
-      _isLiked = !_isLiked;
-      _likes += _isLiked ? 1 : -1;
+      _saving = true;
+      _isLiked = !previous;
     });
+    try {
+      await _repository.setLiked(widget.video, _isLiked);
+    } catch (_) {
+      if (!mounted || generation != _generation) return;
+      setState(() => _isLiked = previous);
+      _showStorageError();
+    } finally {
+      if (mounted && generation == _generation) {
+        setState(() => _saving = false);
+      }
+    }
+  }
+
+  void _showStorageError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('No se pudo guardar el like. Intenta de nuevo.'),
+      ),
+    );
   }
 
   @override

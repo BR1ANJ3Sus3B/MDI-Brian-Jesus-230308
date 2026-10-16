@@ -55,3 +55,6 @@ app.*.map.json
 #
 # Para compartirlos usa Git LFS en lugar de subirlos directamente.
 assets/videos/*.mp4
+
+# Datos personales de Localstore en ejecuciones de escritorio.
+video_likes/

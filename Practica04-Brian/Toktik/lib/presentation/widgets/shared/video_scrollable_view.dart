@@ -34,6 +34,9 @@ class _VideoScrollableViewState extends State<VideoScrollableView> {
 
   final PageController _pageController = PageController();
 
+  int _currentIndex = 0;
+  bool _muted = true;
+
   int _selectedTab = VideoHeader.forYouTab;
 
   @override
@@ -42,7 +45,10 @@ class _VideoScrollableViewState extends State<VideoScrollableView> {
     super.dispose();
   }
 
-  void _onPageChanged(int index) => _maybeLoadMore(index);
+  void _onPageChanged(int index) {
+    setState(() => _currentIndex = index);
+    _maybeLoadMore(index);
+  }
 
   void _maybeLoadMore(int index) {
     final DiscoverProvider provider = context.read<DiscoverProvider>();
@@ -69,6 +75,10 @@ class _VideoScrollableViewState extends State<VideoScrollableView> {
           children: [
             // Video + degradado inferior + autor/caption/audio.
             FullScreenPlayer(
+              key: ValueKey(videoPost.videoUrl),
+              isActive: index == _currentIndex,
+              isMuted: _muted,
+              onMutedChanged: (value) => setState(() => _muted = value),
               caption: videoPost.caption,
               videoUrl: videoPost.videoUrl,
               userName: videoPost.userName,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practica04_brian/infrastructure/repositories/likes_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:practica04_brian/config/helpers/human_formats.dart';
 import 'package:practica04_brian/domain/entities/video_post.dart';
@@ -32,12 +33,72 @@ Future<void> _tick(WidgetTester tester) async {
   await tester.pump(const Duration(milliseconds: 1));
 }
 
+class MemoryLikes implements LikesRepository {
+  final Map<String, bool> values = {};
+  bool failWrites = false;
+  @override
+  Future<bool> isLiked(VideoPost video) async =>
+      values[video.videoUrl] ?? false;
+  @override
+  Future<void> setLiked(VideoPost video, bool liked) async {
+    if (failWrites) throw StateError('storage unavailable');
+    values[video.videoUrl] = liked;
+  }
+}
+
 void main() {
+  testWidgets('restaura el like y permite quitarlo sin duplicar el contador', (
+    tester,
+  ) async {
+    final storage = MemoryLikes();
+    final video = _post(likes: 10);
+    await tester.pumpWidget(
+      _wrap(VideoButtons(video: video, likesRepository: storage)),
+    );
+    await _tick(tester);
+    await tester.tap(find.byIcon(Icons.favorite_border));
+    await _tick(tester);
+    expect(storage.values[video.videoUrl], isTrue);
+    await tester.pumpWidget(const SizedBox());
+    await tester.pumpWidget(
+      _wrap(VideoButtons(video: video, likesRepository: storage)),
+    );
+    await _tick(tester);
+    expect(find.byIcon(Icons.favorite), findsOneWidget);
+    expect(find.text('11'), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.favorite));
+    await _tick(tester);
+    expect(storage.values[video.videoUrl], isFalse);
+    expect(find.text('10'), findsOneWidget);
+  });
+  testWidgets('revierte el like cuando falla el almacenamiento', (
+    tester,
+  ) async {
+    final storage = MemoryLikes()..failWrites = true;
+    await tester.pumpWidget(
+      _wrap(VideoButtons(video: _post(), likesRepository: storage)),
+    );
+    await _tick(tester);
+    await tester.tap(find.byIcon(Icons.favorite_border));
+    await _tick(tester);
+    expect(find.byIcon(Icons.favorite_border), findsOneWidget);
+    expect(
+      find.text('No se pudo guardar el like. Intenta de nuevo.'),
+      findsOneWidget,
+    );
+  });
   group('VideoButtons', () {
     testWidgets('muestra los contadores con formato compacto', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(_wrap(VideoButtons(video: _post(likes: 23230))));
+      await tester.pumpWidget(
+        _wrap(
+          VideoButtons(
+            likesRepository: MemoryLikes(),
+            video: _post(likes: 23230),
+          ),
+        ),
+      );
       await _tick(tester);
 
       expect(find.text('23.2K'), findsOneWidget);
@@ -46,7 +107,9 @@ void main() {
     testWidgets('el like alterna entre relleno y contorno', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(_wrap(VideoButtons(video: _post())));
+      await tester.pumpWidget(
+        _wrap(VideoButtons(likesRepository: MemoryLikes(), video: _post())),
+      );
       await _tick(tester);
 
       expect(find.byIcon(Icons.favorite_border), findsOneWidget);
@@ -62,7 +125,9 @@ void main() {
     testWidgets('el like se puede volver a quitar', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(_wrap(VideoButtons(video: _post())));
+      await tester.pumpWidget(
+        _wrap(VideoButtons(likesRepository: MemoryLikes(), video: _post())),
+      );
       await _tick(tester);
 
       await tester.tap(find.byIcon(Icons.favorite_border));
@@ -78,7 +143,14 @@ void main() {
       WidgetTester tester,
     ) async {
       const int likes = 1030;
-      await tester.pumpWidget(_wrap(VideoButtons(video: _post(likes: likes))));
+      await tester.pumpWidget(
+        _wrap(
+          VideoButtons(
+            likesRepository: MemoryLikes(),
+            video: _post(likes: likes),
+          ),
+        ),
+      );
       await _tick(tester);
 
       expect(
@@ -99,7 +171,9 @@ void main() {
     testWidgets('el avatar muestra la inicial del autor', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(_wrap(VideoButtons(video: _post())));
+      await tester.pumpWidget(
+        _wrap(VideoButtons(likesRepository: MemoryLikes(), video: _post())),
+      );
       await _tick(tester);
 
       // "brain.dev" -> "B", tanto en el avatar como en el disco de audio.
@@ -109,16 +183,28 @@ void main() {
     testWidgets('el avatar normaliza un autor con arroba', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(_wrap(VideoButtons(video: _post(userName: '@maria'))));
+      await tester.pumpWidget(
+        _wrap(
+          VideoButtons(
+            likesRepository: MemoryLikes(),
+            video: _post(userName: '@maria'),
+          ),
+        ),
+      );
       await _tick(tester);
 
       expect(find.text('M'), findsNWidgets(2));
     });
 
-    testWidgets('el avatar tolera un autor vacio', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(_wrap(VideoButtons(video: _post(userName: ''))));
+    testWidgets('el avatar tolera un autor vacio', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        _wrap(
+          VideoButtons(
+            likesRepository: MemoryLikes(),
+            video: _post(userName: ''),
+          ),
+        ),
+      );
       await _tick(tester);
 
       expect(find.text('?'), findsNWidgets(2));
@@ -127,7 +213,9 @@ void main() {
     testWidgets('muestra las demas acciones del video', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(_wrap(VideoButtons(video: _post())));
+      await tester.pumpWidget(
+        _wrap(VideoButtons(likesRepository: MemoryLikes(), video: _post())),
+      );
       await _tick(tester);
 
       expect(find.byIcon(Icons.mode_comment_outlined), findsOneWidget);
@@ -138,7 +226,9 @@ void main() {
     testWidgets('las acciones responden al toque sin fallar', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(_wrap(VideoButtons(video: _post())));
+      await tester.pumpWidget(
+        _wrap(VideoButtons(likesRepository: MemoryLikes(), video: _post())),
+      );
       await _tick(tester);
 
       await tester.tap(find.byIcon(Icons.mode_comment_outlined));
