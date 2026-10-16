@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base id="base" href="./installation/">
+  <title>Manual de instalación y configuración · Flutter</title>
+  <meta name="description" content="Manual de instalación y configuración del entorno de desarrollo móvil multiplataforma: Windows, Flutter, Android, FastAPI, Express, PostgreSQL, MongoDB, Keycloak y Docker.">
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #0b1020; color: #e7efff; }
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; }
+    a { color: #38bdf8; }
+    header.top {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+      padding: .7rem 1.25rem; background: #0d1426; border-bottom: 1px solid #24314d;
+    }
+    header.top .brand { font-weight: 700; }
+    header.top .brand small { display: block; font-weight: 400; color: #8fa6c8; font-size: .78rem; }
+    header.top .spacer { flex: 1; }
+    header.top a.navlink {
+      display: inline-block; padding: .45rem .8rem; border-radius: .5rem;
+      background: #1f2a44; color: #e7efff; text-decoration: none; font-size: .85rem; font-weight: 600;
+    }
+    header.top a.navlink:hover { filter: brightness(1.15); }
+
+    .layout { display: grid; grid-template-columns: 20rem minmax(0, 1fr); align-items: start; }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+    aside#toc {
+      position: sticky; top: 3.6rem; align-self: start;
+      max-height: calc(100vh - 3.6rem); overflow: auto;
+      padding: 1rem .75rem 3rem 1.25rem; border-right: 1px solid #1c2740;
+    }
+    @media (max-width: 900px) {
+      aside#toc { position: static; max-height: none; border-right: none; border-bottom: 1px solid #1c2740; }
+    }
+    aside#toc input {
+      width: 100%; padding: .5rem .6rem; margin-bottom: .75rem;
+      background: #111a30; color: #e7efff; border: 1px solid #24314d; border-radius: .5rem;
+      font-size: .85rem;
+    }
+    aside#toc .group { margin: 1rem 0 .3rem; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: #6f83a5; }
+    aside#toc a.chap {
+      display: block; padding: .34rem .5rem; border-radius: .4rem;
+      color: #b9c7df; text-decoration: none; font-size: .86rem; line-height: 1.35;
+    }
+    aside#toc a.chap:hover { background: #16203a; color: #e7efff; }
+    aside#toc a.chap.active { background: #38bdf8; color: #082033; font-weight: 700; }
+
+    main { min-width: 0; padding: 2rem 1.75rem 5rem; }
+    article { max-width: 52rem; margin: 0 auto; }
+    article.loading { color: #8fa6c8; }
+
+    article h1 { margin: 0 0 1.25rem; font-size: 1.85rem; line-height: 1.2; border-bottom: 1px solid #24314d; padding-bottom: .6rem; }
+    article h2 { margin: 2.4rem 0 .75rem; font-size: 1.35rem; }
+    article h3 { margin: 1.8rem 0 .5rem; font-size: 1.1rem; color: #d6e2f7; }
+    article p, article li { color: #c3d0e6; line-height: 1.7; }
+    article a { font-weight: 600; }
+    article strong { color: #eef4ff; }
+    article ul, article ol { padding-left: 1.4rem; }
+    article li { margin: .25rem 0; }
+    article hr { border: none; border-top: 1px solid #24314d; margin: 2rem 0; }
+
+    article code { background: #16203a; color: #cbd5f5; border-radius: .3rem; padding: .1rem .35rem; font-size: .88em; }
+    article pre {
+      background: #0f1830; border: 1px solid #24314d; border-radius: .6rem;
+      padding: .9rem 1rem; overflow: auto;
+    }
+    article pre code { background: none; padding: 0; font-size: .85rem; line-height: 1.55; }
+
+    article table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+    article th, article td { border: 1px solid #24314d; padding: .5rem .7rem; text-align: left; vertical-align: top; }
+    article th { background: #16203a; color: #eef4ff; }
+    article tbody tr:nth-child(even) { background: #101a31; }
+
+    article img { max-width: 100%; height: auto; border: 1px solid #24314d; border-radius: .6rem; margin: 1rem 0; background: #020617; }
+    article blockquote { margin: 1rem 0; padding: .4rem 1rem; border-left: 3px solid #38bdf8; background: #111a30; color: #b9c7df; }
+    article .mermaid { margin: 1.5rem 0; text-align: center; overflow-x: auto; }
+
+    .error { padding: .9rem 1.1rem; background: #2a1620; border: 1px solid #6b3b4a; border-radius: .6rem; color: #f6c9d4; }
+    .note { margin-top: 3rem; font-size: .82rem; color: #7d90ae; }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">Manual de instalación y configuración<small>Entorno de desarrollo móvil multiplataforma · Flutter, Android y backend</small></div>
+    <span class="spacer"></span>
+    <a class="navlink" href="../../../index.html">Inicio de las prácticas</a>
+    <a class="navlink" href="https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308">Repositorio</a>
+  </header>
+
+  <div class="layout">
+    <aside id="toc">
+      <input id="filter" type="search" placeholder="Buscar capítulo…" aria-label="Buscar capítulo">
+      <nav id="tocnav"></nav>
+    </aside>
+    <main>
+      <article id="content" class="loading">Cargando el manual…</article>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script>
+  (async function () {
+    "use strict";
+    var DOC_URL = location.href;
+    var baseEl = document.getElementById("base");
+    var content = document.getElementById("content");
+    var tocnav = document.getElementById("tocnav");
+
+    var CHAPTERS = [
+      ["01", "Objetivo y uso del manual", "installation/01-objetivo.md"],
+      ["02", "Portada", "installation/02-portada.md"],
+      ["03", "Control de versiones", "installation/03-versiones.md"],
+      ["04", "Introducción", "installation/04-introduccion.md"],
+      ["05", "Objetivos", "installation/05-objetivos.md"],
+      ["06", "Arquitectura", "installation/06-arquitectura.md"],
+      ["07", "Hardware", "installation/07-hardware.md"],
+      ["08", "Software necesario", "installation/08-software.md"],
+      ["09", "Configuración del sistema", "installation/09-sistema.md"],
+      ["10", "Visual Studio Code", "installation/10-vscode.md"],
+      ["11", "Git", "installation/11-git.md"],
+      ["12", "GitHub", "installation/12-github.md"],
+      ["13", "Flutter y Dart", "installation/13-flutter-dart.md"],
+      ["14", "Android Studio y Android SDK", "installation/14-android.md"],
+      ["15", "Emulador Android", "installation/15-emulador.md"],
+      ["16", "Primer proyecto Flutter", "installation/16-primer-proyecto.md"],
+      ["17", "HTTP y REST", "installation/17-http-rest.md"],
+      ["18", "Postman", "installation/18-postman.md"],
+      ["19", "Alternativa A: Python y FastAPI", "installation/19-fastapi.md"],
+      ["20", "Swagger y OpenAPI", "installation/20-openapi.md"],
+      ["21", "Alternativa B: Node.js y Express", "installation/21-node-express.md"],
+      ["22", "PostgreSQL", "installation/22-postgresql.md"],
+      ["23", "MongoDB", "installation/23-mongodb.md"],
+      ["24", "PostgreSQL frente a MongoDB", "installation/24-comparacion-db.md"],
+      ["25", "Keycloak", "installation/25-keycloak.md"],
+      ["26", "Flujo de autenticación", "installation/26-autenticacion.md"],
+      ["27", "Docker", "installation/27-docker.md"],
+      ["28", "Dockerfile", "installation/28-dockerfile.md"],
+      ["29", "Docker Compose", "installation/29-compose.md"],
+      ["30", "Variables de entorno y secretos", "installation/30-entorno.md"],
+      ["31", "Integración Flutter y API", "installation/31-integracion-api.md"],
+      ["32", "Integración Flutter y Keycloak", "installation/32-integracion-keycloak.md"],
+      ["33", "Pruebas", "installation/33-pruebas.md"],
+      ["34", "Estructura del repositorio", "installation/34-repositorio.md"],
+      ["35", "Flujo de ramas Git", "installation/35-ramas.md"],
+      ["36", "Seguridad", "installation/36-seguridad.md"],
+      ["37", "Resolución de problemas", "installation/37-problemas.md"],
+      ["38", "Evidencias", "installation/38-evidencias.md"],
+      ["39", "Actividad final: gestión de tareas", "installation/39-actividad-final.md"],
+      ["40", "Checklist final", "installation/40-checklist.md"],
+      ["41", "Glosario", "installation/41-glosario.md"]
+    ];
+
+    var EXTRAS = [
+      ["Índice del manual", "README.md"],
+      ["Evidencias", "evidence/README.md"],
+      ["Registro de verificación", "evidence/VERIFICACION.md"]
+    ];
+
+    // marked may not be available if the CDN is blocked.
+    var md = window.marked;
+    if (md) {
+      md.setOptions({ gfm: true, breaks: false, mangle: false, headerIds: false });
+    }
+
+    var mermaid = null;
+    try {
+      var mod = await import("https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.esm.min.mjs");
+      mermaid = mod.default;
+      mermaid.initialize({ startOnLoad: false, theme: "dark", securityLevel: "loose" });
+    } catch (e) {
+      mermaid = null;
+    }
+
+    function absFromDoc(p) { return new URL(p, DOC_URL).href; }
+
+    function buildTOC() {
+      function group(label) {
+        var div = document.createElement("div");
+        div.className = "group";
+        div.textContent = label;
+        tocnav.appendChild(div);
+      }
+      group("Capítulos del manual");
+      EXTRAS.slice(0, 1).forEach(function (item) { add(item[0], item[1]); });
+      CHAPTERS.forEach(function (c) { add(c[0] + ". " + c[1], c[2]); });
+      group("Anexos");
+      EXTRAS.slice(1).forEach(function (item) { add(item[0], item[1]); });
+    }
+
+    function add(label, path) {
+      var a = document.createElement("a");
+      a.className = "chap";
+      a.href = absFromDoc(path);
+      a.textContent = label;
+      a.dataset.path = path;
+      tocnav.appendChild(a);
+    }
+
+    function setActive(absUrl) {
+      var links = tocnav.querySelectorAll("a.chap");
+      for (var i = 0; i < links.length; i++) {
+        links[i].classList.toggle("active", links[i].href === absUrl);
+      }
+    }
+
+    async function load(absUrl) {
+      content.classList.add("loading");
+      content.textContent = "Cargando…";
+      setActive(absUrl);
+      var dir = absUrl.replace(/[^/]*$/, "");
+      try {
+        var res = await fetch(absUrl, { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        var text = await res.text();
+        baseEl.href = dir; // resolve images/links as if from the chapter file
+        render(text);
+        document.title = firstHeading(text) || "Manual de instalación y configuración";
+        window.scrollTo(0, 0);
+        content.classList.remove("loading");
+      } catch (err) {
+        content.classList.remove("loading");
+        content.innerHTML = '<p class="error">No se pudo cargar <code>' + escapeHtml(absUrl) +
+          '</code> (' + escapeHtml(String(err.message || err)) +
+          '). Abre el archivo directamente desde el repositorio.</p>';
+      }
+    }
+
+    function render(text) {
+      var html;
+      if (md && typeof md.parse === "function") {
+        html = md.parse(text);
+      } else {
+        html = '<p class="error">El renderizador Markdown no está disponible (sin conexión). Se muestra el texto sin formato.</p><pre>' +
+          escapeHtml(text) + "</pre>";
+      }
+      content.innerHTML = html;
+      renderMermaid();
+    }
+
+    async function renderMermaid() {
+      var blocks = content.querySelectorAll("pre > code.language-mermaid");
+      if (!blocks.length) return;
+      for (var i = 0; i < blocks.length; i++) {
+        var code = blocks[i];
+        var div = document.createElement("div");
+        div.className = "mermaid";
+        div.textContent = code.textContent;
+        code.parentElement.replaceWith(div);
+      }
+      if (mermaid) {
+        try { await mermaid.run({ nodes: content.querySelectorAll(".mermaid") }); }
+        catch (e) { /* keep raw text if mermaid fails */ }
+      }
+    }
+
+    function firstHeading(text) {
+      var m = text.match(/^#\s+(.+)$/m);
+      return m ? m[1].trim() : null;
+    }
+
+    function escapeHtml(s) {
+      return s.replace(/[&<>"]/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+      });
+    }
+
+    // Navigation: sidebar + any local .md link inside the content.
+    document.addEventListener("click", function (ev) {
+      var a = ev.target.closest && ev.target.closest("a");
+      if (!a) return;
+      var href = a.getAttribute("href") || "";
+      if (href.charAt(0) === "#") return;
+      var url;
+      try { url = new URL(a.href, DOC_URL); } catch (e) { return; }
+      if (url.origin !== location.origin) return; // external link
+      if (!/\.md$/i.test(url.pathname)) return;   // only intercept Markdown
+      ev.preventDefault();
+      load(url.href);
+    });
+
+    // Sidebar filter
+    document.getElementById("filter").addEventListener("input", function (ev) {
+      var q = ev.target.value.trim().toLowerCase();
+      var links = tocnav.querySelectorAll("a.chap");
+      for (var i = 0; i < links.length; i++) {
+        var show = !q || links[i].textContent.toLowerCase().indexOf(q) !== -1;
+        links[i].style.display = show ? "" : "none";
+      }
+    });
+
+    buildTOC();
+    load(absFromDoc("README.md"));
+  })();
+  </script>
+</body>
+</html>
