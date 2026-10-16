@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:localstore/localstore.dart';
@@ -5,6 +7,7 @@ import 'package:practica04_brian/config/theme/theme_preset.dart';
 
 class ThemeProvider extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
+  final Completer<void> _restoreCompleter = Completer<void>();
   ThemePreset _preset = ThemePreset.toktik;
   bool _ready = false;
   bool _musicPlaying = false;
@@ -12,6 +15,7 @@ class ThemeProvider extends ChangeNotifier {
 
   ThemePreset get preset => _preset;
   bool get ready => _ready;
+  Future<void> get whenReady => _restoreCompleter.future;
   bool get musicPlaying => _musicPlaying;
   String? get musicError => _musicError;
   String get musicTitle => _preset.musicTitle;
@@ -33,6 +37,7 @@ class ThemeProvider extends ChangeNotifier {
     } finally {
       _ready = true;
       notifyListeners();
+      if (!_restoreCompleter.isCompleted) _restoreCompleter.complete();
     }
   }
 

@@ -7,21 +7,25 @@ import 'package:practica04_brian/presentation/providers/theme_provider.dart';
 import 'package:practica04_brian/presentation/screens/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const TokTikApp());
+  final themeProvider = ThemeProvider();
+  await themeProvider.whenReady;
+  runApp(TokTikApp(themeProvider: themeProvider));
 }
 
 final VideoRepository _videoRepository = FeedVideoRepository();
 
 class TokTikApp extends StatelessWidget {
-  const TokTikApp({super.key});
+  final ThemeProvider themeProvider;
+
+  const TokTikApp({super.key, required this.themeProvider});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider<ThemeProvider>.value(value: themeProvider),
         ChangeNotifierProvider<DiscoverProvider>(
           create: (_) => DiscoverProvider(_videoRepository),
         ),
