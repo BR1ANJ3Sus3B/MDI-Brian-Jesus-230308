@@ -1,0 +1,584 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "API móvil de tareas",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "503": {
+            "description": "Dependencia no disponible"
+          },
+          "404": {
+            "description": "Recurso no encontrado"
+          },
+          "409": {
+            "description": "Conflicto de datos"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "503": {
+            "description": "Dependencia no disponible"
+          },
+          "404": {
+            "description": "Recurso no encontrado"
+          },
+          "409": {
+            "description": "Conflicto de datos"
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "summary": "Me",
+        "operationId": "me_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "503": {
+            "description": "Dependencia no disponible"
+          },
+          "401": {
+            "description": "Token ausente o inválido"
+          },
+          "403": {
+            "description": "Rol insuficiente"
+          },
+          "404": {
+            "description": "Recurso no encontrado"
+          },
+          "409": {
+            "description": "Conflicto de datos"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/usuarios": {
+      "get": {
+        "summary": "List Users",
+        "operationId": "list_users_usuarios_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "503": {
+            "description": "Dependencia no disponible"
+          },
+          "401": {
+            "description": "Token ausente o inválido"
+          },
+          "403": {
+            "description": "Rol insuficiente"
+          },
+          "404": {
+            "description": "Recurso no encontrado"
+          },
+          "409": {
+            "description": "Conflicto de datos"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create User",
+        "operationId": "create_user_usuarios_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "503": {
+            "description": "Dependencia no disponible"
+          },
+          "401": {
+            "description": "Token ausente o inválido"
+          },
+          "403": {
+            "description": "Rol insuficiente"
+          },
+          "404": {
+            "description": "Recurso no encontrado"
+          },
+          "409": {
+            "description": "Conflicto de datos"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "Categories",
+        "operationId": "categories_categories_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "503": {
+            "description": "Dependencia no disponible"
+          },
+          "401": {
+            "description": "Token ausente o inválido"
+          },
+          "403": {
+            "description": "Rol insuficiente"
+          },
+          "404": {
+            "description": "Recurso no encontrado"
+          },
+          "409": {
+            "description": "Conflicto de datos"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/tasks": {
+      "get": {
+        "summary": "List Tasks",
+        "operationId": "list_tasks_tasks_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "503": {
+            "description": "Dependencia no disponible"
+          },
+          "401": {
+            "description": "Token ausente o inválido"
+          },
+          "403": {
+            "description": "Rol insuficiente"
+          },
+          "404": {
+            "description": "Recurso no encontrado"
+          },
+          "409": {
+            "description": "Conflicto de datos"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create Task",
+        "operationId": "create_task_tasks_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "503": {
+            "description": "Dependencia no disponible"
+          },
+          "401": {
+            "description": "Token ausente o inválido"
+          },
+          "403": {
+            "description": "Rol insuficiente"
+          },
+          "404": {
+            "description": "Recurso no encontrado"
+          },
+          "409": {
+            "description": "Conflicto de datos"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/tasks/{task_id}": {
+      "put": {
+        "summary": "Update Task",
+        "operationId": "update_task_tasks__task_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "title": "Task Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "503": {
+            "description": "Dependencia no disponible"
+          },
+          "401": {
+            "description": "Token ausente o inválido"
+          },
+          "403": {
+            "description": "Rol insuficiente"
+          },
+          "404": {
+            "description": "Recurso no encontrado"
+          },
+          "409": {
+            "description": "Conflicto de datos"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Task",
+        "operationId": "delete_task_tasks__task_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "title": "Task Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "503": {
+            "description": "Dependencia no disponible"
+          },
+          "401": {
+            "description": "Token ausente o inválido"
+          },
+          "403": {
+            "description": "Rol insuficiente"
+          },
+          "404": {
+            "description": "Recurso no encontrado"
+          },
+          "409": {
+            "description": "Conflicto de datos"
+          }
+        }
+      }
+    },
+    "/admin/activity": {
+      "get": {
+        "summary": "Activity",
+        "operationId": "activity_admin_activity_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "503": {
+            "description": "Dependencia no disponible"
+          },
+          "401": {
+            "description": "Token ausente o inválido"
+          },
+          "403": {
+            "description": "Rol insuficiente"
+          },
+          "404": {
+            "description": "Recurso no encontrado"
+          },
+          "409": {
+            "description": "Conflicto de datos"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "TaskInput": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "completed": {
+            "type": "boolean",
+            "title": "Completed",
+            "default": false
+          },
+          "category_id": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "title": "TaskInput"
+      },
+      "UserInput": {
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Nombre"
+          },
+          "correo": {
+            "type": "string",
+            "maxLength": 150,
+            "minLength": 3,
+            "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+            "title": "Correo"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "nombre",
+          "correo"
+        ],
+        "title": "UserInput"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

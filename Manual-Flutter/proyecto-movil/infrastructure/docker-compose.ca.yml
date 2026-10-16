@@ -1,0 +1,10 @@
+# Optional build-only trust for networks whose CA is already trusted in Windows.
+services:
+  backend:
+    build:
+      secrets:
+        - windows_ca
+
+secrets:
+  windows_ca:
+    file: ../.local/windows-ca.pem

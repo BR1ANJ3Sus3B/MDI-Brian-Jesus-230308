@@ -1,5 +1,7 @@
 # 📱 Prácticas de la Asignatura de Desarrollo Móvil Integral
 
+📖 [Manual de instalación y configuración de Flutter desde cero](Manual-Flutter/README.md): guía para Windows, Android Studio, VS Code y dispositivos Android.
+
 ## 🎓 Ingeniería en Desarrollo y Gestión de Software
 
 ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge\&logo=flutter\&logoColor=white)

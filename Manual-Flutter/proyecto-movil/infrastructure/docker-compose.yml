@@ -1,0 +1,118 @@
+services:
+  backend:
+    build:
+      context: ${BACKEND_CONTEXT:-../backend}
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      PGHOST: postgres
+      PGPORT: 5432
+      PGDATABASE: ${POSTGRES_DB:-app_mobile}
+      PGUSER: ${POSTGRES_USER:-developer}
+      PGPASSWORD: ${POSTGRES_PASSWORD:?Configura POSTGRES_PASSWORD}
+      MONGO_URL: ${MONGO_URL:-mongodb://mongo:27017/app_mobile}
+      MONGO_USER: ${MONGO_USER:-developer}
+      MONGO_PASSWORD: ${MONGO_PASSWORD:?Configura MONGO_PASSWORD}
+      MONGO_DB: app_mobile
+      KEYCLOAK_ISSUER: ${KEYCLOAK_PUBLIC_URL:-http://localhost:8080}/realms/app-mobile
+      KEYCLOAK_JWKS_URL: ${KEYCLOAK_URL:-http://keycloak:8080}/realms/app-mobile/protocol/openid-connect/certs
+      JWT_AUDIENCE: mobile-api
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+      keycloak:
+        condition: service_started
+    restart: unless-stopped
+    networks: [mobile]
+
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app_mobile}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_ADMIN_PASSWORD:?Configura POSTGRES_ADMIN_PASSWORD}
+      APP_DB_USER: ${POSTGRES_USER:-developer}
+      APP_DB_PASSWORD: ${POSTGRES_PASSWORD:?Configura POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../database/postgres/01-init.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
+      - ../database/postgres/02-schema.sql:/opt/schema.sql:ro
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U postgres -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+    networks: [mobile]
+
+  mongo:
+    image: mongo:8.0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?Configura MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: app_mobile
+      APP_MONGO_USER: ${MONGO_USER:-developer}
+      APP_MONGO_PASSWORD: ${MONGO_PASSWORD:?Configura MONGO_PASSWORD}
+    ports:
+      - "127.0.0.1:${MONGO_PORT:-27017}:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ../database/mongodb/init.js:/docker-entrypoint-initdb.d/init.js:ro
+    healthcheck:
+      test: [CMD, mongosh, --quiet, --eval, "quit(db.adminCommand('ping').ok ? 0 : 1)"]
+      interval: 5s
+      timeout: 10s
+      retries: 30
+    restart: unless-stopped
+    networks: [mobile]
+
+  keycloak-db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${KEYCLOAK_DB_PASSWORD:?Configura KEYCLOAK_DB_PASSWORD}
+    volumes:
+      - keycloak_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD, pg_isready, -U, keycloak, -d, keycloak]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+    networks: [mobile]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.8.0
+    command: [start-dev, --import-realm]
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD:?Configura KEYCLOAK_DB_PASSWORD}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:-admin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:?Configura KEYCLOAK_ADMIN_PASSWORD}
+      KC_HOSTNAME: ${KEYCLOAK_PUBLIC_URL:-http://localhost:8080}
+      KC_HEALTH_ENABLED: "true"
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./keycloak/app-mobile-realm.json:/opt/keycloak/data/import/app-mobile-realm.json:ro
+    depends_on:
+      keycloak-db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks: [mobile]
+
+volumes:
+  postgres_data:
+  mongo_data:
+  keycloak_data:
+
+networks:
+  mobile:
