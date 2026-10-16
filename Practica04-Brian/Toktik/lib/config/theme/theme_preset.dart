@@ -34,6 +34,10 @@ extension ThemePresetData on ThemePreset {
         ThemePreset.diaDeReyes => 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
       };
 
+  String? get musicAssetPath => this == ThemePreset.navidad
+      ? 'Audio/El Reno Rodolfo Canción popular navideña Villancico para niñas y niños.mp3'
+      : null;
+
   Color get primary => switch (this) {
         ThemePreset.toktik => const Color(0xFFFE2C55),
         ThemePreset.navidad => const Color(0xFFE53935),

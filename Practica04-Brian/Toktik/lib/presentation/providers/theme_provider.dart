@@ -58,7 +58,12 @@ class ThemeProvider extends ChangeNotifier {
     _musicError = null;
     try {
       await _audioPlayer.setReleaseMode(ReleaseMode.loop);
-      await _audioPlayer.play(UrlSource(_preset.musicUrl));
+      final assetPath = _preset.musicAssetPath;
+      if (assetPath != null) {
+        await _audioPlayer.play(AssetSource(assetPath));
+      } else {
+        await _audioPlayer.play(UrlSource(_preset.musicUrl));
+      }
       _musicPlaying = true;
     } catch (error) {
       _musicError = 'No se pudo reproducir ${_preset.musicTitle}.';

@@ -53,3 +53,6 @@ Cada modo incluye una pista instrumental pública distinta. El botón de nota
 musical en la cabecera la reproduce en bucle o la detiene; al cambiar de modo
 se detiene la pista anterior. Si el servidor musical no responde, la app
 conserva el modo y el feed y muestra el error en el estado del reproductor.
+Navidad usa el archivo local `assets/Audio/El Reno Rodolfo Canción popular
+navideña Villancico para niñas y niños.mp3`; se reproduce dentro de la app y no
+depende de Internet. Los demás modos conservan sus pistas públicas.

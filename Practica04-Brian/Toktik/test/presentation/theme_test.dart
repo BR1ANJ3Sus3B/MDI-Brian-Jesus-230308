@@ -18,6 +18,8 @@ void main() {
     expect(ThemePreset.values.map((preset) => preset.musicTitle), containsAll(
         <String>['Melodía navideña', 'Melodía de Día de Muertos',
           'Melodía de Día de Reyes']));
+    expect(ThemePreset.navidad.musicAssetPath,
+        'Audio/El Reno Rodolfo Canción popular navideña Villancico para niñas y niños.mp3');
   });
 
   testWidgets('el selector muestra los cuatro modos', (tester) async {
