@@ -14,8 +14,20 @@ Proyecto de la materia **MDI** (Desarrollo Movil) - Flutter.
 
 ---
 
+## Capturas
+
+<p align="center">
+  <img src="docs/capturas/captura-feed-1.png" width="300" alt="Feed vertical de TokTik con la cabecera, el video y los botones de accion" />
+  <img src="docs/capturas/captura-feed-2.png" width="300" alt="Segunda pagina del feed cargada con el scroll infinito" />
+</p>
+
+Capturas tomadas ejecutando la app en un viewport movil (412x915 px).
+
+---
+
 ## Tabla de contenidos
 
+- [Capturas](#capturas)
 - [Objetivo](#objetivo)
 - [Como ejecutar](#como-ejecutar)
 - [Dependencias](#dependencias)
