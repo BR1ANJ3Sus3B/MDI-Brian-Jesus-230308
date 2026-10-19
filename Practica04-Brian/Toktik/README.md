@@ -19,7 +19,7 @@ Proyecto de la materia **MDI** (Desarrollo Movil) - Flutter.
 [Abrir TokTik en Appetize](https://appetize.io/app/zymo5dgfld4dsba2orc2vju4t4)
 
 ## Diagrama Interactivo 
-[Diagrama Interactivo ](https://appetize.io/app/zymo5dgfld4dsba2orc2vju4t4))
+[Diagrama Interactivo ](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Practica04-Brian/Toktik/docs/architecture/toktik-arquitectura.html)
 
 Prueba la aplicación Android desde el navegador. Abre el enlace e inicia una sesión en el emulador.
 
