@@ -1,0 +1,47 @@
+name: practica04_brian
+description: "Practica 04 - TokTik: clone de TikTok en Flutter"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Iconos de estilo iOS (Cupertino).
+  cupertino_icons: ^1.0.8
+
+  # Inyeccion de dependencias / gestion de estado (ChangeNotifier).
+  provider: ^6.1.2
+
+  # Formato de numeros legibles (23.2K, 1.2M) usado en los likes y vistas.
+  intl: ^0.20.2
+
+  # Animaciones (SpinPerfect) del boton de audio.
+  animate_do: ^3.2.0
+
+  # Reproductor de video a pantalla completa.
+  video_player: ^2.9.2
+  http: ^1.2.2
+  localstore:
+    path: packages/localstore
+  crypto: ^3.0.7
+  audioplayers: ^6.8.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+  video_player_platform_interface: ^6.9.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/videos/
+    - assets/Audio/
+    - assets/icon/

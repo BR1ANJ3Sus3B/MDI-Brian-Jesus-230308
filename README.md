@@ -38,14 +38,12 @@ El objetivo es aplicar los fundamentos del desarrollo de aplicaciones móviles, 
 
 ## 📝 Prácticas
 
-|   No. | 📱 Práctica                                    | 📖 Descripción                                                                                                    | ⭐ Potenciador | 📌 Estatus  |
+| No. | 📱 Práctica | 📖 Descripción | ⭐ Potenciador | 📌 Estatus |
 | ----: | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------: | ----------- |
-| **1** | 📖 **Metodología**                             | Transcribir y comprender la metodología de trabajo y las fechas de evaluación de la asignatura.                   |           ⭐ 5 | ✅ Concluida |
-| **2** | 📱 [**Mi primera aplicación móvil con Flutter**](brian_mdi_230308/docs/) | Desarrollar una aplicación móvil utilizando Flutter, aplicando conceptos de `StatefulWidget` y `StatelessWidget`. |          ⭐ 20 | ✅ Concluida |
-| **3** | 💬 [**Hola Jarvis (Chat con Flutter)**](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/blob/main/Practica03/practica03_brianjesus_230308/README.md) | Desarrollar una aplicación de chat con Flutter y generar diagramas de arquitectura con Archify. |          ⭐ 20 | ✅ Concluida |
-
-
-
+| **1** | 📖 **Metodología** | Transcribir y comprender la metodología de trabajo y las fechas de evaluación de la asignatura. | ⭐ 5 | ✅ Concluida |
+| **2** | 📱 [**Mi primera aplicación móvil con Flutter**](brian_mdi_230308/docs/) | Desarrollar una aplicación móvil utilizando Flutter, aplicando conceptos de `StatefulWidget` y `StatelessWidget`. | ⭐ 20 | ✅ Concluida |
+| **3** | 💬 [**Hola Jarvis (Chat con Flutter)**](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/blob/main/Practica03/practica03_brianjesus_230308/README.md) | Desarrollar una aplicación de chat con Flutter y generar diagramas de arquitectura con Archify. | ⭐ 20 | ✅ Concluida |
+| **4** | 🎬 [**Toktik - Consumo de Videos con Flutter**](Practica04-Brian/Toktik/) | Desarrollar una aplicación móvil de videos cortos con Flutter, integrando videos locales y el consumo de contenido mediante las APIs de TikTok, Instagram y Facebook. También se implementa un feed vertical, reproducción de videos y arquitectura de datos para administrar las diferentes fuentes de contenido. | ⭐ 30 | concluida  |
 ---
 
 ## 🛠️ Tecnologías utilizadas
@@ -191,6 +189,16 @@ Las evidencias de las prácticas se irán incorporando en esta sección conforme
 
 💬 Chat en Flutter con un asistente simulado que responde tras 1.5 s con un texto
 aleatorio y un GIF de reacción, documentado con diagramas de arquitectura.
+
+### Manual de instalación publicado en GitHub Pages
+
+📘 Manual de 41 capítulos con la instalación desde cero de Windows, Android
+Studio, Visual Studio Code y dispositivos Android, incluido el proyecto
+integrador y su verificación.
+
+[Ver el manual en línea](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Manual-Flutter/proyecto-movil/docs/)
+
+![Captura del manual publicado en GitHub Pages](Manual-Flutter/proyecto-movil/Assets/captura-manual-sitio.png)
 
 ---
 
