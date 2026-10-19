@@ -35,6 +35,32 @@ Los nombres del catálogo pueden cambiar: revisa publicador y permisos antes de 
 
 *Zona de archivos, editor, terminal integrada y panel de extensiones.*
 
+## Guía visual de instalación
+
+![Paso 1. Página de descarga de Visual Studio Code para Windows.](../../Assets/10_fecha_septiembre_2026.png)
+
+*Paso 1. Página de descarga de Visual Studio Code para Windows.*
+
+![Paso 2. Localiza el instalador descargado en la carpeta Descargas.](../../Assets/12_fecha_septiembre_2026.png)
+
+*Paso 2. Localiza el instalador descargado en la carpeta Descargas.*
+
+![Paso 3. Abre el asistente de instalación y pulsa Siguiente.](../../Assets/11_fecha_septiembre_2026.png)
+
+*Paso 3. Abre el asistente de instalación y pulsa Siguiente.*
+
+![Paso 4. Revisa y acepta el acuerdo de licencia para continuar.](../../Assets/13_fecha_septiembre_2026.png)
+
+*Paso 4. Revisa y acepta el acuerdo de licencia para continuar.*
+
+![Paso 5. Selecciona las tareas adicionales, incluido agregar VS Code al PATH.](../../Assets/14_fecha_septiembre_2026.png)
+
+*Paso 5. Selecciona las tareas adicionales, incluido agregar VS Code al PATH.*
+
+![Paso 6. Finaliza la instalación y abre Visual Studio Code.](../../Assets/15_fecha_septiembre_2026.png)
+
+*Paso 6. Finaliza la instalación y abre Visual Studio Code.*
+
 ## Comandos principales y ejemplo práctico
 
 Desde `proyecto-movil`:

@@ -50,4 +50,16 @@ flutter run
 
 Cambia el texto, guarda y pulsa `r`. Si ejecutas las pruebas generadas del contador, actualízalas para este nuevo diseño; su resultado esperado ya no es un contador.
 
+## Creación y ejecución en imágenes
+
+![Creación de un proyecto Flutter desde PowerShell y generación de sus archivos.](../../Assets/08_fecha_septiembre_2026.png)
+
+*Creación de un proyecto Flutter desde PowerShell y generación de sus archivos.*
+
+![Ejecución del proyecto inicial de Flutter en un emulador Android.](../../Assets/09_fecha_septiembre_2026.png)
+
+*Ejecución del proyecto inicial de Flutter en un emulador Android.*
+
+La captura muestra el contador generado por Flutter antes de reemplazar lib/main.dart por el ejemplo de este capítulo.
+
 **E04:** pantalla, código y recarga. El integrador completo está en `mobile/flutter_app`; este ejercicio introduce widgets antes de incorporar red y autenticación.
