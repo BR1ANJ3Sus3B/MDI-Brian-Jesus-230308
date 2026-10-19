@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.practica04_brian"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

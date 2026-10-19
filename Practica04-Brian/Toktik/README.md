@@ -14,6 +14,12 @@ Proyecto de la materia **MDI** (Desarrollo Movil) - Flutter.
 
 ---
 
+## Demo en Appetize
+
+[Abrir TokTik en Appetize](https://appetize.io/app/zymo5dgfld4dsba2orc2vju4t4)
+
+Prueba la aplicación Android desde el navegador. Abre el enlace e inicia una sesión en el emulador.
+
 ## Capturas
 
 ### Navegador (build web)
@@ -58,6 +64,7 @@ Si el reproductor no aparece, descarga los archivos directamente:
 
 ## Tabla de contenidos
 
+- [Demo en Appetize](#demo-en-appetize)
 - [Capturas](#capturas)
 - [Videos](#videos)
 - [Objetivo](#objetivo)

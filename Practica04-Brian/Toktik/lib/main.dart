@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:practica04_brian/config/theme/app_theme.dart';
 import 'package:practica04_brian/domain/repositories/video_repository.dart';
+import 'package:practica04_brian/infrastructure/datasources/public_video_api.dart';
 import 'package:practica04_brian/infrastructure/repositories/feed_video_repository.dart';
 import 'package:practica04_brian/presentation/providers/discover_provider.dart';
 import 'package:practica04_brian/presentation/providers/theme_provider.dart';
@@ -14,8 +16,6 @@ Future<void> main() async {
   runApp(TokTikApp(themeProvider: themeProvider));
 }
 
-final VideoRepository _videoRepository = FeedVideoRepository();
-
 class TokTikApp extends StatelessWidget {
   final ThemeProvider themeProvider;
 
@@ -23,20 +23,34 @@ class TokTikApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ThemeProvider>.value(value: themeProvider),
-        ChangeNotifierProvider<DiscoverProvider>(
-          create: (_) => DiscoverProvider(_videoRepository),
-        ),
-        Provider<VideoRepository>.value(value: _videoRepository),
-      ],
+    return ChangeNotifierProvider<ThemeProvider>.value(
+      value: themeProvider,
       child: Consumer<ThemeProvider>(
-        builder: (context, theme, child) => MaterialApp(
-        title: 'TokTik',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.getTheme(theme.preset),
-        home: const SplashScreen(),
+        // Un modo nuevo descarta la navegación y el estado de la sesión anterior.
+        // El ThemeProvider permanece fuera para conservar la selección guardada.
+        builder: (context, theme, child) => MultiProvider(
+          key: ValueKey(theme.preset),
+          providers: [
+            Provider<http.Client>(
+              create: (_) => http.Client(),
+              dispose: (_, client) => client.close(),
+            ),
+            Provider<VideoRepository>(
+              create: (context) => FeedVideoRepository(
+                api: PublicVideoApi(context.read<http.Client>()),
+              ),
+            ),
+            ChangeNotifierProvider<DiscoverProvider>(
+              create: (context) =>
+                  DiscoverProvider(context.read<VideoRepository>()),
+            ),
+          ],
+          child: MaterialApp(
+            title: 'TokTik',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.getTheme(theme.preset),
+            home: const SplashScreen(),
+          ),
         ),
       ),
     );
