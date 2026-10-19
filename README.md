@@ -1,9 +1,5 @@
 # 📱 Prácticas de la Asignatura de Desarrollo Móvil Integral
 
-📖 [Manual de instalación y configuración de Flutter desde cero](Manual-Flutter/README.md): guía para Windows, Android Studio, VS Code y dispositivos Android.
-
-[Descargar el manual en PDF](Manual-Flutter/Manual-Flutter.pdf)
-
 ## 🎓 Ingeniería en Desarrollo y Gestión de Software
 
 ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge\&logo=flutter\&logoColor=white)
@@ -45,7 +41,9 @@ El objetivo es aplicar los fundamentos del desarrollo de aplicaciones móviles, 
 | **1** | 📖 **Metodología** | Transcribir y comprender la metodología de trabajo y las fechas de evaluación de la asignatura. | ⭐ 5 | ✅ Concluida |
 | **2** | 📱 [**Mi primera aplicación móvil con Flutter**](brian_mdi_230308/docs/) | Desarrollar una aplicación móvil utilizando Flutter, aplicando conceptos de `StatefulWidget` y `StatelessWidget`. | ⭐ 20 | ✅ Concluida |
 | **3** | 💬 [**Hola Jarvis (Chat con Flutter)**](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/blob/main/Practica03/practica03_brianjesus_230308/README.md) | Desarrollar una aplicación de chat con Flutter y generar diagramas de arquitectura con Archify. | ⭐ 20 | ✅ Concluida |
-| **4** | 🎬 [**Toktik - Consumo de Videos con Flutter**](Practica04-Brian/Toktik/) | Desarrollar una aplicación móvil de videos cortos con Flutter, integrando videos locales y el consumo de contenido mediante las APIs de TikTok, Instagram y Facebook. También se implementa un feed vertical, reproducción de videos y arquitectura de datos para administrar las diferentes fuentes de contenido. | ⭐ 30 | concluida  |
+| **4** | 🎬 [**Toktik - Consumo de Videos con Flutter**](Practica04-Brian/Toktik/) | Desarrollar una aplicación móvil de videos cortos con Flutter, integrando videos locales y contenido mediante las APIs de TikTok, Instagram y Facebook. Incluye feed vertical, reproducción de videos y arquitectura de datos. | ⭐ 30 | ✅ Concluida |
+| **5** | 📖 [**Manual de instalación y configuración de Flutter desde cero**](Manual-Flutter/README.md) | Elaborar un manual paso a paso para instalar y configurar Flutter en Windows, incluyendo Android Studio, Visual Studio Code, SDK de Android, variables de entorno y configuración de dispositivos Android. [📄 Descargar manual en PDF](Manual-Flutter/Manual-Flutter.pdf). | — | ✅ Concluida |
+
 ---
 
 ## 🛠️ Tecnologías utilizadas
