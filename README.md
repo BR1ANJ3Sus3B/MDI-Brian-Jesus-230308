@@ -2,6 +2,8 @@
 
 📖 [Manual de instalación y configuración de Flutter desde cero](Manual-Flutter/README.md): guía para Windows, Android Studio, VS Code y dispositivos Android.
 
+[Descargar el manual en PDF](Manual-Flutter/Manual-Flutter.pdf)
+
 ## 🎓 Ingeniería en Desarrollo y Gestión de Software
 
 ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge\&logo=flutter\&logoColor=white)
