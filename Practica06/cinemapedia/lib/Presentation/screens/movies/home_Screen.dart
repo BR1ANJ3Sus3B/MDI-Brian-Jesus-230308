@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MyWidget extends StatelessWidget {
-  final  name = 'home_screens.dart';
+  static const   name = 'home_screen.dart';
   const new({super.key});
 
   @override
