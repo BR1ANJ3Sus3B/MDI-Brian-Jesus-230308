@@ -1,14 +1,1 @@
-export 'movies/home_Screen.dart';
-
-
-
-
-
-
-
-
-
-
-
-
-
+﻿export 'movies/home_screen_view.dart';
