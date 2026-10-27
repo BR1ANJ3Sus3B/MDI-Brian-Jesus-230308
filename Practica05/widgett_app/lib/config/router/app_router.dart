@@ -37,7 +37,7 @@ final appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/animated',
+      path: '/animated-container',
       name: AnimatedScreen.name,
       builder: (context, state) => const AnimatedScreen(),
     ),
@@ -61,7 +61,7 @@ final appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/counter-river',
+      path: '/counter',
       name: CounterScreen.name,
       builder: (context, state) => const CounterScreen(),
     ),

@@ -6,15 +6,21 @@ import 'package:go_router/go_router.dart';
 class SlideInfo {
   final String title;
   final String caption;
-  final String imageUrl;
+  final IconData icon;
+  final String? imageAsset;
 
-  SlideInfo(this.title, this.caption, this.imageUrl);
+  const SlideInfo(this.title, this.caption, this.icon, {this.imageAsset});
 }
 
-final slides = <SlideInfo>[
-  SlideInfo('Busca la comida', 'Exercitation voluptate cillum eu aute dolor irure aliquip.', 'assets/images/1.png'),
-  SlideInfo('Entrega rápida', 'Ullamco ullamco duis labore quis occaecat culpa laborum id incididunt.', 'assets/images/2.png'),
-  SlideInfo('Disfruta la comida', 'Ea officia exercitation voluptate nostrud amet esse ut exercitation deserunt est enim est.', 'assets/images/3.png'),
+const slides = <SlideInfo>[
+  SlideInfo(
+    'Explora los widgets',
+    'Descubre componentes de Material 3 y practica con ejemplos interactivos.',
+    Icons.widgets_outlined,
+    imageAsset: 'assets/images/widgets-learning-hero.png',
+  ),
+  SlideInfo('Entrega rápida', 'Ullamco ullamco duis labore quis occaecat culpa laborum id incididunt.', Icons.delivery_dining_outlined),
+  SlideInfo('Disfruta la comida', 'Ea officia exercitation voluptate nostrud amet esse ut exercitation deserunt est enim est.', Icons.sentiment_satisfied_alt_outlined),
 ];
 
 
@@ -75,7 +81,8 @@ class _AppTutorialScreenState extends State<AppTutorialScreen> {
               (slideData) => _Slide(
                 title: slideData.title, 
                 caption: slideData.caption, 
-                imageUrl: slideData.imageUrl
+                icon: slideData.icon,
+                imageAsset: slideData.imageAsset,
               )
             ).toList(),
           ),
@@ -115,12 +122,14 @@ class _Slide extends StatelessWidget {
 
   final String title;
   final String caption;
-  final String imageUrl;
+  final IconData icon;
+  final String? imageAsset;
 
   const _Slide({
     required this.title, 
     required this.caption, 
-    required this.imageUrl
+    required this.icon,
+    this.imageAsset,
   });
 
   @override
@@ -136,7 +145,23 @@ class _Slide extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image( image: AssetImage( imageUrl )),
+            Center(
+              child: imageAsset == null
+                  ? Icon(
+                      icon,
+                      size: 180,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(24),
+                      child: Image.asset(
+                        imageAsset!,
+                        height: 220,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+            ),
             const SizedBox(height: 20 ),
             Text( title, style: titleStyle, ),
             const SizedBox(height: 10 ),

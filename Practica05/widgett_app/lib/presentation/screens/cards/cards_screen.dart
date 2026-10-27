@@ -1,247 +1,43 @@
 import 'package:flutter/material.dart';
 
-const cards = <Map<String,dynamic>>[
-  { 'elevation': 0.0, 'label': 'Elevation 0' },
-  { 'elevation': 1.0, 'label': 'Elevation 1' },
-  { 'elevation': 2.0, 'label': 'Elevation 2' },
-  { 'elevation': 3.0, 'label': 'Elevation 3' },
-  { 'elevation': 4.0, 'label': 'Elevation 4' },
-  { 'elevation': 5.0, 'label': 'Elevation 5' },
-];
-
-
-
-
-
 class CardsScreen extends StatelessWidget {
-
   static const String name = 'cards_screen';
-
   const CardsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cards Screen'),
-      ),
-      body: const _CardsView(),
-    );
-  }
-}
-
-class _CardsView extends StatelessWidget {
-  const _CardsView();
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          
-          ...cards.map( 
-            (card) => _CardType1( elevation: card['elevation'], label: card['label'] ),
-          ),
-
-          ...cards.map( 
-            (card) => _CardType2( elevation: card['elevation'], label: card['label'] ),
-          ),
-
-          ...cards.map( 
-            (card) => _CardType3( elevation: card['elevation'], label: card['label'] ),
-          ),
-
-          ...cards.map( 
-            (card) => _CardType4( elevation: card['elevation'], label: card['label'] ),
-          ),
-          
-          const SizedBox(height: 50 ),
-        ],
-      ),
-    );
-  }
-}
-
-
-class _CardType1 extends StatelessWidget {
-
-  final String label;
-  final double elevation;
-
-  const _CardType1({
-    required this.label,
-    required this.elevation
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: elevation,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-        child: Column(
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: const Text('Cards Screen')),
+        body: ListView(
+          padding: const EdgeInsets.all(20),
           children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: const Icon( Icons.more_vert_outlined),
-                onPressed: () {},
-              ),
-            ),
-
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Text( label ),
-            )
-
+            Text('Cards con imágenes', style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 12),
+            const _ImageCard(title: 'Espacio de trabajo', subtitle: 'Laptop y Material 3'),
+            const SizedBox(height: 12),
+            const _ImageCard(title: 'Diseño moderno', subtitle: 'Componentes reutilizables'),
+            const SizedBox(height: 28),
+            Text('Elevaciones', style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 12),
+            ...List.generate(6, (index) => Card(
+              elevation: index.toDouble(),
+              margin: const EdgeInsets.only(bottom: 14),
+              child: ListTile(leading: CircleAvatar(child: Text('$index')), title: Text('Elevation $index'), subtitle: const Text('Card de ejemplo')),
+            )),
           ],
         ),
-      ),
-    );
-  }
+      );
 }
 
-
-class _CardType2 extends StatelessWidget {
-
-  final String label;
-  final double elevation;
-
-  const _CardType2({
-    required this.label,
-    required this.elevation
-  });
-
+class _ImageCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  const _ImageCard({required this.title, required this.subtitle});
   @override
-  Widget build(BuildContext context) {
-
-    final colors = Theme.of(context).colorScheme;
-
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: const BorderRadius.all( Radius.circular(12) ),
-        side: BorderSide(
-          color: colors.outline
-        )
-      ),
-      elevation: elevation,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: const Icon( Icons.more_vert_outlined),
-                onPressed: () {},
-              ),
-            ),
-
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Text('$label - outline'),
-            )
-
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Card(
+        clipBehavior: Clip.antiAlias,
+        child: Column(children: [
+          Image.asset('assets/images/laptop-card.png', height: 180, width: double.infinity, fit: BoxFit.cover),
+          ListTile(leading: const Icon(Icons.laptop_mac_outlined), title: Text(title), subtitle: Text(subtitle)),
+        ]),
+      );
 }
-
-
-
-class _CardType3 extends StatelessWidget {
-
-  final String label;
-  final double elevation;
-
-  const _CardType3({
-    required this.label,
-    required this.elevation
-  });
-
-  @override
-  Widget build(BuildContext context) {
-
-    final colors = Theme.of(context).colorScheme;
-
-    return Card(
-      color: colors.surfaceVariant,
-      elevation: elevation,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: const Icon( Icons.more_vert_outlined),
-                onPressed: () {},
-              ),
-            ),
-
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Text('$label - Filled'),
-            )
-
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-
-class _CardType4 extends StatelessWidget {
-
-  final String label;
-  final double elevation;
-
-  const _CardType4({
-    required this.label,
-    required this.elevation
-  });
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Card(
-      clipBehavior: Clip.hardEdge,
-      elevation: elevation,
-      child: Stack(
-        children: [
-
-          Image.network(
-            'https://picsum.photos/id/${ elevation.toInt() }/600/350',
-            height: 350,
-            fit: BoxFit.cover,
-          ),
-
-
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only( bottomLeft: Radius.circular(20) )
-              ),
-              child: IconButton(
-                icon: const Icon( Icons.more_vert_outlined),
-                onPressed: () {},
-              ),
-            ),
-          ),
-
-
-        ],
-      ),
-    );
-  }
-}
-
-
-
-
