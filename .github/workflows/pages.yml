@@ -2,7 +2,7 @@ name: Publicar sitio en GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, practica05]
   workflow_dispatch:
 
 permissions:
