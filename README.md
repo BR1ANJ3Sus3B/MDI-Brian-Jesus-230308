@@ -2,10 +2,10 @@
 
 ## 🎓 Ingeniería en Desarrollo y Gestión de Software
 
-![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge\&logo=flutter\&logoColor=white)
-![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge\&logo=dart\&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge\&logo=git\&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge\&logo=github\&logoColor=white)
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 
 ---
 
@@ -21,41 +21,49 @@ El objetivo es aplicar los fundamentos del desarrollo de aplicaciones móviles, 
 
 ## 👨‍💻 Datos del estudiante
 
-| Dato                 | Información                                    |
-| -------------------- | ---------------------------------------------- |
-| 👤 **Nombre**        | Brian Jesús Mendoza Márquez                    |
-| 🎓 **Carrera**       | Ingeniería en Desarrollo y Gestión de Software |
-| 🆔 **Matrícula**     | 230308                                         |
-| 👥 **Grado y Grupo** | 9A                                             |
-| 📚 **Asignatura**    | Desarrollo Móvil Integral                      |
-| 👨‍🏫 **Docente**    | M.T.I. Marco A. Ramírez Hernández              |
-| 📅 **Periodo**       | Septiembre - Diciembre 2026                    |
+| Dato | Información |
+| --- | --- |
+| 👤 **Nombre** | Brian Jesús Mendoza Márquez |
+| 🎓 **Carrera** | Ingeniería en Desarrollo y Gestión de Software |
+| 🆔 **Matrícula** | 230308 |
+| 👥 **Grado y Grupo** | 10A |
+| 📚 **Asignatura** | Desarrollo Móvil Integral |
+| 👨‍🏫 **Docente** | M.T.I. Marco A. Ramírez Hernández |
+| 📅 **Periodo** | Septiembre - Diciembre 2026 |
 
 ---
 
 ## 📝 Prácticas
 
-| No. | 📱 Práctica | 📖 Descripción | ⭐ Potenciador | 📌 Estatus |
-| :---: | --- | --- | :---: | :---: |
-| **1** | 📖 **Metodología** | Transcribir y comprender la metodología de trabajo y las fechas de evaluación de la asignatura. | ⭐ 5 | ✅ Concluida |
-| **2** | 📱 [**Mi primera aplicación móvil con Flutter**](brian_mdi_230308/docs/) | Desarrollar una aplicación móvil utilizando Flutter, aplicando conceptos de `StatefulWidget` y `StatelessWidget`. | ⭐ 20 | ✅ Concluida |
-| **3** | 💬 [**Hola Jarvis (Chat con Flutter)**](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/blob/main/Practica03/practica03_brianjesus_230308/README.md) | Desarrollar una aplicación de chat con Flutter y generar diagramas de arquitectura con Archify. | ⭐ 20 | ✅ Concluida |
-| **4** | 🎬 [**Toktik - Consumo de Videos con Flutter**](Practica04-Brian/Toktik/)<br>🌐 [Ver diagrama interactivo](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Practica04-Brian/Toktik/docs/architecture/toktik-arquitectura.html) | Desarrollar una aplicación móvil de videos cortos con Flutter, integrando videos locales y contenido mediante las APIs de TikTok, Instagram y Facebook. Incluye feed vertical, reproducción de videos y arquitectura de datos. | ⭐ 30 | ✅ Concluida |
-| **Unidad 1** | 📖 [**Manual de instalación y configuración de Flutter desde cero**](Manual-Flutter/README.md)<br>📄 [Descargar manual en PDF](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/raw/refs/heads/main/Manual-Flutter/Manual-Flutter.pdf) | Elaborar un manual paso a paso para instalar y configurar Flutter en Windows, incluyendo Android Studio, Visual Studio Code, SDK de Android, variables de entorno y configuración de dispositivos Android. | 10 | ✅ Concluida |
-| **5** |  **Práctica 05**| Desarrollar una aplicación móvil denominada Widgets App, utilizando Flutter y Dart, que permita explorar e implementar diferentes componentes visuales e interactivos de Material Design 3, mediante la construcción de pantallas demostrativas organizadas a través de un sistema de navegación.| 40 | ✅ Concluida |
+| No. | Práctica | Potenciador | Estatus |
+| --- | --- | --- | --- |
+| 1 | Metodología | 5 | Concluida |
+| 2 | Mi primera aplicación móvil con Flutter | 20 | Concluida |
+| 3 | Hola Jarvis (Chat con Flutter) | 20 | Concluida |
+| 4 | Toktik - Consumo de Videos con Flutter | 30 | Concluida |
+| Unidad 1 | Manual de instalación de Flutter desde cero | 10 | Concluida |
+| 5 | Práctica 05 - Widgets App | 40 | Concluida |
+
+### Detalle de las prácticas
+
+1. 📖 **Metodología** — Transcribir y comprender la metodología de trabajo y las fechas de evaluación de la asignatura.
+2. 📱 [**Mi primera aplicación móvil con Flutter**](brian_mdi_230308/docs/) — Desarrollar una aplicación móvil utilizando Flutter, aplicando conceptos de `StatefulWidget` y `StatelessWidget`.
+3. 💬 [**Hola Jarvis (Chat con Flutter)**](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/blob/main/Practica03/practica03_brianjesus_230308/README.md) — Desarrollar una aplicación de chat con Flutter y generar diagramas de arquitectura con Archify.
+4. 🎬 [**Toktik - Consumo de Videos con Flutter**](Practica04-Brian/Toktik/) — Desarrollar una aplicación móvil de videos cortos con Flutter, integrando videos locales y contenido mediante las APIs de TikTok, Instagram y Facebook. Incluye feed vertical, reproducción de videos y arquitectura de datos. [🌐 Ver diagrama interactivo](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Practica04-Brian/Toktik/docs/architecture/toktik-arquitectura.html).
+5. 📖 [**Manual de instalación y configuración de Flutter desde cero**](Manual-Flutter/README.md) — Elaborar un manual paso a paso para instalar y configurar Flutter en Windows, incluyendo Android Studio, Visual Studio Code, SDK de Android, variables de entorno y configuración de dispositivos Android. [📄 Descargar manual en PDF](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/raw/refs/heads/main/Manual-Flutter/Manual-Flutter.pdf).
+6. 🧩 [**Práctica 05 - Widgets App**](Practica05/widgett_app/README.md) — Desarrollar una aplicación móvil denominada Widgets App utilizando Flutter y Dart, que permita explorar e implementar componentes visuales e interactivos de Material Design 3 mediante pantallas demostrativas y un sistema de navegación.
 
 ---
 
-
 ## 🛠️ Tecnologías utilizadas
 
-| Tecnología                | Descripción                                                                          |
-| ------------------------- | ------------------------------------------------------------------------------------ |
-| 💙 **Flutter**            | Framework utilizado para el desarrollo de aplicaciones multiplataforma.              |
-| 🎯 **Dart**               | Lenguaje de programación utilizado por Flutter.                                      |
-| 🌿 **Git**                | Sistema de control de versiones utilizado para administrar los cambios del proyecto. |
-| 🐙 **GitHub**             | Plataforma utilizada para alojar, administrar y documentar el código fuente.         |
-| 💻 **Visual Studio Code** | Editor utilizado para el desarrollo de las aplicaciones.                             |
+| Tecnología | Descripción |
+| --- | --- |
+| 💙 **Flutter** | Framework utilizado para el desarrollo de aplicaciones multiplataforma. |
+| 🎯 **Dart** | Lenguaje de programación utilizado por Flutter. |
+| 🌿 **Git** | Sistema de control de versiones utilizado para administrar los cambios del proyecto. |
+| 🐙 **GitHub** | Plataforma utilizada para alojar, administrar y documentar el código fuente. |
+| 💻 **Visual Studio Code** | Editor utilizado para el desarrollo de las aplicaciones. |
 
 ---
 
@@ -63,54 +71,33 @@ El objetivo es aplicar los fundamentos del desarrollo de aplicaciones móviles, 
 
 ```text
 MDI-Brian-Jesus-230308/
-│
-├── 📄 index.html            Portada de GitHub Pages
-├── 📄 .nojekyll             Desactiva el procesamiento de Jekyll
-│
-├── 📁 brian_mdi_230308/     Práctica 02 · Contador en Flutter
+├── 📄 index.html                         Portada de GitHub Pages
+├── 📄 .nojekyll                          Desactiva el procesamiento de Jekyll
+├── 📁 brian_mdi_230308/                  Práctica 02 · Contador en Flutter
 │   ├── 📱 lib/
 │   ├── 📄 pubspec.yaml
-│   └── 📁 docs/             Documentación y diagramas
-│
-└── 📁 Practica03/
-    └── 📁 practica03_brianjesus_230308/   Práctica 03 · Hola Jarvis
-        ├── 📱 lib/
-        │   ├── 📄 main.dart
-        │   ├── 📁 config/theme/
-        │   └── 📁 Presentencion/
-        │       ├── 📁 Models/
-        │       ├── 📁 Widgets/Chat/
-        │       ├── 📁 Widgets/shared/
-        │       └── 📁 chat/
-        ├── 🖼️ assets/        Imágenes y GIF de reacción
-        ├── 📁 test/          Smoke test y envío/recepción de mensajes
-        ├── 📁 tool/diagramas/exportar.mjs
-        ├── 📄 pubspec.yaml
-        └── 📁 docs/          Documentación y diagramas
+│   └── 📁 docs/                          Documentación y diagramas
+├── 📁 Practica03/
+│   └── 📁 practica03_brianjesus_230308/  Práctica 03 · Hola Jarvis
+│       ├── 📱 lib/
+│       ├── 🖼️ assets/                    Imágenes y GIF de reacción
+│       ├── 📁 test/                      Pruebas
+│       ├── 📄 pubspec.yaml
+│       └── 📁 docs/                      Documentación y diagramas
+├── 📁 Practica04-Brian/Toktik/           Práctica 04 · Toktik
+├── 📁 Practica05/widgett_app/            Práctica 05 · Widgets App
+│   ├── 📱 lib/
+│   ├── 🖼️ Assets/
+│   ├── 📄 pubspec.yaml
+│   └── 📁 docs/                          Documentación y diagramas
+└── 📁 Manual-Flutter/                    Unidad 1 · Manual de instalación
 ```
 
 ---
 
 ## 📱 Proyecto Flutter
 
-Las aplicaciones desarrolladas en las prácticas utilizan **Flutter** para crear interfaces multiplataforma.
-
-Entre los conceptos trabajados se encuentran:
-
-* Widgets.
-* `StatelessWidget`.
-* `StatefulWidget`.
-* `MaterialApp`.
-* `Scaffold`.
-* `AppBar`.
-* `Column`.
-* `Row`.
-* `Center`.
-* `Text`.
-* `FloatingActionButton`.
-* Manejo básico del estado.
-* Navegación y organización de pantallas.
-* Estructura de proyectos Flutter.
+Las aplicaciones desarrolladas en las prácticas utilizan **Flutter** para crear interfaces multiplataforma. Entre los conceptos trabajados se encuentran widgets, `StatelessWidget`, `StatefulWidget`, `MaterialApp`, `Scaffold`, `AppBar`, `Column`, `Row`, `Center`, `Text`, `FloatingActionButton`, manejo básico del estado, navegación, organización de pantallas y estructura de proyectos Flutter.
 
 ---
 
@@ -122,15 +109,10 @@ Para ejecutar cualquiera de los proyectos Flutter, es necesario contar con Flutt
 
 ```bash
 git clone https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308.git
-```
-
-### 2. Entrar al proyecto
-
-```bash
 cd MDI-Brian-Jesus-230308
 ```
 
-### 3. Entrar a la práctica
+### 2. Entrar a una práctica
 
 Cada práctica es un proyecto Flutter independiente:
 
@@ -140,23 +122,19 @@ cd brian_mdi_230308
 
 # Práctica 03 · Hola Jarvis
 cd Practica03/practica03_brianjesus_230308
+
+# Práctica 04 · Toktik
+cd Practica04-Brian/Toktik
+
+# Práctica 05 · Widgets App
+cd Practica05/widgett_app
 ```
 
-### 4. Instalar dependencias
+### 3. Instalar dependencias y ejecutar
 
 ```bash
 flutter pub get
-```
-
-### 5. Verificar dispositivos disponibles
-
-```bash
 flutter devices
-```
-
-### 6. Ejecutar la aplicación
-
-```bash
 flutter run
 ```
 
@@ -164,19 +142,13 @@ También es posible ejecutar el proyecto en un dispositivo específico:
 
 ```bash
 flutter run -d windows
-```
-
-o:
-
-```bash
+# o
 flutter run -d edge
 ```
 
 ---
 
 ## 📸 Evidencias
-
-Las evidencias de las prácticas se irán incorporando en esta sección conforme avance el desarrollo de la asignatura.
 
 ### Práctica 01 — Metodología
 
@@ -188,14 +160,19 @@ Las evidencias de las prácticas se irán incorporando en esta sección conforme
 
 ### Práctica 03 — Hola Jarvis
 
-💬 Chat en Flutter con un asistente simulado que responde tras 1.5 s con un texto
-aleatorio y un GIF de reacción, documentado con diagramas de arquitectura.
+💬 Chat en Flutter con un asistente simulado que responde tras 1.5 s con un texto aleatorio y un GIF de reacción, documentado con diagramas de arquitectura.
+
+### Práctica 04 — Toktik
+
+🎬 Aplicación móvil de videos cortos con un feed vertical, reproducción de videos y arquitectura de datos.
+
+### Práctica 05 — Widgets App
+
+🧩 Galería de componentes de Material Design 3 con navegación, tema dinámico, controles interactivos, animaciones y recursos locales. Consulta la [documentación de la práctica](Practica05/widgett_app/README.md).
 
 ### Manual de instalación publicado en GitHub Pages
 
-📘 Manual de 41 capítulos con la instalación desde cero de Windows, Android
-Studio, Visual Studio Code y dispositivos Android, incluido el proyecto
-integrador y su verificación.
+📘 Manual de 41 capítulos con la instalación desde cero de Windows, Android Studio, Visual Studio Code y dispositivos Android, incluido el proyecto integrador y su verificación.
 
 [Ver el manual en línea](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Manual-Flutter/proyecto-movil/docs/)
 
@@ -205,17 +182,15 @@ integrador y su verificación.
 
 ## 🎯 Objetivos
 
-Los principales objetivos de este repositorio son:
-
-* 📱 Aprender los fundamentos del desarrollo móvil.
-* 💙 Comprender el funcionamiento de Flutter.
-* 🎯 Aplicar los fundamentos del lenguaje Dart.
-* 🧩 Crear interfaces utilizando widgets.
-* 🔄 Comprender el manejo básico del estado.
-* 🌿 Utilizar Git para controlar versiones.
-* 🐙 Gestionar proyectos mediante GitHub.
-* 📚 Documentar correctamente las prácticas realizadas.
-* 🚀 Desarrollar progresivamente aplicaciones móviles.
+- 📱 Aprender los fundamentos del desarrollo móvil.
+- 💙 Comprender el funcionamiento de Flutter.
+- 🎯 Aplicar los fundamentos del lenguaje Dart.
+- 🧩 Crear interfaces utilizando widgets.
+- 🔄 Comprender el manejo básico del estado.
+- 🌿 Utilizar Git para controlar versiones.
+- 🐙 Gestionar proyectos mediante GitHub.
+- 📚 Documentar correctamente las prácticas realizadas.
+- 🚀 Desarrollar progresivamente aplicaciones móviles.
 
 ---
 
@@ -225,28 +200,21 @@ Los principales objetivos de este repositorio son:
 Práctica 01  ████████████████████ 100% ✅
 Práctica 02  ████████████████████ 100% ✅
 Práctica 03  ████████████████████ 100% ✅
-Práctica 04  ░░░░░░░░░░░░░░░░░░░░   0% 🚧
-Práctica 05  ░░░░░░░░░░░░░░░░░░░░   0% 🚧
+Práctica 04  ████████████████████ 100% ✅
+Práctica 05  ████████████████████ 100% ✅
 ```
-
-> 📌 **El progreso se actualizará conforme se realicen nuevas prácticas.**
 
 ---
 
 ## 📚 Aprendizaje
 
-Este repositorio representa el avance del aprendizaje en **Desarrollo Móvil Integral**, desde los conceptos básicos de Flutter y Dart hasta la construcción de aplicaciones móviles más completas.
-
-Cada práctica tiene como propósito reforzar los conocimientos adquiridos y documentar el proceso de desarrollo.
+Este repositorio representa el avance del aprendizaje en **Desarrollo Móvil Integral**, desde los conceptos básicos de Flutter y Dart hasta la construcción de aplicaciones móviles más completas. Cada práctica tiene como propósito reforzar los conocimientos adquiridos y documentar el proceso de desarrollo.
 
 ---
 
 ## 👨‍💻 Autor
 
-**Brian Jesús Mendoza Márquez**
-
-🎓 Ingeniería en Desarrollo y Gestión de Software
-🆔 Matrícula: **230308**
-📱 Desarrollo Móvil Integral
-
----
+- **Brian Jesús Mendoza Márquez**
+- 🎓 Ingeniería en Desarrollo y Gestión de Software
+- 🆔 Matrícula: **230308**
+- 📱 Desarrollo Móvil Integral
