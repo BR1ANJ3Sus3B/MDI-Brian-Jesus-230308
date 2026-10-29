@@ -1,33 +1,34 @@
+
 class Movie {
-  final int id;
-  final String title;
-  final String originalTitle;
-  final String originalLanguage;
-  final String overview;
-  final String posterPath;
+  final bool adult;
   final String backdropPath;
   final List<String> genreIds;
-  final DateTime? releaseDate;
+  final int id;
+  final String originalLanguage;
+  final String originalTitle;
+  final String overview;
   final double popularity;
+  final String posterPath;
+  final DateTime? releaseDate;
+  final String title;
+  final bool video;
   final double voteAverage;
   final int voteCount;
-  final bool adult;
-  final bool video;
 
-  const Movie({
-    required this.id,
-    required this.title,
-    required this.originalTitle,
-    required this.originalLanguage,
-    required this.overview,
-    required this.posterPath,
+  Movie({
+    required this.adult,
     required this.backdropPath,
     required this.genreIds,
-    required this.releaseDate,
+    required this.id,
+    required this.originalLanguage,
+    required this.originalTitle,
+    required this.overview,
     required this.popularity,
-    required this.voteAverage,
-    required this.voteCount,
-    required this.adult,
+    required this.posterPath,
+    required this.releaseDate,
+    required this.title,
     required this.video,
+    required this.voteAverage,
+    required this.voteCount
   });
 }

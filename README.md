@@ -33,18 +33,19 @@ El objetivo es aplicar los fundamentos del desarrollo de aplicaciones móviles, 
 
 ---
 
-
 ## 📝 Prácticas
 
 | No. | 📱 Práctica | 📖 Descripción | ⭐ Potenciador | 📌 Estatus |
-| ----: | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------: | ----------- |
+| :---: | --- | --- | :---: | :---: |
 | **1** | 📖 **Metodología** | Transcribir y comprender la metodología de trabajo y las fechas de evaluación de la asignatura. | ⭐ 5 | ✅ Concluida |
 | **2** | 📱 [**Mi primera aplicación móvil con Flutter**](brian_mdi_230308/docs/) | Desarrollar una aplicación móvil utilizando Flutter, aplicando conceptos de `StatefulWidget` y `StatelessWidget`. | ⭐ 20 | ✅ Concluida |
 | **3** | 💬 [**Hola Jarvis (Chat con Flutter)**](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/blob/main/Practica03/practica03_brianjesus_230308/README.md) | Desarrollar una aplicación de chat con Flutter y generar diagramas de arquitectura con Archify. | ⭐ 20 | ✅ Concluida |
-| **4** | 🎬 [**Toktik - Consumo de Videos con Flutter**](Practica04-Brian/Toktik/)<br>[Ver diagrama interactivo](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Practica04-Brian/Toktik/docs/architecture/toktik-arquitectura.html) | Desarrollar una aplicación móvil de videos cortos con Flutter, integrando videos locales y contenido mediante las APIs de TikTok, Instagram y Facebook. Incluye feed vertical, reproducción de videos y arquitectura de datos. | ⭐ 30 | ✅ Concluida |
-| **5** | 📖 [**Manual de instalación y configuración de Flutter desde cero**](Manual-Flutter/README.md) | Elaborar un manual paso a paso para instalar y configurar Flutter en Windows, incluyendo Android Studio, Visual Studio Code, SDK de Android, variables de entorno y configuración de dispositivos Android. [📄 Descargar manual en PDF](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/raw/refs/heads/main/Manual-Flutter/Manual-Flutter.pdf). | — | ✅ Concluida |
+| **4** | 🎬 [**Toktik - Consumo de Videos con Flutter**](Practica04-Brian/Toktik/)<br>🌐 [Ver diagrama interactivo](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Practica04-Brian/Toktik/docs/architecture/toktik-arquitectura.html) | Desarrollar una aplicación móvil de videos cortos con Flutter, integrando videos locales y contenido mediante las APIs de TikTok, Instagram y Facebook. Incluye feed vertical, reproducción de videos y arquitectura de datos. | ⭐ 30 | ✅ Concluida |
+| **Unidad 1** | 📖 [**Manual de instalación y configuración de Flutter desde cero**](Manual-Flutter/README.md)<br>📄 [Descargar manual en PDF](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/raw/refs/heads/main/Manual-Flutter/Manual-Flutter.pdf) | Elaborar un manual paso a paso para instalar y configurar Flutter en Windows, incluyendo Android Studio, Visual Studio Code, SDK de Android, variables de entorno y configuración de dispositivos Android. | 10 | ✅ Concluida |
+| **5** |  **Práctica 05**| Desarrollar una aplicación móvil denominada Widgets App, utilizando Flutter y Dart, que permita explorar e implementar diferentes componentes visuales e interactivos de Material Design 3, mediante la construcción de pantallas demostrativas organizadas a través de un sistema de navegación.| 40 | ✅ Concluida |
 
 ---
+
 
 ## 🛠️ Tecnologías utilizadas
 

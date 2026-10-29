@@ -25,7 +25,7 @@ class MovieDbResponse {
     );
 
     Map<String, dynamic> toJson() => {
-        "dates": dates == null ? null : dates!.toJson(),
+        "dates": dates?.toJson(),
         "page": page,
         "results": List<dynamic>.from(results.map((x) => x.toJson())),
         "total_pages": totalPages,
@@ -51,4 +51,6 @@ class Dates {
         "maximum": "${maximum.year.toString().padLeft(4, '0')}-${maximum.month.toString().padLeft(2, '0')}-${maximum.day.toString().padLeft(2, '0')}",
         "minimum": "${minimum.year.toString().padLeft(4, '0')}-${minimum.month.toString().padLeft(2, '0')}-${minimum.day.toString().padLeft(2, '0')}",
     };
-}1
+}
+
+

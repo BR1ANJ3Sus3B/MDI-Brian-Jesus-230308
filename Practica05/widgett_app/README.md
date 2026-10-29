@@ -2,6 +2,12 @@
 
 Aplicación educativa en Flutter para explorar widgets de Material Design 3. Incluye navegación, tema dinámico, gestión de estado, animaciones, controles interactivos y recursos locales.
 
+## Sitio en GitHub Pages
+
+La documentación y los diagramas interactivos de la práctica están disponibles en:
+
+[Ver Práctica 05 en GitHub Pages](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/)
+
 ## Objetivo
 
 Centralizar ejemplos funcionales de widgets comunes de Flutter en una aplicación móvil organizada por módulos. Cada pantalla permite probar un componente real, no una captura estática.
