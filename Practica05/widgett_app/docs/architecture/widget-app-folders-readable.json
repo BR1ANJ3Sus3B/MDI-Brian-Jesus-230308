@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Flutter Widget App — Arquitectura y carpetas",
+    "subtitle": "Práctica 05 | Flutter + Dart + Material 3",
+    "visual_preset": "blueprint",
+    "animation": "trace",
+    "quality_profile": "standard",
+    "viewBox": [1320, 980],
+    "repository": {"url":"https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308","provider":"github","link_mode":"local-only","revision":"56d16284c3a208426e4471d387f936c09bdb7b79"},
+    "views": [
+      {"id":"entry","label":"01 — Entrada y navegación","focus":["main","config","router","screens"],"note":"De main.dart a una pantalla mediante GoRouter."},
+      {"id":"presentation","label":"02 — Presentación y estado","focus":["presentation","screens","widgets","providers","theme"],"note":"Estructura de interfaz, widgets reutilizables y estado."},
+      {"id":"resources","label":"03 — Recursos y Android","focus":["assets","android","engine"],"note":"Assets locales y empaquetado para Android."}
+    ]
+  },
+  "components": [
+    {"id":"main","type":"frontend","label":"main.dart","sublabel":"ProviderScope · MaterialApp.router","pos":[70,120],"size":[180,72],"sources":[{"path":"Practica05/widgett_app/lib/main.dart","line":7}]},
+    {"id":"config","type":"messagebus","label":"lib/config","sublabel":"router · theme · menu","pos":[320,120],"size":[180,72],"sources":[{"path":"Practica05/widgett_app/lib/config/router/app_router.dart","line":5}]},
+    {"id":"router","type":"messagebus","label":"router/","sublabel":"app_router.dart · GoRouter","pos":[570,120],"size":[180,72],"sources":[{"path":"Practica05/widgett_app/lib/config/router/app_router.dart","line":5}]},
+    {"id":"theme","type":"backend","label":"theme/","sublabel":"app_theme.dart · ThemeData","pos":[820,120],"size":[180,72],"sources":[{"path":"Practica05/widgett_app/lib/config/theme/app_theme.dart","line":16}]},
+    {"id":"presentation","type":"frontend","label":"lib/presentation","sublabel":"Capa visual de la aplicación","pos":[70,330],"size":[200,72]},
+    {"id":"screens","type":"frontend","label":"screens/","sublabel":"8 ejemplos de widgets","pos":[350,330],"size":[280,72],"sources":[{"path":"Practica05/widgett_app/lib/presentation/screens/screens.dart","line":3}]},
+    {"id":"widgets","type":"frontend","label":"widgets/","sublabel":"side_menu.dart · NavigationDrawer","pos":[700,330],"size":[200,72],"sources":[{"path":"Practica05/widgett_app/lib/presentation/widgets/side_menu.dart","line":5}]},
+    {"id":"providers","type":"backend","label":"providers/","sublabel":"theme_provider · counter_provider","pos":[970,330],"size":[220,72],"sources":[{"path":"Practica05/widgett_app/lib/presentation/providers/theme_provider.dart","line":15}]},
+    {"id":"assets","type":"cloud","label":"assets/","sublabel":"images/ · recursos locales","pos":[220,550],"size":[200,72],"sources":[{"path":"Practica05/widgett_app/pubspec.yaml","line":53}]},
+    {"id":"android","type":"cloud","label":"android/","sublabel":"Android SDK · Gradle · APK","pos":[520,550],"size":[200,72],"sources":[{"path":"Practica05/widgett_app/android/app/build.gradle.kts","line":1}]},
+    {"id":"engine","type":"backend","label":"Flutter Engine","sublabel":"Dart VM · Skia / Impeller","pos":[820,550],"size":[200,72]},
+    {"id":"platforms","type":"external","label":"Targets","sublabel":"6 plataformas Flutter","pos":[1070,550],"size":[200,72]}
+  ],
+  "boundaries": [
+    {"kind":"region","label":"widgett_app","wraps":["main","config","router","theme","presentation","screens","widgets","providers","assets","engine"],"pad":32},
+    {"kind":"region","label":"Entrega y compilación Flutter","wraps":["android","platforms"],"pad":28}
+  ],
+  "connections": [
+    {"from":"main","to":"config","label":"configura"},
+    {"from":"config","to":"router","label":"GoRouter"},
+    {"from":"main","to":"presentation","label":"construye","fromSide":"bottom","toSide":"top"},
+    {"from":"router","to":"screens","label":"GoRoute","fromSide":"bottom","toSide":"top"},
+    {"from":"presentation","to":"screens","label":"pantallas"},
+    {"from":"providers","to":"theme","label":"actualiza","fromSide":"top","toSide":"bottom"},
+    {"from":"screens","to":"assets","label":"assets","fromSide":"bottom","toSide":"top"},
+    {"from":"screens","to":"engine","label":"renderiza","fromSide":"bottom","toSide":"top"}
+  ],
+  "cards": [{"dot":"amber","title":"Carpetas principales","items":["config centraliza rutas, temas y menú.","presentation organiza pantallas, widgets y providers.","assets y android completan recursos y entrega móvil."]}]
+}

@@ -1,97 +1,19 @@
 import 'package:flutter/material.dart';
 
-
 class MenuItem {
   final String title;
   final String subTitle;
   final String link;
   final IconData icon;
-
-  const MenuItem({
-    required this.title,
-    required this.subTitle,
-    required this.link,
-    required this.icon
-  });
+  const MenuItem({required this.title, required this.subTitle, required this.link, required this.icon});
 }
 
-
 const appMenuItems = <MenuItem>[
-
-
-  MenuItem(
-    title: 'Riverpod Counter', 
-    subTitle: 'Introducción a riverpod', 
-    link: '/counter-river', 
-    icon: Icons.add
-  ),
-
-  MenuItem(
-    title: 'Botones', 
-    subTitle: 'Varios botones en Flutter', 
-    link: '/buttons', 
-    icon: Icons.smart_button_outlined
-  ),
-
-  MenuItem(
-    title: 'Tarjetas', 
-    subTitle: 'Un contenedor estilizado', 
-    link: '/cards', 
-    icon: Icons.credit_card
-  ),
-
-  MenuItem(
-    title: 'Progress Indicators', 
-    subTitle: 'Generales y controlados', 
-    link: '/progress', 
-    icon: Icons.refresh_rounded
-  ),
-
-  MenuItem(
-    title: 'Snackbars y diálogos', 
-    subTitle: 'Indicadores en pantalla', 
-    link: '/snackbars', 
-    icon: Icons.info_outline
-  ),
-
-  MenuItem(
-    title: 'Animated container', 
-    subTitle: 'Stateful widget animado', 
-    link: '/animated', 
-    icon: Icons.check_box_outline_blank_rounded
-  ),
-
-  MenuItem(
-    title: 'UI Controls + Tiles', 
-    subTitle: 'Una serie de controles de Flutter', 
-    link: '/ui-controls', 
-    icon: Icons.car_rental_outlined
-  ),
-
-  MenuItem(
-    title: 'Introducción a la aplicación', 
-    subTitle: 'Pequeño tutorial introductorio', 
-    link: '/tutorial', 
-    icon: Icons.accessible_rounded
-  ),
-
-  MenuItem(
-    title: 'InfiniteScroll y Pull', 
-    subTitle: 'Listas infinitas y pull to refresh', 
-    link: '/infinite', 
-    icon: Icons.list_alt_rounded
-  ),
-
-  MenuItem(
-    title: 'Cambiar tema', 
-    subTitle: 'Cambiar tema de la aplicación', 
-    link: '/theme-changer', 
-    icon: Icons.color_lens_outlined
-  ),
-
-
-
+  MenuItem(title: 'Theme Changer', subTitle: 'Color y modo oscuro', link: '/theme-changer', icon: Icons.palette_outlined),
+  MenuItem(title: 'Buttons', subTitle: 'Botones de Material 3', link: '/buttons', icon: Icons.smart_button_outlined),
+  MenuItem(title: 'Cards', subTitle: 'Imagenes y elevaciones', link: '/cards', icon: Icons.credit_card_outlined),
+  MenuItem(title: 'Progress Indicators', subTitle: 'Progreso animado', link: '/progress', icon: Icons.donut_large_outlined),
+  MenuItem(title: 'Snackbars & Dialogs', subTitle: 'Mensajes y dialogos', link: '/snackbars', icon: Icons.chat_bubble_outline),
+  MenuItem(title: 'Animated Container', subTitle: 'Animaciones implicitas', link: '/animated-container', icon: Icons.animation_outlined),
+  MenuItem(title: 'Counter Screen', subTitle: 'Estado reactivo', link: '/counter', icon: Icons.add_circle_outline),
 ];
-
-
-

@@ -14,6 +14,15 @@ void main() {
   testWidgets('MainApp smoke test', (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(child: MainApp()));
 
-    expect(find.text('Flutter + Material 3'), findsOneWidget);
+    expect(find.text('Flutter Widgets'), findsOneWidget);
+  });
+
+  testWidgets('Home screen screenshot', (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(child: MainApp()));
+
+    await expectLater(
+      find.byType(MainApp),
+      matchesGoldenFile('../docs/screenshots/home.png'),
+    );
   });
 }

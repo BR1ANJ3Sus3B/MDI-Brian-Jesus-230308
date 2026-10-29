@@ -114,12 +114,24 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
             controller: scrollController,
             itemCount: imagesIds.length,
             itemBuilder: (context, index) {
-              return FadeInImage(
+              return Image.network(
+                'https://picsum.photos/id/${ imagesIds[index] }/500/300',
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: 300,
-                placeholder: const AssetImage('assets/images/jar-loading.gif'), 
-                image: NetworkImage('https://picsum.photos/id/${ imagesIds[index] }/500/300'),
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const SizedBox(
+                    height: 300,
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) => const SizedBox(
+                  height: 300,
+                  child: Center(
+                    child: Icon(Icons.broken_image_outlined, color: Colors.white),
+                  ),
+                ),
               );
             },
           ),

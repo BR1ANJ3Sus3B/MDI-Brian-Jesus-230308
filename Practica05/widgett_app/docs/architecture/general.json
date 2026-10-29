@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {"title": "Widget App · Arquitectura general", "quality_profile": "standard", "viewBox": [1200, 780]},
+  "layout": {"mode": "grid", "cols": 5, "gapX": 30, "gapY": 60, "cellW": 180, "cellH": 100},
+  "components": [
+    {"id":"user","type":"external","label":"Usuario","sublabel":"Interacciones táctiles","row":0,"col":0},
+    {"id":"app","type":"frontend","label":"Flutter Widget App","sublabel":"main.dart + ProviderScope","row":0,"col":1},
+    {"id":"router","type":"frontend","label":"MaterialApp.router","sublabel":"GoRouter y GoRoute","row":0,"col":2},
+    {"id":"screens","type":"frontend","label":"Pantallas","sublabel":"Home y 7 ejemplos","row":0,"col":3},
+    {"id":"widgets","type":"frontend","label":"Widgets Material 3","sublabel":"Scaffold · AppBar · Drawer","row":0,"col":4},
+    {"id":"state","type":"backend","label":"Estado y tema","sublabel":"Riverpod · setState","row":1,"col":4},
+    {"id":"theme","type":"frontend","label":"UI actualizada","sublabel":"ThemeData · ColorScheme","row":1,"col":3},
+    {"id":"android","type":"cloud","label":"Android build","sublabel":"Gradle + Android SDK","row":2,"col":2}
+  ],
+  "connections": [
+    {"from":"user","to":"app","label":"abre la app"},
+    {"from":"app","to":"router","label":"configura rutas"},
+    {"from":"router","to":"screens","label":"navega"},
+    {"from":"screens","to":"widgets","label":"compone UI"},
+    {"from":"widgets","to":"state","label":"callbacks","labelDy":24},
+    {"from":"state","to":"theme"},
+    {"from":"theme","to":"widgets","label":"reconstruye"},
+    {"from":"app","to":"android","label":"compila"}
+  ],
+  "cards": [
+    {"dot":"cyan","title":"Alcance","items":["Sin API, base de datos, autenticación ni servicios externos."]}
+  ]
+}
