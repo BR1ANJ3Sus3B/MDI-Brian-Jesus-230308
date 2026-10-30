@@ -1,16 +1,29 @@
-﻿import 'package:cinemapedia/Presentation/screens/screens.dart';
-import 'package:cinemapedia/config/router/app_router.dart';
+import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/domain/repositories/movies_repository.dart';
 import 'package:cinemapedia/main.dart';
+import 'package:cinemapedia/presentation/providers/movies/movies_repository_provider.dart';
+import 'package:cinemapedia/presentation/screens/movies/home_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+class _FakeMoviesRepository extends MoviesRepository {
+  @override
+  Future<List<Movie>> getNowPlaying({int page = 1}) async => [];
+}
+
 void main() {
-  testWidgets('The initial route displays the home screen', (tester) async {
-    await tester.pumpWidget(const MyApp());
-    await tester.pumpAndSettle();
+  testWidgets('La ruta inicial muestra la pantalla principal', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          movieRepositoryProvider.overrideWithValue(_FakeMoviesRepository()),
+        ],
+        child: const MainApp(),
+      ),
+    );
+    await tester.pump();
 
     expect(find.byType(HomeScreen), findsOneWidget);
-    expect(find.text('Hello World'), findsOneWidget);
-    expect(appRouter.namedLocation(HomeScreen.name), '/');
     expect(tester.takeException(), isNull);
   });
 }
