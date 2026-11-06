@@ -44,7 +44,7 @@ class MovieDetails {
   final List<ProductionCountry> productionCountries;
   final DateTime releaseDate;
   final int revenue;
-  final int runtime;
+  final int? runtime;
   final List<SpokenLanguage> spokenLanguages;
   final String status;
   final String tagline;
@@ -75,9 +75,11 @@ class MovieDetails {
         productionCountries: List<ProductionCountry>.from(
             json["production_countries"]
                 .map((x) => ProductionCountry.fromJson(x))),
-        releaseDate: DateTime.parse(json["release_date"]),
+        releaseDate:
+            DateTime.tryParse(json["release_date"]?.toString() ?? '') ??
+                DateTime(1900),
         revenue: json["revenue"],
-        runtime: json["runtime"],
+        runtime: json["runtime"] as int?,
         spokenLanguages: List<SpokenLanguage>.from(
             json["spoken_languages"].map((x) => SpokenLanguage.fromJson(x))),
         status: json["status"],

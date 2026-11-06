@@ -22,7 +22,9 @@ class MovieMapper {
       title: moviedb.title,
       video: moviedb.video,
       voteAverage: moviedb.voteAverage,
-      voteCount: moviedb.voteCount);
+      voteCount: moviedb.voteCount,
+      runtimeMinutes: null,
+      tagline: null);
 
   static Movie movieDetailsToEntity(MovieDetails moviedb) => Movie(
       adult: moviedb.adult,
@@ -42,5 +44,9 @@ class MovieMapper {
       title: moviedb.title,
       video: moviedb.video,
       voteAverage: moviedb.voteAverage,
-      voteCount: moviedb.voteCount);
+      voteCount: moviedb.voteCount,
+      runtimeMinutes: moviedb.runtime != null && moviedb.runtime! > 0
+          ? moviedb.runtime
+          : null,
+      tagline: moviedb.tagline.isNotEmpty ? moviedb.tagline : null);
 }
