@@ -23,6 +23,7 @@ typedef GetActorsCallback = Future<List<Actor>> Function(String movieId);
 
 class ActorsByMovieNotifier extends StateNotifier<Map<String, List<Actor>>> {
   final GetActorsCallback getActors;
+  bool _disposed = false;
 
   ActorsByMovieNotifier({
     required this.getActors,
@@ -32,6 +33,13 @@ class ActorsByMovieNotifier extends StateNotifier<Map<String, List<Actor>>> {
     if (state[movieId] != null) return;
 
     final List<Actor> actors = await getActors(movieId);
+    if (_disposed) return;
     state = {...state, movieId: actors};
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
   }
 }

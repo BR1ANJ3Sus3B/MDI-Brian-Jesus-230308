@@ -21,6 +21,7 @@ typedef GetMovieCallback = Future<Movie> Function(String movieId);
 
 class MovieMapNotifier extends StateNotifier<Map<String, Movie>> {
   final GetMovieCallback getMovie;
+  bool _disposed = false;
 
   MovieMapNotifier({
     required this.getMovie,
@@ -29,6 +30,13 @@ class MovieMapNotifier extends StateNotifier<Map<String, Movie>> {
   Future<void> loadMovie(String movieId) async {
     if (state[movieId] != null) return;
     final movie = await getMovie(movieId);
+    if (_disposed) return;
     state = {...state, movieId: movie};
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
   }
 }

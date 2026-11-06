@@ -6,7 +6,7 @@ final searchQueryProvider = StateProvider<String>((ref) => '');
 
 final searchedMoviesProvider =
     StateNotifierProvider<SearchedMoviesNotifier, List<Movie>>((ref) {
-  final movieRepository = ref.read(movieRepositoryProvider);
+  final movieRepository = ref.watch(movieRepositoryProvider);
 
   return SearchedMoviesNotifier(
       searchMovies: movieRepository.searchMovies, ref: ref);
@@ -17,6 +17,7 @@ typedef SearchMoviesCallback = Future<List<Movie>> Function(String query);
 class SearchedMoviesNotifier extends StateNotifier<List<Movie>> {
   final SearchMoviesCallback searchMovies;
   final Ref ref;
+  bool _disposed = false;
 
   SearchedMoviesNotifier({
     required this.searchMovies,
@@ -25,9 +26,16 @@ class SearchedMoviesNotifier extends StateNotifier<List<Movie>> {
 
   Future<List<Movie>> searchMoviesByQuery(String query) async {
     final List<Movie> movies = await searchMovies(query);
+    if (_disposed) return [];
     ref.read(searchQueryProvider.notifier).update((state) => query);
 
     state = movies;
     return movies;
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
   }
 }
