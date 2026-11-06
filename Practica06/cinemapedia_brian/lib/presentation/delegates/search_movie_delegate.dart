@@ -1,187 +1,194 @@
 import 'dart:async';
 
-import 'package:cinemapedia/config/helpers/human_formats.dart';
-import 'package:flutter/material.dart';
-import 'package:animate_do/animate_do.dart';
+import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/presentation/widgets/movies/movie_poster_card.dart';
+import 'package:flutter/material.dart';
 
 typedef SearchMoviesCallback = Future<List<Movie>> Function(String query);
 
 class SearchMovieDelegate extends SearchDelegate<Movie?> {
-  final SearchMoviesCallback searchMovies;
-  List<Movie> initialMovies;
-
-  StreamController<List<Movie>> debouncedMovies = StreamController.broadcast();
-  StreamController<bool> isLoadingStream = StreamController.broadcast();
-
-  Timer? _debounceTimer;
-
   SearchMovieDelegate({
     required this.searchMovies,
     required this.initialMovies,
-  }) : super(
-          searchFieldLabel: 'Buscar películas',
-          // textInputAction: TextInputAction.done
-        );
+  }) : super(searchFieldLabel: 'Buscar películas');
 
-  void clearStreams() {
-    debouncedMovies.close();
+  final SearchMoviesCallback searchMovies;
+  final List<Movie> initialMovies;
+  final StreamController<_SearchState> _results =
+      StreamController<_SearchState>.broadcast();
+  Timer? _debounce;
+  String? _scheduledQuery;
+  bool _closed = false;
+  late _SearchState _currentState = _SearchState(results: initialMovies);
+
+  void _emit(_SearchState state) {
+    _currentState = state;
+    if (!_closed) _results.add(state);
   }
 
-  void _onQueryChanged(String query) {
-    isLoadingStream.add(true);
+  void _search(String value) {
+    if (_scheduledQuery == value || _closed) return;
+    _scheduledQuery = value;
+    _debounce?.cancel();
+    if (value.trim().isEmpty) {
+      _emit(const _SearchState(results: []));
+      return;
+    }
 
-    if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
-
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
-      // if ( query.isEmpty ) {
-      //   debouncedMovies.add([]);
-      //   return;
-      // }
-
-      final movies = await searchMovies(query);
-      initialMovies = movies;
-      debouncedMovies.add(movies);
-      isLoadingStream.add(false);
+    _emit(const _SearchState(results: [], loading: true));
+    _debounce = Timer(const Duration(milliseconds: 400), () async {
+      try {
+        final movies = await searchMovies(value.trim());
+        if (!_closed && _scheduledQuery == value) {
+          _emit(_SearchState(results: _uniqueMovies(movies)));
+        }
+      } catch (_) {
+        if (!_closed && _scheduledQuery == value) {
+          _emit(const _SearchState(
+            results: [],
+            error:
+                'No se pudo conectar. Revisa tu conexión e inténtalo de nuevo.',
+          ));
+        }
+      }
     });
   }
 
-  Widget buildResultsAndSuggestions() {
-    return StreamBuilder(
-      initialData: initialMovies,
-      stream: debouncedMovies.stream,
-      builder: (context, snapshot) {
-        final movies = snapshot.data ?? [];
+  List<Movie> _uniqueMovies(Iterable<Movie> movies) => {
+        for (final movie in movies) movie.id: movie,
+      }.values.toList(growable: false);
 
-        return ListView.builder(
-          itemCount: movies.length,
-          itemBuilder: (context, index) => _MovieItem(
-            movie: movies[index],
-            onMovieSelected: (context, movie) {
-              clearStreams();
-              close(context, movie);
-            },
-          ),
-        );
-      },
-    );
+  void _closeStreams() {
+    if (_closed) return;
+    _closed = true;
+    _debounce?.cancel();
+    _results.close();
   }
 
-  // @override
-  // String get searchFieldLabel => 'Buscar película';
-
   @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [
-      StreamBuilder(
-        initialData: false,
-        stream: isLoadingStream.stream,
+  void close(BuildContext context, Movie? result) {
+    _closeStreams();
+    super.close(context, result);
+  }
+
+  Widget _buildResults(BuildContext context) => StreamBuilder<_SearchState>(
+        stream: _results.stream,
+        initialData: _currentState,
         builder: (context, snapshot) {
-          if (snapshot.data ?? false) {
-            return SpinPerfect(
-              duration: const Duration(seconds: 20),
-              spins: 10,
-              infinite: true,
-              child: IconButton(
-                  onPressed: () => query = '',
-                  icon: const Icon(Icons.refresh_rounded)),
+          final state = snapshot.data ?? const _SearchState(results: []);
+          if (state.loading) {
+            return const LinearProgressIndicator(
+                minHeight: 2, color: AppColors.cyan);
+          }
+          if (state.error != null) {
+            return _SearchMessage(
+                icon: Icons.wifi_off_rounded, message: state.error!);
+          }
+          if (state.results.isEmpty) {
+            return _SearchMessage(
+              icon: Icons.search_rounded,
+              message: query.trim().isEmpty
+                  ? 'Busca una película por título.'
+                  : 'No encontramos resultados para “${query.trim()}”.',
             );
           }
 
-          return FadeIn(
-            animate: query.isNotEmpty,
-            child: IconButton(
-                onPressed: () => query = '', icon: const Icon(Icons.clear)),
+          final width = MediaQuery.sizeOf(context).width;
+          final cardWidth = width >= 900 ? 180.0 : 148.0;
+          return Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(18),
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: cardWidth + 18,
+                mainAxisExtent: cardWidth * 1.5 + 94,
+                crossAxisSpacing: 14,
+                mainAxisSpacing: 16,
+              ),
+              itemCount: state.results.length,
+              itemBuilder: (context, index) => LayoutBuilder(
+                builder: (context, constraints) => MoviePosterCard(
+                  movie: state.results[index],
+                  width: constraints.maxWidth,
+                ),
+              ),
+            ),
           );
         },
-      ),
-    ];
-  }
+      );
 
   @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
+  List<Widget>? buildActions(BuildContext context) => [
+        if (query.isNotEmpty)
+          IconButton(
+            tooltip: 'Limpiar búsqueda',
+            onPressed: () {
+              query = '';
+              _search('');
+            },
+            icon: const Icon(Icons.close_rounded),
+          ),
+      ];
+
+  @override
+  Widget? buildLeading(BuildContext context) => IconButton(
+        tooltip: 'Volver',
         onPressed: () {
-          clearStreams();
           close(context, null);
         },
-        icon: const Icon(Icons.arrow_back_ios_new_rounded));
-  }
+        icon: const Icon(Icons.arrow_back_rounded),
+      );
 
   @override
   Widget buildResults(BuildContext context) {
-    return buildResultsAndSuggestions();
+    _search(query);
+    return Column(children: [_buildResults(context)]);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    _onQueryChanged(query);
-    return buildResultsAndSuggestions();
+    _search(query);
+    return Column(children: [_buildResults(context)]);
   }
 }
 
-class _MovieItem extends StatelessWidget {
-  final Movie movie;
-  final Function onMovieSelected;
+class _SearchState {
+  const _SearchState({
+    required this.results,
+    this.loading = false,
+    this.error,
+  });
 
-  const _MovieItem({required this.movie, required this.onMovieSelected});
+  final List<Movie> results;
+  final bool loading;
+  final String? error;
+}
+
+class _SearchMessage extends StatelessWidget {
+  const _SearchMessage({required this.icon, required this.message});
+
+  final IconData icon;
+  final String message;
 
   @override
-  Widget build(BuildContext context) {
-    final textStyles = Theme.of(context).textTheme;
-    final size = MediaQuery.of(context).size;
-
-    return GestureDetector(
-      onTap: () {
-        onMovieSelected(context, movie);
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Row(
-          children: [
-            // Image
-            SizedBox(
-              width: size.width * 0.2,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  movie.posterPath,
-                  loadingBuilder: (context, child, loadingProgress) =>
-                      FadeIn(child: child),
-                ),
-              ),
+  Widget build(BuildContext context) => Expanded(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(icon, size: 46, color: AppColors.secondaryText),
+                const SizedBox(height: 13),
+                Text(message,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(color: AppColors.secondaryText)),
+              ],
             ),
-
-            const SizedBox(width: 10),
-
-            // Description
-            SizedBox(
-              width: size.width * 0.7,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(movie.title, style: textStyles.titleMedium),
-                  (movie.overview.length > 100)
-                      ? Text('${movie.overview.substring(0, 100)}...')
-                      : Text(movie.overview),
-                  Row(
-                    children: [
-                      Icon(Icons.star_half_rounded,
-                          color: Colors.yellow.shade800),
-                      const SizedBox(width: 5),
-                      Text(
-                        HumanFormats.number(movie.voteAverage, 1),
-                        style: textStyles.bodyMedium!
-                            .copyWith(color: Colors.yellow.shade900),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }
