@@ -1,6 +1,7 @@
 import 'package:cinemapedia/domain/datasources/movies_datasource.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/domain/repositories/movies_repository.dart';
+import 'package:cinemapedia/domain/entities/regional_release_info.dart';
 
 class MovieRepositoryImpl extends MoviesRepository {
   final MoviesDatasource datasource;
@@ -29,6 +30,12 @@ class MovieRepositoryImpl extends MoviesRepository {
   @override
   Future<Movie> getMovieById(String id) {
     return datasource.getMovieById(id);
+  }
+
+  @override
+  Future<RegionalReleaseInfo> getRegionalReleaseInfo(
+      int movieId, String regionCode) {
+    return datasource.getRegionalReleaseInfo(movieId, regionCode);
   }
 
   @override
