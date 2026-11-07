@@ -5,6 +5,7 @@ import 'package:cinemapedia/presentation/providers/favorites/favorite_movies_pro
 import 'package:cinemapedia/presentation/widgets/movies/movies_slideshow.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:cinemapedia/l10n/l10n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +21,9 @@ void main() {
         ),
       ],
       child: MaterialApp(
+        locale: const Locale('es', 'MX'),
+        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
         home: Scaffold(
           body: MoviesSlideshow(
             movies: List.generate(

@@ -1,3 +1,4 @@
+import 'package:cinemapedia/l10n/l10n.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/delegates/search_movie_delegate.dart';
@@ -20,7 +21,7 @@ class CustomAppbar extends ConsumerWidget {
         children: [
           Builder(
             builder: (scaffoldContext) => IconButton(
-              tooltip: 'Abrir menú',
+              tooltip: context.l10n.openMenu,
               onPressed: () => Scaffold.of(scaffoldContext).openDrawer(),
               icon: const Icon(Icons.menu_rounded),
             ),
@@ -52,7 +53,7 @@ class CustomAppbar extends ConsumerWidget {
                         )),
                 if (!isCompact)
                   Text(
-                      '${region.flag} ${region.countryName} · Tu próxima historia empieza aquí',
+                      '${region.flag} ${region.localizedCountry(context.l10n)} · ${context.l10n.tagline}',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: AppColors.secondaryText,
                           )),
@@ -60,7 +61,7 @@ class CustomAppbar extends ConsumerWidget {
             ),
           ),
           IconButton(
-            tooltip: 'Buscar películas',
+            tooltip: context.l10n.searchMovies,
             onPressed: () {
               final searchedMovies = ref.read(searchedMoviesProvider);
               final searchQuery = ref.read(searchQueryProvider);
@@ -68,6 +69,7 @@ class CustomAppbar extends ConsumerWidget {
                 query: searchQuery,
                 context: context,
                 delegate: SearchMovieDelegate(
+                  searchLabel: context.l10n.searchMovies,
                   initialMovies: searchedMovies,
                   searchMovies: ref
                       .read(searchedMoviesProvider.notifier)
@@ -82,7 +84,7 @@ class CustomAppbar extends ConsumerWidget {
           ),
           const SizedBox(width: 4),
           IconButton.filledTonal(
-            tooltip: 'Favoritos',
+            tooltip: context.l10n.favorites,
             onPressed: () => context.push('/favorites'),
             icon: const Icon(Icons.favorite_rounded),
             style: IconButton.styleFrom(

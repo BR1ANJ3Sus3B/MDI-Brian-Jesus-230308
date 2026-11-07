@@ -1,3 +1,4 @@
+import 'package:cinemapedia/l10n/l10n.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/presentation/widgets/shared/custom_bottom_navigation.dart';
 import 'package:cinemapedia/presentation/widgets/shared/cinemapedia_drawer.dart';
@@ -9,36 +10,38 @@ class CategoriesScreen extends StatelessWidget {
 
   const CategoriesScreen({super.key});
 
-  static const _collections = [
-    (
-      'now-playing',
-      'En cines',
-      'Películas que están ahora en cartelera',
-      Icons.local_movies_rounded,
-      AppColors.cyan,
-    ),
-    (
-      'upcoming',
-      'Próximamente',
-      'Próximas fechas de estreno',
-      Icons.upcoming_rounded,
-      AppColors.purple,
-    ),
-    (
-      'popular',
-      'Populares',
-      'Lo más visto por la comunidad',
-      Icons.trending_up_rounded,
-      AppColors.amber,
-    ),
-    (
-      'top-rated',
-      'Mejor calificadas',
-      'Las mejor puntuadas',
-      Icons.star_rounded,
-      AppColors.cyan,
-    ),
-  ];
+  static List<(String, String, String, IconData, Color)> _collections(
+          BuildContext context) =>
+      [
+        (
+          'now-playing',
+          context.l10n.inTheaters,
+          context.l10n.nowPlayingDescription,
+          Icons.local_movies_rounded,
+          AppColors.cyan,
+        ),
+        (
+          'upcoming',
+          context.l10n.comingSoon,
+          context.l10n.upcomingDescription,
+          Icons.upcoming_rounded,
+          AppColors.purple,
+        ),
+        (
+          'popular',
+          context.l10n.popular,
+          context.l10n.popularDescription,
+          Icons.trending_up_rounded,
+          AppColors.amber,
+        ),
+        (
+          'top-rated',
+          context.l10n.topRated,
+          context.l10n.topRatedDescription,
+          Icons.star_rounded,
+          AppColors.cyan,
+        ),
+      ];
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
@@ -59,14 +62,14 @@ class CategoriesScreen extends StatelessWidget {
                           Row(
                             children: [
                               IconButton(
-                                tooltip: 'Volver al inicio',
+                                tooltip: context.l10n.backHome,
                                 onPressed: () => context.go('/'),
                                 icon: const Icon(Icons.arrow_back_rounded),
                               ),
                               const Spacer(),
                               Builder(
                                 builder: (scaffoldContext) => IconButton(
-                                  tooltip: 'Abrir menú',
+                                  tooltip: context.l10n.openMenu,
                                   onPressed: () =>
                                       Scaffold.of(scaffoldContext).openDrawer(),
                                   icon: const Icon(Icons.menu_rounded),
@@ -75,14 +78,14 @@ class CategoriesScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          Text('Explora por categorías',
+                          Text(context.l10n.exploreCategories,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineMedium
                                   ?.copyWith(fontWeight: FontWeight.w900)),
                           const SizedBox(height: 8),
                           Text(
-                            'Colecciones actualizadas con los datos de TheMovieDB.',
+                            context.l10n.categoriesDescription,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge
@@ -102,13 +105,15 @@ class CategoriesScreen extends StatelessWidget {
                     return SliverGrid.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: columns,
-                        mainAxisExtent: 124,
+                        mainAxisExtent: 140 *
+                            MediaQuery.textScalerOf(context).scale(14) /
+                            14,
                         crossAxisSpacing: 16,
                         mainAxisSpacing: 16,
                       ),
-                      itemCount: _collections.length,
+                      itemCount: _collections(context).length,
                       itemBuilder: (context, index) {
-                        final category = _collections[index];
+                        final category = _collections(context)[index];
                         return _CategoryTile(
                           title: category.$2,
                           description: category.$3,
@@ -131,6 +136,7 @@ class CategoriesScreen extends StatelessWidget {
               body: Row(
                 children: [
                   CustomBottomNavigation.rail(
+                    context: context,
                     selectedIndex: 1,
                     onDestinationSelected: (index) => _navigate(context, index),
                   ),
@@ -199,6 +205,8 @@ class _CategoryTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium

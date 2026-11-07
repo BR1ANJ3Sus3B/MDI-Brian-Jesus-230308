@@ -72,10 +72,114 @@ void main() {
     expect(china.certification, isNull);
     expect(china.releaseDate, isNull);
   });
+
+  test(
+      'fallback fills only missing text for the same ID and keeps regional dates',
+      () async {
+    final adapter = _RecordingAdapter(respond: (request) {
+      if (request.path == '/movie/10') {
+        expect(request.queryParameters['language'], 'en-US');
+        expect(request.queryParameters.containsKey('region'), isFalse);
+        return {
+          'id': 10,
+          'title': 'English title',
+          'overview': 'English synopsis',
+          'release_date': '2020-01-01'
+        };
+      }
+      return {
+        'page': 1,
+        'total_pages': 1,
+        'total_results': 1,
+        'results': [
+          {
+            'id': 10,
+            'title': '日本語の題名',
+            'overview': '',
+            'original_title': 'Original',
+            'genre_ids': [],
+            'poster_path': '/poster.jpg',
+            'release_date': '2026-11-06'
+          },
+        ]
+      };
+    });
+    final datasource = MoviedbDatasource(CinemaRegion.fromCode('JP'))
+      ..dio.httpClientAdapter = adapter;
+    final movies = await datasource.getNowPlaying();
+    expect(movies.single.title, '日本語の題名');
+    expect(movies.single.overview, 'English synopsis');
+    expect(movies.single.releaseDate, DateTime(2026, 11, 6));
+    await datasource.getNowPlaying();
+    expect(adapter.requests.where((request) => request.path == '/movie/10'),
+        hasLength(1));
+  });
+
+  test('optional fallback failure preserves movie and its original title',
+      () async {
+    final adapter = _RecordingAdapter(respond: (request) {
+      if (request.path == '/movie/10') throw StateError('offline');
+      return {
+        'page': 1,
+        'total_pages': 1,
+        'total_results': 1,
+        'results': [
+          {
+            'id': 10,
+            'title': '',
+            'overview': '',
+            'original_title': 'Original',
+            'genre_ids': []
+          },
+        ]
+      };
+    });
+    final datasource = MoviedbDatasource(CinemaRegion.mexico)
+      ..dio.httpClientAdapter = adapter;
+    final movies = await datasource.getNowPlaying();
+    expect(movies.single.title, 'Original');
+    expect(movies.single.overview, isEmpty);
+    expect(movies.single.releaseDate.year, 1900);
+  });
+
+  test('all seven countries retain only their official certification',
+      () async {
+    const certificates = {
+      'US': 'PG-13',
+      'MX': 'B15',
+      'DE': '16',
+      'JP': 'R15+',
+      'CN': '',
+      'RU': '16+',
+      'BR': '14'
+    };
+    final adapter = _RecordingAdapter(releaseDates: {
+      'results': [
+        for (final entry in certificates.entries)
+          {
+            'iso_3166_1': entry.key,
+            'release_dates': [
+              {
+                'type': 3,
+                'certification': entry.value,
+                'release_date': '2026-11-06T00:00:00Z'
+              },
+            ]
+          },
+      ]
+    });
+    final datasource = MoviedbDatasource(CinemaRegion.mexico)
+      ..releaseDatesDio.httpClientAdapter = adapter;
+    for (final entry in certificates.entries) {
+      final result = await datasource.getRegionalReleaseInfo(10, entry.key);
+      expect(result.certification, entry.value.isEmpty ? null : entry.value);
+    }
+  });
 }
 
 class _RecordingAdapter implements HttpClientAdapter {
-  _RecordingAdapter({this.releaseDates});
+  _RecordingAdapter({this.releaseDates, this.respond});
+  final Map<String, Object?> Function(RequestOptions)? respond;
 
   final Map<String, Object?>? releaseDates;
   final requests = <RequestOptions>[];
@@ -87,14 +191,16 @@ class _RecordingAdapter implements HttpClientAdapter {
     Future<void>? cancelFuture,
   ) async {
     requests.add(options);
-    final response = options.path.contains('/release_dates')
-        ? releaseDates ?? {'id': 10, 'results': []}
-        : {
-            'page': 1,
-            'results': [],
-            'total_pages': 1,
-            'total_results': 0,
-          };
+    final response = respond != null
+        ? respond!(options)
+        : options.path.contains('/release_dates')
+            ? releaseDates ?? {'id': 10, 'results': []}
+            : {
+                'page': 1,
+                'results': [],
+                'total_pages': 1,
+                'total_results': 0,
+              };
     return ResponseBody.fromString(
       jsonEncode(response),
       200,

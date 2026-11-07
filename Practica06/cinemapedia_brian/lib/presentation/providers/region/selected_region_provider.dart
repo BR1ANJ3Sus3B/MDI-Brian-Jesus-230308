@@ -7,6 +7,8 @@ final selectedRegionProvider =
   return SelectedRegionNotifier();
 });
 
+final regionTransitionProvider = StateProvider<bool>((ref) => false);
+
 final regionPreferencesReadyProvider = FutureProvider<void>((ref) async {
   await ref.read(selectedRegionProvider.notifier).ready;
 });
@@ -25,14 +27,16 @@ class SelectedRegionNotifier extends StateNotifier<CinemaRegion> {
   Future<void> _load() async {
     try {
       final preferences = await SharedPreferences.getInstance();
-      state = CinemaRegion.fromCode(preferences.getString(_storageKey));
+      if (mounted)
+        state = CinemaRegion.fromCode(preferences.getString(_storageKey));
     } catch (_) {
-      state = CinemaRegion.mexico;
+      if (mounted) state = CinemaRegion.mexico;
     }
   }
 
   Future<void> select(CinemaRegion region) async {
     await ready;
+    if (!mounted) return;
     if (state.code == region.code) return;
     state = region;
     final preferences = await SharedPreferences.getInstance();

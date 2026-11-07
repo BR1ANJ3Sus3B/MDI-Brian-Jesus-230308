@@ -1,3 +1,6 @@
+import 'package:cinemapedia/l10n/l10n.dart';
+import 'package:cinemapedia/presentation/widgets/shared/favorite_action.dart';
+import 'package:intl/intl.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
@@ -41,7 +44,7 @@ class _MovieScreenState extends ConsumerState<MovieScreen> {
       ]);
     } catch (_) {
       if (mounted && requestGeneration == _loadGeneration) {
-        setState(() => _loadError = 'No se pudo cargar la película.');
+        setState(() => _loadError = 'movie');
       }
     }
   }
@@ -68,7 +71,7 @@ class _MovieScreenState extends ConsumerState<MovieScreen> {
                     const Icon(Icons.wifi_off_rounded,
                         size: 40, color: AppColors.secondaryText),
                     const SizedBox(height: 12),
-                    Text(_loadError!),
+                    Text(context.l10n.movieError),
                     const SizedBox(height: 12),
                     FilledButton.icon(
                       onPressed: () {
@@ -76,7 +79,7 @@ class _MovieScreenState extends ConsumerState<MovieScreen> {
                         _loadMovie();
                       },
                       icon: const Icon(Icons.refresh_rounded),
-                      label: const Text('Reintentar'),
+                      label: Text(context.l10n.retry),
                     ),
                   ],
                 ),
@@ -94,7 +97,7 @@ class _MovieScreenState extends ConsumerState<MovieScreen> {
               expandedHeight: wide ? 470 : 380,
               pinned: true,
               leading: IconButton.filledTonal(
-                tooltip: 'Volver',
+                tooltip: context.l10n.back,
                 onPressed: () => context.pop(),
                 icon: const Icon(Icons.arrow_back_rounded),
                 style: IconButton.styleFrom(
@@ -106,7 +109,7 @@ class _MovieScreenState extends ConsumerState<MovieScreen> {
                 _FavoriteButton(movie: movie),
                 Builder(
                   builder: (scaffoldContext) => IconButton(
-                    tooltip: 'Abrir menú',
+                    tooltip: context.l10n.openMenu,
                     onPressed: () => Scaffold.of(scaffoldContext).openDrawer(),
                     icon: const Icon(Icons.menu_rounded),
                   ),
@@ -222,31 +225,32 @@ class _MovieDetails extends ConsumerWidget {
             if (regionalRelease.asData?.value.releaseDate != null)
               _InfoChip(
                 icon: Icons.calendar_month,
-                label: regionalRelease.asData!.value.releaseDate!
-                    .toIso8601String()
-                    .substring(0, 10),
+                label:
+                    DateFormat.yMMMd(Localizations.localeOf(context).toString())
+                        .format(regionalRelease.asData!.value.releaseDate!),
               )
             else if (year != null)
               _InfoChip(icon: Icons.calendar_month, label: year),
             if (movie.runtimeMinutes != null)
               _InfoChip(
                 icon: Icons.schedule_rounded,
-                label: '${movie.runtimeMinutes} min',
+                label: context.l10n.runtime(movie.runtimeMinutes!),
               ),
             _InfoChip(
               icon: Icons.star_rounded,
               label: movie.voteAverage > 0
-                  ? '${HumanFormats.rating(movie.voteAverage)} / 10'
-                  : 'Sin calificación',
+                  ? '${HumanFormats.rating(movie.voteAverage, Localizations.localeOf(context).toString())} / 10'
+                  : context.l10n.unrated,
               accent: AppColors.amber,
             ),
             _InfoChip(
               icon: Icons.verified_user_outlined,
               label: regionalRelease.when(
                 data: (value) => HumanFormats.certification(
-                    value.certification, region.code),
-                loading: () => 'Consultando clasificación…',
-                error: (error, stackTrace) => 'Sin clasificación disponible',
+                    value.certification, region.code,
+                    unavailable: context.l10n.noCertification),
+                loading: () => context.l10n.loadingCertification,
+                error: (error, stackTrace) => context.l10n.noCertification,
               ),
             ),
           ],
@@ -269,12 +273,12 @@ class _MovieDetails extends ConsumerWidget {
           ),
         ],
         const SizedBox(height: 28),
-        Text('Sinopsis',
+        Text(context.l10n.synopsis,
             style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
         const SizedBox(height: 10),
         Text(
           movie.overview.trim().isEmpty
-              ? 'No hay una sinopsis disponible para esta película.'
+              ? context.l10n.noSynopsis
               : movie.overview,
           style: textTheme.bodyLarge?.copyWith(
             color: AppColors.secondaryText,
@@ -283,7 +287,7 @@ class _MovieDetails extends ConsumerWidget {
         ),
         if (actors.isNotEmpty) ...[
           const SizedBox(height: 32),
-          Text('Reparto',
+          Text(context.l10n.cast,
               style:
                   textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
           const SizedBox(height: 14),
@@ -369,7 +373,9 @@ class _InfoChip extends StatelessWidget {
           children: [
             Icon(icon, size: 17, color: accent),
             const SizedBox(width: 7),
-            Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
+            Flexible(
+                child: Text(label,
+                    style: const TextStyle(fontWeight: FontWeight.w700))),
           ],
         ),
       );
@@ -386,8 +392,9 @@ class _FavoriteButton extends ConsumerWidget {
         .watch(favoriteMoviesProvider)
         .any((favorite) => favorite.id == movie.id);
     return IconButton.filledTonal(
-      tooltip: isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos',
-      onPressed: () => ref.read(favoriteMoviesProvider.notifier).toggle(movie),
+      tooltip:
+          isFavorite ? context.l10n.removeFavorite : context.l10n.addFavorite,
+      onPressed: () => toggleFavorite(context, ref, movie),
       icon: Icon(
           isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded),
       style: IconButton.styleFrom(

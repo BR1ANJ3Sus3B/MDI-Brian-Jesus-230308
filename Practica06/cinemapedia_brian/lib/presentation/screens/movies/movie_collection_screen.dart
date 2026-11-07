@@ -1,3 +1,4 @@
+import 'package:cinemapedia/l10n/l10n.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
@@ -52,11 +53,12 @@ class _MovieCollectionScreenState extends ConsumerState<MovieCollectionScreen> {
     final movies = _movies();
     final title = _title();
     final error = ref.watch(movieSectionErrorsProvider)[_errorKey()];
+    final loaded = ref.watch(loadedMovieSectionsProvider).contains(_errorKey());
     return Scaffold(
       drawer: const CinemapediaDrawer(),
       appBar: AppBar(
         leading: IconButton(
-          tooltip: 'Volver a categorías',
+          tooltip: context.l10n.backCategories,
           onPressed: () => context.pop(),
           icon: const Icon(Icons.arrow_back_rounded),
         ),
@@ -64,7 +66,7 @@ class _MovieCollectionScreenState extends ConsumerState<MovieCollectionScreen> {
         actions: [
           Builder(
             builder: (scaffoldContext) => IconButton(
-              tooltip: 'Abrir menú',
+              tooltip: context.l10n.openMenu,
               onPressed: () => Scaffold.of(scaffoldContext).openDrawer(),
               icon: const Icon(Icons.menu_rounded),
             ),
@@ -85,15 +87,21 @@ class _MovieCollectionScreenState extends ConsumerState<MovieCollectionScreen> {
                     color: AppColors.secondaryText,
                   ),
                   const SizedBox(height: 14),
-                  Text(error ?? 'Cargando $title…'),
+                  Text(
+                      error != null
+                          ? context.l10n.collectionError
+                          : loaded
+                              ? context.l10n.emptyMovies
+                              : context.l10n.loadingCollection(title),
+                      textAlign: TextAlign.center),
                   if (error != null) ...[
                     const SizedBox(height: 12),
                     FilledButton.icon(
                       onPressed: _retry,
                       icon: const Icon(Icons.refresh_rounded),
-                      label: const Text('Reintentar'),
+                      label: Text(context.l10n.retry),
                     ),
-                  ] else ...[
+                  ] else if (!loaded) ...[
                     const SizedBox(height: 12),
                     const CircularProgressIndicator(color: AppColors.cyan),
                   ],
@@ -134,11 +142,11 @@ class _MovieCollectionScreenState extends ConsumerState<MovieCollectionScreen> {
       };
 
   String _title() => switch (widget.type) {
-        'now-playing' => 'En cines',
-        'upcoming' => 'Próximamente',
-        'popular' => 'Populares',
-        'top-rated' => 'Mejor calificadas',
-        _ => 'Películas',
+        'now-playing' => context.l10n.inTheaters,
+        'upcoming' => context.l10n.comingSoon,
+        'popular' => context.l10n.popular,
+        'top-rated' => context.l10n.topRated,
+        _ => context.l10n.movies,
       };
 
   void _retry() {

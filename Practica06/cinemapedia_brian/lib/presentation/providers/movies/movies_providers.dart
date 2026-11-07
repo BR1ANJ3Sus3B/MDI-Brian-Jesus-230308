@@ -1,6 +1,7 @@
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cinemapedia/presentation/providers/region/selected_region_provider.dart';
 
 final nowPlayingMoviesProvider =
     StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
@@ -30,8 +31,15 @@ final topRatedMoviesProvider =
       fetchMoreMovies: fetchMoreMovies, errorKey: 'topRated', ref: ref);
 });
 
-final movieSectionErrorsProvider =
-    StateProvider<Map<String, String>>((ref) => const {});
+final movieSectionErrorsProvider = StateProvider<Map<String, String>>((ref) {
+  ref.watch(selectedRegionProvider);
+  return const {};
+});
+
+final loadedMovieSectionsProvider = StateProvider<Set<String>>((ref) {
+  ref.watch(selectedRegionProvider);
+  return const {};
+});
 
 typedef MovieCallback = Future<List<Movie>> Function({int page});
 
@@ -65,9 +73,15 @@ class MoviesNotifier extends StateNotifier<List<Movie>> {
       _updateError(null);
     } catch (_) {
       if (_disposed) return;
-      _updateError('No se pudo cargar esta colección. Comprueba tu conexión.');
+      _updateError('connection');
     } finally {
-      if (!_disposed) isLoading = false;
+      if (!_disposed) {
+        isLoading = false;
+        ref.read(loadedMovieSectionsProvider.notifier).state = {
+          ...ref.read(loadedMovieSectionsProvider),
+          errorKey,
+        };
+      }
     }
   }
 

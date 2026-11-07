@@ -1,3 +1,5 @@
+import 'package:cinemapedia/l10n/l10n.dart';
+import 'package:cinemapedia/presentation/widgets/shared/favorite_action.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
@@ -30,6 +32,10 @@ class _MoviesSlideshowState extends State<MoviesSlideshow> {
     if (_pageController.position.isScrollingNotifier.value) return;
     final target = index.clamp(0, widget.movies.length - 1);
     if (target == _currentPage) return;
+    if (MediaQuery.disableAnimationsOf(context)) {
+      _pageController.jumpToPage(target);
+      return;
+    }
     _animating = true;
     try {
       await _pageController.animateToPage(
@@ -200,10 +206,10 @@ class _FeaturedCard extends ConsumerWidget {
             top: 14,
             right: 74,
             child: IconButton.filledTonal(
-              tooltip:
-                  isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos',
-              onPressed: () =>
-                  ref.read(favoriteMoviesProvider.notifier).toggle(movie),
+              tooltip: isFavorite
+                  ? context.l10n.removeFavorite
+                  : context.l10n.addFavorite,
+              onPressed: () => toggleFavorite(context, ref, movie),
               icon: Icon(isFavorite
                   ? Icons.favorite_rounded
                   : Icons.favorite_border_rounded),
@@ -228,15 +234,16 @@ class _FeaturedCard extends ConsumerWidget {
                         const Icon(Icons.local_fire_department_rounded,
                             color: AppColors.cyan, size: 17),
                         const SizedBox(width: 6),
-                        Text('EN CARTELERA',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(
-                                  color: AppColors.cyan,
-                                  letterSpacing: 1.5,
-                                  fontWeight: FontWeight.w800,
-                                )),
+                        Flexible(
+                            child: Text(context.l10n.nowPlayingBadge,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                      color: AppColors.cyan,
+                                      letterSpacing: 1.5,
+                                      fontWeight: FontWeight.w800,
+                                    ))),
                       ],
                     ),
                     const SizedBox(height: 11),
@@ -272,17 +279,18 @@ class _FeaturedCard extends ConsumerWidget {
                         if (year != null) _MetaLabel(label: year),
                         _MetaLabel(
                           label: movie.voteAverage > 0
-                              ? '★ ${HumanFormats.rating(movie.voteAverage)} / 10'
-                              : 'Sin calificación',
+                              ? '★ ${HumanFormats.rating(movie.voteAverage, Localizations.localeOf(context).toString())} / 10'
+                              : context.l10n.unrated,
                           color: AppColors.amber,
                         ),
                         _MetaLabel(
                           label: regionalRelease.when(
                             data: (value) => HumanFormats.certification(
-                                value.certification, region.code),
-                            loading: () => 'Consultando clasificación…',
+                                value.certification, region.code,
+                                unavailable: context.l10n.noCertification),
+                            loading: () => context.l10n.loadingCertification,
                             error: (error, stackTrace) =>
-                                'Sin clasificación disponible',
+                                context.l10n.noCertification,
                           ),
                         ),
                       ],
@@ -290,7 +298,7 @@ class _FeaturedCard extends ConsumerWidget {
                     if (titleIsUnlocalized) ...[
                       const SizedBox(height: 5),
                       Text(
-                        'La API no devolvió título localizado; se muestra el original.',
+                        context.l10n.originalTitleNotice,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
@@ -318,7 +326,7 @@ class _FeaturedCard extends ConsumerWidget {
                     FilledButton.icon(
                       onPressed: () => context.push('/movie/${movie.id}'),
                       icon: const Icon(Icons.play_arrow_rounded),
-                      label: const Text('Ver detalles'),
+                      label: Text(context.l10n.viewDetails),
                       style: FilledButton.styleFrom(
                         backgroundColor: AppColors.cyan,
                         foregroundColor: AppColors.background,
@@ -406,8 +414,8 @@ class _CarouselNavigationState extends State<_CarouselNavigation> {
       child: Semantics(
         button: true,
         enabled: enabled,
-        label: left ? 'Película anterior' : 'Película siguiente',
-        hint: 'Doble toque en la imagen para volver a la primera película',
+        label: left ? context.l10n.previousMovie : context.l10n.nextMovie,
+        hint: context.l10n.carouselHint,
         onTap: enabled ? (left ? widget.onPrevious : widget.onNext) : null,
         child: AnimatedScale(
           scale: _pressedLeft == left ? 0.9 : 1,

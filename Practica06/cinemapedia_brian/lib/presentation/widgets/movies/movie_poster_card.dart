@@ -1,3 +1,5 @@
+import 'package:cinemapedia/l10n/l10n.dart';
+import 'package:cinemapedia/presentation/widgets/shared/favorite_action.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
@@ -103,9 +105,9 @@ class _FavoriteToggle extends ConsumerWidget {
       shape: const CircleBorder(),
       child: IconButton(
         visualDensity: VisualDensity.compact,
-        tooltip: isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos',
-        onPressed: () =>
-            ref.read(favoriteMoviesProvider.notifier).toggle(movie),
+        tooltip:
+            isFavorite ? context.l10n.removeFavorite : context.l10n.addFavorite,
+        onPressed: () => toggleFavorite(context, ref, movie),
         icon: Icon(
           isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
           color: isFavorite ? AppColors.cyan : Colors.white,
@@ -123,7 +125,10 @@ class _RatingBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final label = rating <= 0 ? '—' : HumanFormats.rating(rating);
+    final label = rating <= 0
+        ? '—'
+        : HumanFormats.rating(
+            rating, Localizations.localeOf(context).toString());
     return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.black.withValues(alpha: 0.72),

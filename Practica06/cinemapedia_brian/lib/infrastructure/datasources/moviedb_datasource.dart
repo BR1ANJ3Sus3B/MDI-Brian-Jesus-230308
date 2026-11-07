@@ -14,6 +14,8 @@ class MoviedbDatasource extends MoviesDatasource {
   MoviedbDatasource(this.region)
       : dio = Dio(BaseOptions(
           baseUrl: 'https://api.themoviedb.org/3',
+          connectTimeout: const Duration(seconds: 15),
+          receiveTimeout: const Duration(seconds: 15),
           queryParameters: {
             'api_key': Environment.theMovieDbKey,
             'language': region.languageCode,
@@ -27,9 +29,41 @@ class MoviedbDatasource extends MoviesDatasource {
   final CinemaRegion region;
   final Dio dio;
   final Dio releaseDatesDio;
+  final Map<int, Future<Map<String, dynamic>>> _englishFallbacks = {};
 
-  List<Movie> _jsonToMovies(Map<String, dynamic> json) {
-    final movieDBResponse = MovieDbResponse.fromJson(json);
+  Future<Map<String, dynamic>> _withFallback(
+      Map<String, dynamic> source) async {
+    final data = Map<String, dynamic>.from(source);
+    bool missing(String field) => (data[field] as String? ?? '').trim().isEmpty;
+    if (region.languageCode != 'en-US' &&
+        (missing('title') || missing('overview'))) {
+      try {
+        final id = data['id'] as int;
+        final fallback = await _englishFallbacks.putIfAbsent(id, () async {
+          final response = await dio
+              .get('/movie/$id', queryParameters: {'language': 'en-US'});
+          return Map<String, dynamic>.from(response.data);
+        });
+        // Only fill missing textual fields for this same movie. Never replace
+        // the regional release date, certification, order or membership.
+        for (final field in ['title', 'overview']) {
+          if (missing(field)) data[field] = fallback[field] ?? '';
+        }
+      } catch (_) {
+        _englishFallbacks.remove(data['id']);
+        // Keep the successful regional response if the optional fallback fails.
+      }
+    }
+    if (missing('title')) data['title'] = data['original_title'] ?? '';
+    data['overview'] ??= '';
+    return data;
+  }
+
+  Future<List<Movie>> _jsonToMovies(Map<String, dynamic> json) async {
+    final results = await Future.wait((json['results'] as List<dynamic>)
+        .map((item) => _withFallback(Map<String, dynamic>.from(item))));
+    final movieDBResponse =
+        MovieDbResponse.fromJson({...json, 'results': results});
 
     final List<Movie> movies = movieDBResponse.results
         .where((moviedb) => moviedb.posterPath != 'no-poster')
@@ -86,7 +120,8 @@ class MoviedbDatasource extends MoviesDatasource {
       throw Exception('Movie with id: $id not found');
     }
 
-    final movieDetails = MovieDetails.fromJson(response.data);
+    final movieDetails =
+        MovieDetails.fromJson(await _withFallback(response.data));
     final Movie movie = MovieMapper.movieDetailsToEntity(movieDetails);
     return movie;
   }

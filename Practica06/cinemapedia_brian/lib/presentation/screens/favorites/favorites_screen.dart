@@ -1,3 +1,5 @@
+import 'package:cinemapedia/l10n/l10n.dart';
+import 'package:cinemapedia/presentation/providers/favorites/localized_favorites_provider.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/presentation/providers/favorites/favorite_movies_provider.dart';
 import 'package:cinemapedia/presentation/widgets/movies/movie_poster_card.dart';
@@ -14,7 +16,10 @@ class FavoritesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final movies = ref.watch(favoriteMoviesProvider);
+    final saved = ref.watch(favoriteMoviesProvider);
+    final localized = ref.watch(localizedFavoritesProvider);
+    final movies =
+        localized.isLoading ? saved : localized.asData?.value ?? saved;
     return LayoutBuilder(builder: (context, constraints) {
       final wide = constraints.maxWidth >= 1000;
       final body = CustomScrollView(
@@ -29,7 +34,7 @@ class FavoritesScreen extends ConsumerWidget {
                   child: Row(
                     children: [
                       IconButton(
-                        tooltip: 'Volver',
+                        tooltip: context.l10n.back,
                         onPressed: () => context.go('/'),
                         icon: const Icon(Icons.arrow_back_rounded),
                       ),
@@ -38,12 +43,12 @@ class FavoritesScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Mi lista',
+                            Text(context.l10n.myList,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineMedium
                                     ?.copyWith(fontWeight: FontWeight.w900)),
-                            Text('${movies.length} títulos guardados',
+                            Text(context.l10n.savedTitles(movies.length),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
@@ -58,7 +63,7 @@ class FavoritesScreen extends ConsumerWidget {
                           const SizedBox(width: 6),
                           Builder(
                             builder: (scaffoldContext) => IconButton(
-                              tooltip: 'Abrir menú',
+                              tooltip: context.l10n.openMenu,
                               onPressed: () =>
                                   Scaffold.of(scaffoldContext).openDrawer(),
                               icon: const Icon(Icons.menu_rounded),
@@ -92,14 +97,14 @@ class FavoritesScreen extends ConsumerWidget {
                             size: 42, color: AppColors.cyan),
                       ),
                       const SizedBox(height: 20),
-                      Text('Tu lista empieza aquí',
+                      Text(context.l10n.emptyFavorites,
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge
                               ?.copyWith(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
                       Text(
-                        'Guarda las películas que quieras ver y las encontrarás aquí.',
+                        context.l10n.emptyFavoritesDescription,
                         textAlign: TextAlign.center,
                         style: Theme.of(context)
                             .textTheme
@@ -110,7 +115,7 @@ class FavoritesScreen extends ConsumerWidget {
                       FilledButton.icon(
                         onPressed: () => context.go('/'),
                         icon: const Icon(Icons.explore_outlined),
-                        label: const Text('Explorar películas'),
+                        label: Text(context.l10n.exploreMovies),
                       ),
                     ],
                   ),
@@ -145,6 +150,7 @@ class FavoritesScreen extends ConsumerWidget {
           body: Row(
             children: [
               CustomBottomNavigation.rail(
+                context: context,
                 selectedIndex: 2,
                 onDestinationSelected: (index) => _navigate(context, index),
               ),

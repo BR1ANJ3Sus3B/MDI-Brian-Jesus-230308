@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:cinemapedia/config/locale/cinema_region.dart';
+import 'package:cinemapedia/l10n/l10n.dart';
+import 'package:cinemapedia/presentation/widgets/shared/region_transition.dart';
 
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +13,7 @@ import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
 
   runApp(const ProviderScope(child: MainApp()));
@@ -25,6 +29,7 @@ class MainApp extends ConsumerStatefulWidget {
 class _MainAppState extends ConsumerState<MainApp> {
   bool _regionReady = false;
   String? _lastRefreshedRegionCode;
+  int _catalogGeneration = 0;
 
   @override
   void initState() {
@@ -41,8 +46,9 @@ class _MainAppState extends ConsumerState<MainApp> {
   }
 
   Future<void> _reloadRegionalCatalog() async {
+    final generation = ++_catalogGeneration;
     await Future<void>.delayed(Duration.zero);
-    if (!mounted) return;
+    if (!mounted || generation != _catalogGeneration) return;
 
     ref.invalidate(nowPlayingMoviesProvider);
     ref.invalidate(popularMoviesProvider);
@@ -66,7 +72,15 @@ class _MainAppState extends ConsumerState<MainApp> {
       unawaited(_reloadRegionalCatalog());
     });
 
+    final region = ref.watch(selectedRegionProvider);
     return MaterialApp.router(
+      locale: region.locale,
+      supportedLocales: CinemaRegion.all.map((region) => region.locale),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      builder: (context, child) =>
+          ref.watch(regionPreferencesReadyProvider).isLoading
+              ? const ColoredBox(color: AppColors.background)
+              : RegionTransition(child: child ?? const SizedBox.shrink()),
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
       theme: AppTheme().getTheme(),

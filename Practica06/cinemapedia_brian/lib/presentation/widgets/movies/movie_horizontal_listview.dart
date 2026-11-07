@@ -1,3 +1,4 @@
+import 'package:cinemapedia/l10n/l10n.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/widgets/movies/movie_poster_card.dart';
@@ -106,7 +107,7 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
                   if (widget.onSeeAll != null)
                     TextButton(
                       onPressed: widget.onSeeAll,
-                      child: const Text('Ver todas'),
+                      child: Text(context.l10n.seeAll),
                     ),
                 ],
               ),

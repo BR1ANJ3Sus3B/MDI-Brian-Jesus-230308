@@ -1,3 +1,4 @@
+import 'package:cinemapedia/l10n/l10n.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:cinemapedia/presentation/widgets/movies/movie_horizontal_listview.dart';
@@ -34,6 +35,7 @@ class HomeScreen extends StatelessWidget {
             body: Row(
               children: [
                 CustomBottomNavigation.rail(
+                  context: context,
                   selectedIndex: 0,
                   onDestinationSelected: (index) => _navigate(context, index),
                 ),
@@ -87,7 +89,7 @@ class _HomeView extends ConsumerWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 4, 24, 17),
-                    child: Text('Historias que te van a encantar',
+                    child: Text(context.l10n.stories,
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   color: AppColors.secondaryText,
@@ -110,9 +112,9 @@ class _HomeView extends ConsumerWidget {
                             const Icon(Icons.wifi_off_rounded,
                                 color: AppColors.amber),
                             const SizedBox(width: 10),
-                            const Expanded(
-                                child: Text(
-                                    'Algunas colecciones no están disponibles.')),
+                            Expanded(
+                                child:
+                                    Text(context.l10n.collectionsUnavailable)),
                             TextButton(
                               onPressed: () {
                                 ref
@@ -128,18 +130,37 @@ class _HomeView extends ConsumerWidget {
                                     .read(topRatedMoviesProvider.notifier)
                                     .loadNextPage();
                               },
-                              child: const Text('Reintentar'),
+                              child: Text(context.l10n.retry),
                             ),
                           ],
                         ),
                       ),
                     ),
-                  MoviesSlideshow(movies: slideShowMovies),
+                  if (slideShowMovies.isEmpty &&
+                      ref
+                          .watch(loadedMovieSectionsProvider)
+                          .contains('nowPlaying'))
+                    SizedBox(
+                        height: 200,
+                        child: Center(
+                            child: Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: Text(
+                              sectionErrors.containsKey('nowPlaying')
+                                  ? context.l10n.collectionError
+                                  : context.l10n.emptyMovies,
+                              textAlign: TextAlign.center),
+                        )))
+                  else
+                    MoviesSlideshow(
+                      key: ValueKey(ref.watch(selectedRegionProvider).code),
+                      movies: slideShowMovies,
+                    ),
                   if (nowPlayingMovies.isNotEmpty)
                     MovieHorizontalListview(
                       movies: nowPlayingMovies,
-                      title: 'En cines',
-                      subTitle: 'Lo que está en cartelera',
+                      title: context.l10n.inTheaters,
+                      subTitle: context.l10n.nowPlayingDescription,
                       onSeeAll: () => context.push('/collection/now-playing'),
                       loadNextPage: () => ref
                           .read(nowPlayingMoviesProvider.notifier)
@@ -148,8 +169,8 @@ class _HomeView extends ConsumerWidget {
                   if (upcomingMovies.isNotEmpty)
                     MovieHorizontalListview(
                       movies: upcomingMovies,
-                      title: 'Próximamente',
-                      subTitle: 'Próximos estrenos',
+                      title: context.l10n.comingSoon,
+                      subTitle: context.l10n.upcomingDescription,
                       onSeeAll: () => context.push('/collection/upcoming'),
                       loadNextPage: () => ref
                           .read(upcomingMoviesProvider.notifier)
@@ -158,8 +179,8 @@ class _HomeView extends ConsumerWidget {
                   if (popularMovies.isNotEmpty)
                     MovieHorizontalListview(
                       movies: popularMovies,
-                      title: 'Populares',
-                      subTitle: 'Las más vistas ahora',
+                      title: context.l10n.popular,
+                      subTitle: context.l10n.popularDescription,
                       onSeeAll: () => context.push('/collection/popular'),
                       loadNextPage: () => ref
                           .read(popularMoviesProvider.notifier)
@@ -168,8 +189,8 @@ class _HomeView extends ConsumerWidget {
                   if (topRatedMovies.isNotEmpty)
                     MovieHorizontalListview(
                       movies: topRatedMovies,
-                      title: 'Mejor calificadas',
-                      subTitle: 'Favoritas de la audiencia',
+                      title: context.l10n.topRated,
+                      subTitle: context.l10n.topRatedDescription,
                       onSeeAll: () => context.push('/collection/top-rated'),
                       loadNextPage: () => ref
                           .read(topRatedMoviesProvider.notifier)

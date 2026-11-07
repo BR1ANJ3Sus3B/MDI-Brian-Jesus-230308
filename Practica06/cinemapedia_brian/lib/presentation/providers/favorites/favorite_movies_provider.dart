@@ -42,10 +42,11 @@ class FavoriteMoviesNotifier extends StateNotifier<List<Movie>> {
     state = List.unmodifiable(movies);
 
     final preferences = await SharedPreferences.getInstance();
-    await preferences.setStringList(
+    final saved = await preferences.setStringList(
       _storageKey,
       state.map((item) => jsonEncode(item.toJson())).toList(),
     );
+    if (!saved) throw StateError('favorites persistence failed');
   }
 
   bool contains(int movieId) => state.any((movie) => movie.id == movieId);

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cinemapedia/l10n/l10n.dart';
 
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
@@ -11,7 +12,8 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   SearchMovieDelegate({
     required this.searchMovies,
     required this.initialMovies,
-  }) : super(searchFieldLabel: 'Buscar películas');
+    required String searchLabel,
+  }) : super(searchFieldLabel: searchLabel);
 
   final SearchMoviesCallback searchMovies;
   final List<Movie> initialMovies;
@@ -47,8 +49,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
         if (!_closed && _scheduledQuery == value) {
           _emit(const _SearchState(
             results: [],
-            error:
-                'No se pudo conectar. Revisa tu conexión e inténtalo de nuevo.',
+            error: 'connection',
           ));
         }
       }
@@ -83,14 +84,19 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
           }
           if (state.error != null) {
             return _SearchMessage(
-                icon: Icons.wifi_off_rounded, message: state.error!);
+                icon: Icons.wifi_off_rounded,
+                message: context.l10n.connectionError,
+                onRetry: () {
+                  _scheduledQuery = null;
+                  _search(query);
+                });
           }
           if (state.results.isEmpty) {
             return _SearchMessage(
               icon: Icons.search_rounded,
               message: query.trim().isEmpty
-                  ? 'Busca una película por título.'
-                  : 'No encontramos resultados para “${query.trim()}”.',
+                  ? context.l10n.searchHint
+                  : context.l10n.noResults(query.trim()),
             );
           }
 
@@ -121,7 +127,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   List<Widget>? buildActions(BuildContext context) => [
         if (query.isNotEmpty)
           IconButton(
-            tooltip: 'Limpiar búsqueda',
+            tooltip: context.l10n.clearSearch,
             onPressed: () {
               query = '';
               _search('');
@@ -132,7 +138,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
   @override
   Widget? buildLeading(BuildContext context) => IconButton(
-        tooltip: 'Volver',
+        tooltip: context.l10n.back,
         onPressed: () {
           close(context, null);
         },
@@ -165,7 +171,9 @@ class _SearchState {
 }
 
 class _SearchMessage extends StatelessWidget {
-  const _SearchMessage({required this.icon, required this.message});
+  const _SearchMessage(
+      {required this.icon, required this.message, this.onRetry});
+  final VoidCallback? onRetry;
 
   final IconData icon;
   final String message;
@@ -180,6 +188,9 @@ class _SearchMessage extends StatelessWidget {
               children: [
                 Icon(icon, size: 46, color: AppColors.secondaryText),
                 const SizedBox(height: 13),
+                if (onRetry != null)
+                  TextButton(
+                      onPressed: onRetry, child: Text(context.l10n.retry)),
                 Text(message,
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
