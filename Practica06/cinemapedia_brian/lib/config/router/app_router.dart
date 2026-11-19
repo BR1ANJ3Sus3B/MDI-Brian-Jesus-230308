@@ -23,6 +23,11 @@ final appRouter = GoRouter(
       builder: (context, state) => const FavoritesScreen(),
     ),
     GoRoute(
+      path: '/series',
+      name: TvShowsScreen.name,
+      builder: (context, state) => const TvShowsScreen(),
+    ),
+    GoRoute(
       path: '/categories',
       name: CategoriesScreen.name,
       builder: (context, state) => const CategoriesScreen(),

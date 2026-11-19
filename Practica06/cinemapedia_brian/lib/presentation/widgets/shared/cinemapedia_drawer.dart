@@ -12,6 +12,7 @@ class CinemapediaDrawer extends StatelessWidget {
             '/collection/now-playing'),
         _DrawerItem(context.l10n.comingSoon, Icons.upcoming_rounded,
             '/collection/upcoming'),
+        const _DrawerItem('Series', Icons.tv_rounded, '/series'),
         _DrawerItem(
             context.l10n.categories, Icons.category_rounded, '/categories'),
         _DrawerItem(

@@ -48,10 +48,12 @@ class HomeScreen extends StatelessWidget {
       );
 
   static void _navigate(BuildContext context, int index) {
-    if (index == 2) {
+    if (index == 3) {
       context.go('/favorites');
-    } else if (index == 1) {
+    } else if (index == 2) {
       context.go('/categories');
+    } else if (index == 1) {
+      context.go('/series');
     }
   }
 }
