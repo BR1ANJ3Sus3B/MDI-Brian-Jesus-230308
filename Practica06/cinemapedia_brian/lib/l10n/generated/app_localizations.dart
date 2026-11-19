@@ -521,6 +521,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Brazil'**
   String get countryBR;
+
+  /// No description provided for @splashWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Cinema starts here'**
+  String get splashWelcome;
+
+  /// No description provided for @splashSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Intro sound'**
+  String get splashSound;
+
+  /// No description provided for @splashSoundDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for an authorized local track.'**
+  String get splashSoundDescription;
 }
 
 class _AppLocalizationsDelegate

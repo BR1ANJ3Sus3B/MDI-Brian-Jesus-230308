@@ -8,4 +8,4 @@ export 'movies/movie_regional_release_provider.dart';
 export 'region/selected_region_provider.dart';
 
 export 'search/search_movies_provider.dart';
-export 'tv/tv_shows_providers.dart';
+export 'splash/splash_sound_provider.dart';

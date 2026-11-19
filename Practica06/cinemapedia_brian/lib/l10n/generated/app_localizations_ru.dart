@@ -246,4 +246,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get countryBR => 'Бразилия';
+
+  @override
+  String get splashWelcome => 'Кино начинается здесь';
+
+  @override
+  String get splashSound => 'Звук заставки';
+
+  @override
+  String get splashSoundDescription =>
+      'Готово для разрешенной локальной дорожки.';
 }

@@ -234,4 +234,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get countryBR => '巴西';
+
+  @override
+  String get splashWelcome => '电影从这里开始';
+
+  @override
+  String get splashSound => '片头声音';
+
+  @override
+  String get splashSoundDescription => '已为授权的本地音轨做好准备。';
 }

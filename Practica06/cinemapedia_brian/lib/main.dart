@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:cinemapedia/config/helpers/startup_metrics.dart';
 import 'package:cinemapedia/config/locale/cinema_region.dart';
 import 'package:cinemapedia/l10n/l10n.dart';
 import 'package:cinemapedia/presentation/widgets/shared/region_transition.dart';
+import 'package:cinemapedia/presentation/screens/splash/cinematic_splash_screen.dart';
 
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
@@ -13,14 +15,20 @@ import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
+  StartupMetrics.start();
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: '.env');
-
-  runApp(const ProviderScope(child: MainApp()));
+  // Asset I/O must not delay Flutter's first frame. Movie repositories wait
+  // for this future before accessing the API key.
+  final environmentReady = dotenv.load(fileName: '.env');
+  runApp(ProviderScope(child: MainApp(environmentReady: environmentReady)));
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    StartupMetrics.mark('flutter_first_frame');
+  });
 }
 
 class MainApp extends ConsumerStatefulWidget {
-  const MainApp({super.key});
+  const MainApp({required this.environmentReady, super.key});
+  final Future<void> environmentReady;
 
   @override
   ConsumerState<MainApp> createState() => _MainAppState();
@@ -42,12 +50,12 @@ class _MainAppState extends ConsumerState<MainApp> {
     if (!mounted) return;
     _lastRefreshedRegionCode = ref.read(selectedRegionProvider).code;
     _regionReady = true;
-    await _reloadRegionalCatalog();
+    unawaited(_reloadRegionalCatalog());
   }
 
   Future<void> _reloadRegionalCatalog() async {
     final generation = ++_catalogGeneration;
-    await Future<void>.delayed(Duration.zero);
+    await widget.environmentReady;
     if (!mounted || generation != _catalogGeneration) return;
 
     ref.invalidate(nowPlayingMoviesProvider);
@@ -77,10 +85,11 @@ class _MainAppState extends ConsumerState<MainApp> {
       locale: region.locale,
       supportedLocales: CinemaRegion.all.map((region) => region.locale),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
-      builder: (context, child) =>
-          ref.watch(regionPreferencesReadyProvider).isLoading
-              ? const ColoredBox(color: AppColors.background)
-              : RegionTransition(child: child ?? const SizedBox.shrink()),
+      builder: (context, child) => CinematicSplashScreen(
+        child: RegionTransition(
+          child: child ?? const SizedBox.shrink(),
+        ),
+      ),
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
       theme: AppTheme().getTheme(),

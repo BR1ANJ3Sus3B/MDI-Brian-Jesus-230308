@@ -246,4 +246,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get countryBR => 'Brasilien';
+
+  @override
+  String get splashWelcome => 'Hier beginnt Kino';
+
+  @override
+  String get splashSound => 'Introton';
+
+  @override
+  String get splashSoundDescription =>
+      'Bereit für einen autorisierten lokalen Titel.';
 }

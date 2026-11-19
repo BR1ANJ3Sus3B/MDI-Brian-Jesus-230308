@@ -27,8 +27,9 @@ class SelectedRegionNotifier extends StateNotifier<CinemaRegion> {
   Future<void> _load() async {
     try {
       final preferences = await SharedPreferences.getInstance();
-      if (mounted)
+      if (mounted) {
         state = CinemaRegion.fromCode(preferences.getString(_storageKey));
+      }
     } catch (_) {
       if (mounted) state = CinemaRegion.mexico;
     }

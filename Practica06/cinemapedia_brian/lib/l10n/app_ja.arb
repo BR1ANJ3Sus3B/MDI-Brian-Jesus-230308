@@ -32,4 +32,6 @@
   "currentRegion": "現在の選択：{country}", "regionUpdated": "地域を更新しました：{country}",
   "regionSaveError": "この端末に地域設定を保存できませんでした。", "configuringRegion": "{country}向けにCinemapediaを設定しています…",
   "countryUS": "アメリカ合衆国", "countryMX": "メキシコ", "countryDE": "ドイツ", "countryJP": "日本", "countryCN": "中国", "countryRU": "ロシア", "countryBR": "ブラジル"
+  ,"splashWelcome": "映画はここから始まる"
+  ,"splashSound": "イントロサウンド", "splashSoundDescription": "許可されたローカル音源用に準備されています。"
 }

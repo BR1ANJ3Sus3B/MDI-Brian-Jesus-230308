@@ -76,4 +76,6 @@
   "countryCN": "China",
   "countryRU": "Russia",
   "countryBR": "Brazil"
+  ,"splashWelcome": "Cinema starts here"
+  ,"splashSound": "Intro sound", "splashSoundDescription": "Ready for an authorized local track."
 }

@@ -244,4 +244,14 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get countryBR => 'Brasil';
+
+  @override
+  String get splashWelcome => 'O cinema começa aqui';
+
+  @override
+  String get splashSound => 'Som de introdução';
+
+  @override
+  String get splashSoundDescription =>
+      'Pronto para uma faixa local autorizada.';
 }

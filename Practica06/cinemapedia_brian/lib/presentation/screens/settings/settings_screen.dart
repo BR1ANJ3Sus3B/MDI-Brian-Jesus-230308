@@ -2,6 +2,7 @@ import 'package:cinemapedia/l10n/l10n.dart';
 import 'package:cinemapedia/config/locale/cinema_region.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/presentation/providers/region/selected_region_provider.dart';
+import 'package:cinemapedia/presentation/providers/splash/splash_sound_provider.dart';
 import 'package:cinemapedia/presentation/widgets/shared/cinemapedia_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedRegion = ref.watch(selectedRegionProvider);
+    final splashSoundEnabled = ref.watch(splashSoundEnabledProvider);
     return Scaffold(
       drawer: const CinemapediaDrawer(),
       appBar: AppBar(
@@ -81,6 +83,22 @@ class SettingsScreen extends ConsumerWidget {
                         onTap: () => _selectRegion(context, ref, region),
                       );
                     },
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(18, 0, 18, 28),
+                    child: Card(
+                      child: SwitchListTile.adaptive(
+                        value: splashSoundEnabled,
+                        onChanged: ref
+                            .read(splashSoundEnabledProvider.notifier)
+                            .setEnabled,
+                        title: Text(context.l10n.splashSound),
+                        subtitle: Text(context.l10n.splashSoundDescription),
+                        secondary: const Icon(Icons.volume_up_rounded),
+                      ),
+                    ),
                   ),
                 ),
               ],

@@ -234,4 +234,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get countryBR => 'ブラジル';
+
+  @override
+  String get splashWelcome => '映画はここから始まる';
+
+  @override
+  String get splashSound => 'イントロサウンド';
+
+  @override
+  String get splashSoundDescription => '許可されたローカル音源用に準備されています。';
 }

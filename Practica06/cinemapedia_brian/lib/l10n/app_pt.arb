@@ -32,4 +32,6 @@
   "currentRegion": "Seleção atual: {country}", "regionUpdated": "Região atualizada: {country}",
   "regionSaveError": "Não foi possível salvar a região neste dispositivo.", "configuringRegion": "Configurando o Cinemapedia para {country}…",
   "countryUS": "Estados Unidos", "countryMX": "México", "countryDE": "Alemanha", "countryJP": "Japão", "countryCN": "China", "countryRU": "Rússia", "countryBR": "Brasil"
+  ,"splashWelcome": "O cinema começa aqui"
+  ,"splashSound": "Som de introdução", "splashSoundDescription": "Pronto para uma faixa local autorizada."
 }
