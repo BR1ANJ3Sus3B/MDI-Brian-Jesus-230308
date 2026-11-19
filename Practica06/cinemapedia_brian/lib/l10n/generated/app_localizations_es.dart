@@ -255,4 +255,23 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get splashSoundDescription =>
       'Preparado para una pista local autorizada.';
+
+  @override
+  String get series => 'Series';
+
+  @override
+  String get discoverTvShows => 'Descubre series de TV';
+
+  @override
+  String get onTheAir => 'Al aire ahora';
+
+  @override
+  String get popularSeries => 'Series populares';
+
+  @override
+  String get topRatedSeries => 'Mejor calificadas';
+
+  @override
+  String get tvShowsError =>
+      'No se pudieron cargar las series. Inténtalo más tarde.';
 }

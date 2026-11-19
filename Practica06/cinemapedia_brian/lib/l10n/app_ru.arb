@@ -34,4 +34,5 @@
   "countryUS": "США", "countryMX": "Мексика", "countryDE": "Германия", "countryJP": "Япония", "countryCN": "Китай", "countryRU": "Россия", "countryBR": "Бразилия"
   ,"splashWelcome": "Кино начинается здесь"
   ,"splashSound": "Звук заставки", "splashSoundDescription": "Готово для разрешенной локальной дорожки."
+,"series": "Сериалы", "discoverTvShows": "Откройте для себя сериалы", "onTheAir": "Сейчас в эфире", "popularSeries": "Популярные сериалы", "topRatedSeries": "Лучшие по рейтингу", "tvShowsError": "Не удалось загрузить сериалы. Попробуйте позже."
 }

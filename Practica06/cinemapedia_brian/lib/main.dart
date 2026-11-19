@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:developer' as developer;
+import 'dart:ui';
 import 'package:cinemapedia/config/helpers/startup_metrics.dart';
 import 'package:cinemapedia/config/locale/cinema_region.dart';
 import 'package:cinemapedia/l10n/l10n.dart';
@@ -17,9 +19,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 Future<void> main() async {
   StartupMetrics.start();
   WidgetsFlutterBinding.ensureInitialized();
-  // Asset I/O must not delay Flutter's first frame. Movie repositories wait
-  // for this future before accessing the API key.
+  // Keep the original exception and stack trace visible to the debugger.  Do
+  // not wrap or convert the trace: Flutter expects a VM/web StackTrace here.
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    developer.log(
+      details.exceptionAsString(),
+      name: 'cinemapedia.flutter',
+      error: details.exception,
+      stackTrace: details.stack,
+    );
+  };
+  PlatformDispatcher.instance.onError = (error, stackTrace) {
+    developer.log(
+      'Unhandled asynchronous error',
+      name: 'cinemapedia.async',
+      error: error,
+      stackTrace: stackTrace,
+    );
+    // Returning false preserves Flutter's normal error reporting.
+    return false;
+  };
   final environmentReady = dotenv.load(fileName: '.env');
+  // Providers can be read while the first frame is being built, so dotenv
+  // must be ready before any repository accesses Environment.theMovieDbKey.
+  await environmentReady;
   runApp(ProviderScope(child: MainApp(environmentReady: environmentReady)));
   WidgetsBinding.instance.addPostFrameCallback((_) {
     StartupMetrics.mark('flutter_first_frame');
@@ -55,7 +79,17 @@ class _MainAppState extends ConsumerState<MainApp> {
 
   Future<void> _reloadRegionalCatalog() async {
     final generation = ++_catalogGeneration;
-    await widget.environmentReady;
+    try {
+      await widget.environmentReady;
+    } catch (error, stackTrace) {
+      developer.log(
+        'Unable to load the application environment',
+        name: 'cinemapedia.startup',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      return;
+    }
     if (!mounted || generation != _catalogGeneration) return;
 
     ref.invalidate(nowPlayingMoviesProvider);

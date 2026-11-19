@@ -256,4 +256,23 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get splashSoundDescription =>
       'Bereit für einen autorisierten lokalen Titel.';
+
+  @override
+  String get series => 'Serien';
+
+  @override
+  String get discoverTvShows => 'Entdecke Fernsehserien';
+
+  @override
+  String get onTheAir => 'Jetzt auf Sendung';
+
+  @override
+  String get popularSeries => 'Beliebte Serien';
+
+  @override
+  String get topRatedSeries => 'Bestbewertet';
+
+  @override
+  String get tvShowsError =>
+      'Serien konnten nicht geladen werden. Versuche es später erneut.';
 }

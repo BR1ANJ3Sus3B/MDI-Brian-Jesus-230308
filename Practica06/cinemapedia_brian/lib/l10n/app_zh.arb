@@ -27,4 +27,5 @@
   "countryUS": "美国", "countryMX": "墨西哥", "countryDE": "德国", "countryJP": "日本", "countryCN": "中国", "countryRU": "俄罗斯", "countryBR": "巴西"
   ,"splashWelcome": "电影从这里开始"
   ,"splashSound": "片头声音", "splashSoundDescription": "已为授权的本地音轨做好准备。"
+,"series": "剧集", "discoverTvShows": "发现电视剧集", "onTheAir": "正在播出", "popularSeries": "热门剧集", "topRatedSeries": "评分最高", "tvShowsError": "无法加载剧集，请稍后重试。"
 }

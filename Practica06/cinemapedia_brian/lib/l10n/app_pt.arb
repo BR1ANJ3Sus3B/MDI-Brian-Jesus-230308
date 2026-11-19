@@ -34,4 +34,5 @@
   "countryUS": "Estados Unidos", "countryMX": "México", "countryDE": "Alemanha", "countryJP": "Japão", "countryCN": "China", "countryRU": "Rússia", "countryBR": "Brasil"
   ,"splashWelcome": "O cinema começa aqui"
   ,"splashSound": "Som de introdução", "splashSoundDescription": "Pronto para uma faixa local autorizada."
+,"series": "Séries", "discoverTvShows": "Descubra séries de TV", "onTheAir": "No ar agora", "popularSeries": "Séries populares", "topRatedSeries": "Mais bem avaliadas", "tvShowsError": "Não foi possível carregar as séries. Tente novamente mais tarde."
 }

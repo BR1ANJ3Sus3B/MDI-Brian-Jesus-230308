@@ -256,4 +256,22 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get splashSoundDescription =>
       'Готово для разрешенной локальной дорожки.';
+
+  @override
+  String get series => 'Сериалы';
+
+  @override
+  String get discoverTvShows => 'Откройте для себя сериалы';
+
+  @override
+  String get onTheAir => 'Сейчас в эфире';
+
+  @override
+  String get popularSeries => 'Популярные сериалы';
+
+  @override
+  String get topRatedSeries => 'Лучшие по рейтингу';
+
+  @override
+  String get tvShowsError => 'Не удалось загрузить сериалы. Попробуйте позже.';
 }

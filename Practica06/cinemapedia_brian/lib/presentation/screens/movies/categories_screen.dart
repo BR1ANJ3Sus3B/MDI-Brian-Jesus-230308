@@ -137,7 +137,7 @@ class CategoriesScreen extends StatelessWidget {
                 children: [
                   CustomBottomNavigation.rail(
                     context: context,
-                    selectedIndex: 1,
+                    selectedIndex: 2,
                     onDestinationSelected: (index) => _navigate(context, index),
                   ),
                   const VerticalDivider(width: 1),
@@ -150,7 +150,7 @@ class CategoriesScreen extends StatelessWidget {
             drawer: const CinemapediaDrawer(),
             body: content,
             bottomNavigationBar: CustomBottomNavigation(
-              selectedIndex: 1,
+              selectedIndex: 2,
               onDestinationSelected: (index) => _navigate(context, index),
             ),
           );
@@ -159,7 +159,8 @@ class CategoriesScreen extends StatelessWidget {
 
   void _navigate(BuildContext context, int index) {
     if (index == 0) context.go('/');
-    if (index == 2) context.go('/favorites');
+    if (index == 1) context.go('/series');
+    if (index == 3) context.go('/favorites');
   }
 }
 

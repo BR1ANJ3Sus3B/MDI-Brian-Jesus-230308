@@ -151,7 +151,7 @@ class FavoritesScreen extends ConsumerWidget {
             children: [
               CustomBottomNavigation.rail(
                 context: context,
-                selectedIndex: 2,
+                selectedIndex: 3,
                 onDestinationSelected: (index) => _navigate(context, index),
               ),
               const VerticalDivider(width: 1),
@@ -164,7 +164,7 @@ class FavoritesScreen extends ConsumerWidget {
         drawer: const CinemapediaDrawer(),
         body: body,
         bottomNavigationBar: CustomBottomNavigation(
-          selectedIndex: 2,
+          selectedIndex: 3,
           onDestinationSelected: (index) => _navigate(context, index),
         ),
       );
@@ -173,6 +173,7 @@ class FavoritesScreen extends ConsumerWidget {
 
   void _navigate(BuildContext context, int index) {
     if (index == 0) context.go('/');
-    if (index == 1) context.go('/categories');
+    if (index == 1) context.go('/series');
+    if (index == 2) context.go('/categories');
   }
 }

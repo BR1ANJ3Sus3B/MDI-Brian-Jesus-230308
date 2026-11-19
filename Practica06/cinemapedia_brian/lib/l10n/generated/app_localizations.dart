@@ -539,6 +539,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ready for an authorized local track.'**
   String get splashSoundDescription;
+
+  /// No description provided for @series.
+  ///
+  /// In en, this message translates to:
+  /// **'Series'**
+  String get series;
+
+  /// No description provided for @discoverTvShows.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover TV shows'**
+  String get discoverTvShows;
+
+  /// No description provided for @onTheAir.
+  ///
+  /// In en, this message translates to:
+  /// **'On the air now'**
+  String get onTheAir;
+
+  /// No description provided for @popularSeries.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular series'**
+  String get popularSeries;
+
+  /// No description provided for @topRatedSeries.
+  ///
+  /// In en, this message translates to:
+  /// **'Top rated'**
+  String get topRatedSeries;
+
+  /// No description provided for @tvShowsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load TV shows. Try again later.'**
+  String get tvShowsError;
 }
 
 class _AppLocalizationsDelegate

@@ -34,4 +34,5 @@
   "countryUS": "アメリカ合衆国", "countryMX": "メキシコ", "countryDE": "ドイツ", "countryJP": "日本", "countryCN": "中国", "countryRU": "ロシア", "countryBR": "ブラジル"
   ,"splashWelcome": "映画はここから始まる"
   ,"splashSound": "イントロサウンド", "splashSoundDescription": "許可されたローカル音源用に準備されています。"
+,"series": "シリーズ", "discoverTvShows": "テレビシリーズを探す", "onTheAir": "放送中", "popularSeries": "人気シリーズ", "topRatedSeries": "高評価", "tvShowsError": "シリーズを読み込めませんでした。後でもう一度お試しください。"
 }

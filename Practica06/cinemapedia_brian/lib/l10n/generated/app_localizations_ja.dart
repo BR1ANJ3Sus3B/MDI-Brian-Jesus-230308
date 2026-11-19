@@ -243,4 +243,22 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get splashSoundDescription => '許可されたローカル音源用に準備されています。';
+
+  @override
+  String get series => 'シリーズ';
+
+  @override
+  String get discoverTvShows => 'テレビシリーズを探す';
+
+  @override
+  String get onTheAir => '放送中';
+
+  @override
+  String get popularSeries => '人気シリーズ';
+
+  @override
+  String get topRatedSeries => '高評価';
+
+  @override
+  String get tvShowsError => 'シリーズを読み込めませんでした。後でもう一度お試しください。';
 }

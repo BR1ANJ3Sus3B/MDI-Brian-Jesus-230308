@@ -243,4 +243,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get splashSoundDescription => '已为授权的本地音轨做好准备。';
+
+  @override
+  String get series => '剧集';
+
+  @override
+  String get discoverTvShows => '发现电视剧集';
+
+  @override
+  String get onTheAir => '正在播出';
+
+  @override
+  String get popularSeries => '热门剧集';
+
+  @override
+  String get topRatedSeries => '评分最高';
+
+  @override
+  String get tvShowsError => '无法加载剧集，请稍后重试。';
 }

@@ -251,4 +251,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get splashSoundDescription => 'Ready for an authorized local track.';
+
+  @override
+  String get series => 'Series';
+
+  @override
+  String get discoverTvShows => 'Discover TV shows';
+
+  @override
+  String get onTheAir => 'On the air now';
+
+  @override
+  String get popularSeries => 'Popular series';
+
+  @override
+  String get topRatedSeries => 'Top rated';
+
+  @override
+  String get tvShowsError => 'Unable to load TV shows. Try again later.';
 }

@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -71,7 +73,13 @@ class MoviesNotifier extends StateNotifier<List<Movie>> {
       ];
       currentPage = requestedPage;
       _updateError(null);
-    } catch (_) {
+    } catch (error, stackTrace) {
+      developer.log(
+        'Unable to load $errorKey movies',
+        name: 'cinemapedia.movies',
+        error: error,
+        stackTrace: stackTrace,
+      );
       if (_disposed) return;
       _updateError('connection');
     } finally {

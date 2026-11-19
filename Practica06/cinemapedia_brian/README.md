@@ -64,6 +64,12 @@ La interfaz utiliza el sistema oficial de Flutter: `flutter_localizations`, `int
 
 Referencias de TMDB: [cartelera](https://developer.themoviedb.org/reference/movie-now-playing-list), [próximos estrenos](https://developer.themoviedb.org/reference/movie-upcoming-list) y [detalles](https://developer.themoviedb.org/reference/movie-details).
 
+## Arquitectura
+
+Consulta el diagrama interactivo de la aplicación: [Arquitectura de Cinemapedia en GitHub Pages](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Practica06/cinemapedia_brian/docs/architecture/).
+
+El diagrama describe el recorrido desde la interfaz Flutter y Riverpod hasta los repositorios, TMDB, la configuración `.env` y la persistencia local con `SharedPreferences`.
+
 ## Tecnologías
 
 | Herramienta | Uso |

@@ -78,4 +78,5 @@
   "countryBR": "Brazil"
   ,"splashWelcome": "Cinema starts here"
   ,"splashSound": "Intro sound", "splashSoundDescription": "Ready for an authorized local track."
+,"series": "Series", "discoverTvShows": "Discover TV shows", "onTheAir": "On the air now", "popularSeries": "Popular series", "topRatedSeries": "Top rated", "tvShowsError": "Unable to load TV shows. Try again later."
 }

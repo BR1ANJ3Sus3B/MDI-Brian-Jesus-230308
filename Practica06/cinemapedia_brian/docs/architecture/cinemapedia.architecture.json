@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Arquitectura de Cinemapedia",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "a158e8ff04568d05dc296d6e8d5d15d73a21e5ac"
+    },
+    "views": [
+      {"id": "catalog", "label": "Flujo del catálogo", "focus": ["app", "ui", "providers", "repositories", "tmdb"], "note": "La interfaz consume estado reactivo y los repositorios consultan TMDB."},
+      {"id": "persistence", "label": "Preferencias locales", "focus": ["providers", "preferences"], "note": "Región, favoritos y sonido se conservan en el dispositivo."}
+    ]
+  },
+  "components": [
+    {"id": "user", "type": "external", "label": "Usuario", "sublabel": "Android, iOS, web o desktop", "pos": [20, 270], "size": [140, 64]},
+    {"id": "app", "type": "frontend", "label": "Flutter App", "sublabel": "main.dart · MaterialApp.router", "pos": [190, 270], "size": [155, 64], "sources": [{"path": "Practica06/cinemapedia_brian/lib/main.dart", "line": 20}]},
+    {"id": "ui", "type": "frontend", "label": "Presentación", "sublabel": "Pantallas, widgets y GoRouter", "pos": [375, 270], "size": [155, 64], "sources": [{"path": "Practica06/cinemapedia_brian/lib/config/router/app_router.dart", "line": 4}]},
+    {"id": "providers", "type": "backend", "label": "Riverpod", "sublabel": "Catálogo y preferencias", "pos": [560, 270], "size": [165, 64], "sources": [{"path": "Practica06/cinemapedia_brian/lib/presentation/providers/movies/movies_providers.dart", "line": 8}, {"path": "Practica06/cinemapedia_brian/lib/presentation/providers/tv/tv_shows_providers.dart", "line": 10}]},
+    {"id": "repositories", "type": "backend", "label": "Dominio e infraestructura", "sublabel": "Repositorios, fuentes y mapeadores", "pos": [755, 270], "size": [175, 64], "sources": [{"path": "Practica06/cinemapedia_brian/lib/infrastructure/repositories/movie_repository_impl.dart", "line": 6}]},
+    {"id": "tmdb", "type": "external", "label": "TMDB API", "sublabel": "Catálogos, detalles y series", "pos": [960, 270], "size": [145, 64], "tag": "HTTPS / Dio", "sources": [{"path": "Practica06/cinemapedia_brian/lib/infrastructure/datasources/moviedb_datasource.dart", "line": 13}, {"path": "Practica06/cinemapedia_brian/lib/infrastructure/datasources/moviedb_tv_datasource.dart", "line": 7}]},
+    {"id": "preferences", "type": "database", "label": "SharedPreferences", "sublabel": "Región, favoritos y ajustes", "pos": [560, 470], "size": [165, 64], "sources": [{"path": "Practica06/cinemapedia_brian/lib/presentation/providers/region/selected_region_provider.dart", "line": 29}, {"path": "Practica06/cinemapedia_brian/lib/presentation/providers/favorites/favorite_movies_provider.dart", "line": 23}]},
+    {"id": "environment", "type": "security", "label": ".env", "sublabel": "Clave de TMDB", "pos": [375, 110], "size": [145, 60], "sources": [{"path": "Practica06/cinemapedia_brian/lib/main.dart", "line": 43}, {"path": "Practica06/cinemapedia_brian/lib/config/constants/environment.dart", "line": 3}]}
+  ],
+  "connections": [
+    {"from": "user", "to": "app", "label": "interacción", "variant": "emphasis", "labelDy": 56},
+    {"from": "app", "to": "ui", "label": "rutas y tema", "labelDy": 56},
+    {"from": "ui", "to": "providers", "label": "watch / read", "labelDy": 56},
+    {"from": "providers", "to": "repositories", "label": "casos de consulta", "labelDy": 56},
+    {"from": "repositories", "to": "tmdb", "label": "HTTPS REST", "variant": "emphasis", "labelDy": 56},
+    {"from": "providers", "to": "preferences", "label": "persistencia local", "fromSide": "bottom", "toSide": "top", "labelDy": 30},
+    {"from": "environment", "to": "app", "label": "inicialización", "variant": "security", "fromSide": "bottom", "toSide": "top"}
+  ],
+  "cards": [
+    {"dot": "cyan", "title": "Interfaz", "items": ["Flutter, GoRouter y widgets responsivos", "Localización mediante catálogos ARB"]},
+    {"dot": "emerald", "title": "Datos", "items": ["Riverpod conecta la UI con repositorios", "Dio consulta la API de TMDB"]},
+    {"dot": "violet", "title": "Persistencia", "items": ["SharedPreferences conserva preferencias", "La clave se carga desde .env sin publicarse"]}
+  ]
+}
