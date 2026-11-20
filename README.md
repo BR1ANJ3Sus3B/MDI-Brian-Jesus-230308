@@ -33,16 +33,6 @@ El objetivo es aplicar los fundamentos del desarrollo de aplicaciones móviles, 
 
 ---
 
-## 📝 Prácticas
-
-| No. | Práctica | Potenciador | Estatus |
-| --- | --- | --- | --- |
-| 1 | Metodología | 5 | Concluida |
-| 2 | Mi primera aplicación móvil con Flutter | 20 | Concluida |
-| 3 | Hola Jarvis (Chat con Flutter) | 20 | Concluida |
-| 4 | Toktik - Consumo de Videos con Flutter | 30 | Concluida |
-| Unidad 1 | Manual de instalación de Flutter desde cero | 10 | Concluida |
-| 5 | Práctica 05 - Widgets App | 40 | Concluida |
 
 ### Detalle de las prácticas
 
@@ -52,6 +42,7 @@ El objetivo es aplicar los fundamentos del desarrollo de aplicaciones móviles, 
 4. 🎬 [**Toktik - Consumo de Videos con Flutter**](Practica04-Brian/Toktik/) — Desarrollar una aplicación móvil de videos cortos con Flutter, integrando videos locales y contenido mediante las APIs de TikTok, Instagram y Facebook. Incluye feed vertical, reproducción de videos y arquitectura de datos. [🌐 Ver diagrama interactivo](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Practica04-Brian/Toktik/docs/architecture/toktik-arquitectura.html).
 5. 📖 [**Manual de instalación y configuración de Flutter desde cero**](Manual-Flutter/README.md) — Elaborar un manual paso a paso para instalar y configurar Flutter en Windows, incluyendo Android Studio, Visual Studio Code, SDK de Android, variables de entorno y configuración de dispositivos Android. [📄 Descargar manual en PDF](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/raw/refs/heads/main/Manual-Flutter/Manual-Flutter.pdf).
 6. 🧩 [**Práctica 05 - Widgets App**](Practica05/widgett_app/README.md) — Desarrollar una aplicación móvil denominada Widgets App utilizando Flutter y Dart, que permita explorar e implementar componentes visuales e interactivos de Material Design 3 mediante pantallas demostrativas y un sistema de navegación.
+7. 🎬 [**Práctica 06 - Cinemapedia (230308)**](https://github.com/BR1ANJ3Sus3B/MDI-Brian-Jesus-230308/tree/Practica06/Practica06/cinemapedia_brian) — Desarrollar una aplicación móvil de películas y series utilizando Flutter y Dart, con una interfaz moderna e interactiva. Incluye catálogo de películas en cartelera, próximos estrenos, series, categorías, búsqueda de contenido, gestión de favoritos, navegación mediante menú lateral y barra inferior, configuración y soporte multilenguaje con cambio dinámico de idioma.
 
 ---
 
