@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Cinemapedia · Arquitectura interna de lib/", "quality_profile": "showcase", "visual_preset": "blueprint" },
+  "components": [
+    { "id": "entry", "type": "frontend", "label": "main.dart", "sublabel": "entrada · ProviderScope · router", "pos": [20, 250], "size": [170, 66] },
+    { "id": "config", "type": "security", "label": "config/", "sublabel": "router · tema · entorno", "pos": [230, 70], "size": [170, 66] },
+    { "id": "presentation", "type": "frontend", "label": "presentation/", "sublabel": "screens · widgets · delegates", "pos": [230, 250], "size": [170, 66] },
+    { "id": "providers", "type": "backend", "label": "providers/", "sublabel": "Riverpod", "pos": [450, 250], "size": [170, 66] },
+    { "id": "contracts", "type": "backend", "label": "domain/", "sublabel": "entidades y contratos", "pos": [670, 70], "size": [170, 66] },
+    { "id": "repositories", "type": "backend", "label": "repositories impl", "sublabel": "Movie · Actor", "pos": [670, 250], "size": [170, 66] },
+    { "id": "datasources", "type": "backend", "label": "datasources + mappers", "sublabel": "MovieDB · Dio", "pos": [890, 250], "size": [170, 66] },
+    { "id": "external", "type": "external", "label": "Servicios externos", "sublabel": "MovieDB · prefs · .env", "pos": [890, 430], "size": [170, 66] }
+  ],
+  "connections": [
+    { "id": "entry-config", "from": "entry", "to": "config", "variant": "security" },
+    { "id": "entry-presentation", "from": "entry", "to": "presentation", "variant": "emphasis" },
+    { "id": "presentation-providers", "from": "presentation", "to": "providers", "variant": "emphasis" },
+    { "id": "providers-repositories", "from": "providers", "to": "repositories" },
+    { "id": "repositories-contracts", "from": "repositories", "to": "contracts", "label": "implementa", "fromSide": "top", "toSide": "bottom" },
+    { "id": "repositories-datasources", "from": "repositories", "to": "datasources" },
+    { "id": "datasources-contracts", "from": "datasources", "to": "contracts", "label": "implementa", "fromSide": "top", "toSide": "right" },
+    { "id": "datasources-external", "from": "datasources", "to": "external", "variant": "security", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Relaciones verificadas", "items": ["Imports Dart, herencia de contratos y providers Riverpod", "Los detalles por archivo aparecen en el árbol navegable"] },
+    { "dot": "rose", "title": "Entorno", "items": ["Environment lee THE_MOVIEDB_KEY mediante dotenv", "El valor real no se leyó ni se documentó"] }
+  ]
+}

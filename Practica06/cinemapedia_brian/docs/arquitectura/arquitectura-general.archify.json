@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Cinemapedia · Arquitectura general",
+    "quality_profile": "showcase",
+    "visual_preset": "blueprint",
+    "views": [
+      { "id": "aplicacion", "label": "Aplicación", "focus": ["proyecto", "lib", "test"], "note": "Código Flutter y pruebas verificadas." },
+      { "id": "plataformas", "label": "Plataformas", "focus": ["proyecto", "platforms"], "note": "Anfitriones generados por Flutter para móvil, web y escritorio." },
+      { "id": "insumos", "label": "Insumos", "focus": ["proyecto", "assets", "config", "generated", "docs"], "note": "Recursos, configuración, salidas generadas y documentación." }
+    ]
+  },
+  "components": [
+    { "id": "proyecto", "type": "frontend", "label": "Cinemapedia", "sublabel": "Proyecto Flutter / Dart", "pos": [430, 260], "size": [170, 72], "tag": "raíz" },
+    { "id": "lib", "type": "backend", "label": "lib/", "sublabel": "Aplicación Dart", "pos": [80, 80], "size": [150, 64] },
+    { "id": "test", "type": "backend", "label": "test/", "sublabel": "Pruebas Dart", "pos": [80, 190], "size": [150, 64] },
+    { "id": "platforms", "type": "cloud", "label": "Plataformas", "sublabel": "android · ios · web · windows · linux · macos", "pos": [760, 80], "size": [250, 64], "tag": "Flutter host" },
+    { "id": "assets", "type": "external", "label": "Assets/", "sublabel": "14 imágenes e iconos", "pos": [800, 190], "size": [180, 64] },
+    { "id": "config", "type": "security", "label": "Configuración", "sublabel": "pubspec · lint · metadata · .env", "pos": [80, 410], "size": [230, 64], "tag": ".env privado" },
+    { "id": "generated", "type": "database", "label": "Generados", "sublabel": ".dart_tool/ · build/", "pos": [420, 450], "size": [190, 64], "tag": "resumen" },
+    { "id": "docs", "type": "external", "label": "Documentación", "sublabel": "README.md · docs/arquitectura/", "pos": [750, 430], "size": [230, 64] }
+  ],
+  "connections": [
+    { "id": "project-lib", "from": "proyecto", "to": "lib", "variant": "emphasis" },
+    { "id": "project-test", "from": "proyecto", "to": "test" },
+    { "id": "project-platforms", "from": "proyecto", "to": "platforms", "variant": "emphasis" },
+    { "id": "project-assets", "from": "proyecto", "to": "assets" },
+    { "id": "project-config", "from": "proyecto", "to": "config", "variant": "security" },
+    { "id": "project-generated", "from": "proyecto", "to": "generated", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "project-docs", "from": "proyecto", "to": "docs" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Alcance", "items": ["Estructura inspeccionada recursivamente", "Relaciones: pertenencia y dependencias verificadas"] },
+    { "dot": "rose", "title": "Privacidad", "items": [".env se representa sin leer valores", "No se incluyen claves ni credenciales"] }
+  ]
+}

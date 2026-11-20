@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Cinemapedia · Recursos y activos", "quality_profile": "showcase", "visual_preset": "blueprint" },
+  "components": [
+    { "id": "pubspec", "type": "security", "label": "pubspec.yaml", "sublabel": "Flutter + flutter_launcher_icons", "pos": [50, 240], "size": [220, 66] },
+    { "id": "env", "type": "security", "label": ".env", "sublabel": "configuración local privada", "pos": [330, 440], "size": [190, 66], "tag": "sin contenido" },
+    { "id": "assets", "type": "external", "label": "Assets/", "sublabel": "14 imágenes: iconos y capturas JPEG/PNG", "pos": [330, 110], "size": [270, 66] },
+    { "id": "icons", "type": "external", "label": "Assets/icon/", "sublabel": "cinemapedia.png · cinemapedia_foreground.png", "pos": [680, 110], "size": [270, 66] },
+    { "id": "images", "type": "external", "label": "Assets/*.png, *.jpeg", "sublabel": "ícono neón y 11 imágenes WhatsApp", "pos": [680, 300], "size": [270, 66] },
+    { "id": "launcher", "type": "backend", "label": "Iconos de launcher", "sublabel": "android res · iOS AppIcon", "pos": [1030, 110], "size": [225, 66] },
+    { "id": "app", "type": "frontend", "label": "Aplicación Flutter", "sublabel": "lib/main.dart y runtime", "pos": [680, 440], "size": [225, 66] }
+  ],
+  "connections": [
+    { "id": "pubspec-env", "from": "pubspec", "to": "env", "label": "declara como asset", "variant": "security", "fromSide": "bottom", "toSide": "left" },
+    { "id": "assets-icons", "from": "assets", "to": "icons" },
+    { "id": "assets-images", "from": "assets", "to": "images", "fromSide": "bottom", "toSide": "left" },
+    { "id": "icons-launcher", "from": "icons", "to": "launcher", "label": "genera iconos", "variant": "emphasis" },
+    { "id": "env-app", "from": "env", "to": "app", "label": "dotenv.load", "variant": "security" }
+  ],
+  "cards": [
+    { "dot": "rose", "title": "Límite verificable", "items": ["Solo .env está listado explícitamente en flutter.assets", "No se detectó Image.asset ni AssetImage en lib/", "Los PNG de launcher se observan en Android e iOS"] }
+  ]
+}

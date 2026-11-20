@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Modify this file to customize your launch splash screen -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#050509" />
+        </shape>
+    </item>
+    <!-- A native first particle prevents an all-black cold-start frame. -->
+    <item
+        android:width="10dp"
+        android:height="10dp"
+        android:gravity="center">
+        <shape android:shape="oval">
+            <solid android:color="#00BFFF" />
+        </shape>
+    </item>
+</layer-list>

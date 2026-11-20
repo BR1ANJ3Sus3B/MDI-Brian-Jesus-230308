@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Cinemapedia · Plataformas Flutter", "quality_profile": "showcase", "visual_preset": "blueprint" },
+  "components": [
+    { "id": "flutter", "type": "frontend", "label": "Flutter / lib/main.dart", "sublabel": "punto de entrada Dart común", "pos": [470, 260], "size": [230, 68] },
+    { "id": "android", "type": "backend", "label": "android/", "sublabel": "Gradle · Kotlin MainActivity · AndroidManifest", "pos": [60, 70], "size": [240, 64] },
+    { "id": "ios", "type": "backend", "label": "ios/", "sublabel": "Xcode · AppDelegate · Info.plist", "pos": [60, 210], "size": [240, 64] },
+    { "id": "web", "type": "cloud", "label": "web/", "sublabel": "index.html · manifest · favicon · icons", "pos": [60, 350], "size": [240, 64] },
+    { "id": "windows", "type": "backend", "label": "windows/", "sublabel": "CMake · Win32 runner · registrante", "pos": [860, 70], "size": [240, 64] },
+    { "id": "linux", "type": "backend", "label": "linux/", "sublabel": "CMake · main.cc · GTK application", "pos": [860, 210], "size": [240, 64] },
+    { "id": "macos", "type": "backend", "label": "macos/", "sublabel": "Xcode · MainFlutterWindow · AppDelegate", "pos": [860, 350], "size": [240, 64] },
+    { "id": "plugins", "type": "database", "label": "Registrantes generados", "sublabel": "Flutter/* GeneratedPluginRegistrant · CMake", "pos": [470, 470], "size": [270, 64] }
+  ],
+  "connections": [
+    { "id": "flutter-android", "from": "flutter", "to": "android", "variant": "emphasis" },
+    { "id": "flutter-ios", "from": "flutter", "to": "ios", "variant": "emphasis" },
+    { "id": "flutter-web", "from": "flutter", "to": "web", "variant": "emphasis" },
+    { "id": "flutter-windows", "from": "flutter", "to": "windows", "variant": "emphasis" },
+    { "id": "flutter-linux", "from": "flutter", "to": "linux", "variant": "emphasis" },
+    { "id": "flutter-macos", "from": "flutter", "to": "macos", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Puntos de entrada", "items": ["Android: MainActivity.kt", "iOS: AppDelegate.swift", "Web: index.html carga flutter.js", "Windows/Linux/macOS: runners nativos"] }
+  ]
+}
