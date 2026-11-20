@@ -59,6 +59,13 @@ La región determina los parámetros de consulta y la clasificación por edad so
 | Intl | Formato de números. |
 | Flutter Launcher Icons | Generación de iconos de la aplicación. |
 
+## Arquitectura
+
+Consulta el diagrama interactivo de la aplicación: [Arquitectura de Cinemapedia en GitHub Pages](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Practica06/cinemapedia_brian/docs/architecture/).
+
+El diagrama describe el recorrido desde la interfaz Flutter y Riverpod hasta los repositorios, TMDB, la configuración `.env` y la persistencia local con `SharedPreferences`.
+
+
 ## Estructura del proyecto
 
 ```text
