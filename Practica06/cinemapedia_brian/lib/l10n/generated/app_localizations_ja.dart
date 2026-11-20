@@ -211,7 +211,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String configuringRegion(String country) {
-    return '$country向けにCinemapediaを設定しています…';
+    return '$country向けに230308を設定しています…';
   }
 
   @override

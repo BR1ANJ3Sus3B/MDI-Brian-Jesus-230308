@@ -477,7 +477,7 @@ abstract class AppLocalizations {
   /// No description provided for @configuringRegion.
   ///
   /// In en, this message translates to:
-  /// **'Setting up Cinemapedia for {country}…'**
+  /// **'Setting up 230308 for {country}…'**
   String configuringRegion(String country);
 
   /// No description provided for @countryUS.

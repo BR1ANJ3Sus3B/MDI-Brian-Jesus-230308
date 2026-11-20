@@ -21,6 +21,7 @@ import 'package:cinemapedia/presentation/screens/favorites/favorites_screen.dart
 import 'package:cinemapedia/presentation/widgets/movies/movies_slideshow.dart';
 import 'package:cinemapedia/presentation/widgets/shared/region_transition.dart';
 import 'package:cinemapedia/presentation/widgets/shared/cinemapedia_drawer.dart';
+import 'package:cinemapedia/presentation/widgets/shared/custom_bottom_navigation.dart';
 import 'package:cinemapedia/presentation/delegates/search_movie_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -49,6 +50,7 @@ void main() {
           isTrue);
       final l10n = await AppLocalizations.delegate.load(region.locale);
       expect(l10n.localeName, region.locale.languageCode);
+      expect(l10n.configuringRegion('Test').contains('230308'), isTrue);
       expect(
           HumanFormats.certification(null, region.code,
               unavailable: l10n.noCertification),
@@ -64,6 +66,47 @@ void main() {
     expect(russian.savedTitles(1), '1 сохранённый фильм');
     expect(russian.savedTitles(2), '2 сохранённых фильма');
     expect(russian.savedTitles(5), '5 сохранённых фильмов');
+  });
+
+  testWidgets('Drawer and bottom navigation update immediately after a locale change',
+      (tester) async {
+    final container = _container();
+    addTearDown(container.dispose);
+    await container.read(selectedRegionProvider.notifier).select(CinemaRegion.mexico);
+
+    await tester.pumpWidget(UncontrolledProviderScope(
+      container: container,
+      child: Consumer(builder: (context, ref, _) {
+        return MaterialApp(
+          locale: ref.watch(selectedRegionProvider).locale,
+          supportedLocales: CinemaRegion.all.map((region) => region.locale),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          home: Scaffold(
+            body: Column(children: [
+              const Expanded(child: CinemapediaDrawer()),
+              CustomBottomNavigation(
+                selectedIndex: 0,
+                onDestinationSelected: (_) {},
+              ),
+            ]),
+          ),
+        );
+      }),
+    ));
+    await tester.pumpAndSettle();
+    final spanish = await AppLocalizations.delegate.load(const Locale('es'));
+    expect(find.text(spanish.series), findsWidgets);
+    expect(find.text('230308'), findsOneWidget);
+
+    await container
+        .read(selectedRegionProvider.notifier)
+        .select(CinemaRegion.fromCode('JP'));
+    await tester.pumpAndSettle();
+    final japanese = await AppLocalizations.delegate.load(const Locale('ja'));
+    expect(find.text(japanese.series), findsWidgets);
+    expect(find.text(japanese.settings), findsOneWidget);
+    expect(find.text('230308'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('All settings options, transition, persistence and favorites',
@@ -92,7 +135,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 100));
     expect(container.read(selectedRegionProvider).code, 'JP');
     expect(find.byKey(const ValueKey('region-transition-JP')), findsOneWidget);
-    expect(find.text('日本向けにCinemapediaを設定しています…'), findsOneWidget);
+    expect(find.text('日本向けに230308を設定しています…'), findsOneWidget);
     expect(container.read(regionTransitionProvider), isTrue);
     await tester.pump(const Duration(milliseconds: 650));
     await tester.pumpAndSettle();

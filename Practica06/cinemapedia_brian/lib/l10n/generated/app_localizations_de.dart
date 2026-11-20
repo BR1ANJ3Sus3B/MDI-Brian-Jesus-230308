@@ -223,7 +223,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String configuringRegion(String country) {
-    return 'Cinemapedia wird für $country eingerichtet…';
+    return '230308 wird für $country eingerichtet…';
   }
 
   @override

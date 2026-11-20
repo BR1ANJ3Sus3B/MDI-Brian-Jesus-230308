@@ -221,7 +221,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String configuringRegion(String country) {
-    return 'Configurando o Cinemapedia para $country…';
+    return 'Configurando o 230308 para $country…';
   }
 
   @override

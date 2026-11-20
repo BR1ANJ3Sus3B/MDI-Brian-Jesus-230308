@@ -12,7 +12,7 @@ class CinemapediaDrawer extends StatelessWidget {
             '/collection/now-playing'),
         _DrawerItem(context.l10n.comingSoon, Icons.upcoming_rounded,
             '/collection/upcoming'),
-        const _DrawerItem('Series', Icons.tv_rounded, '/series'),
+        _DrawerItem(context.l10n.series, Icons.tv_rounded, '/series'),
         _DrawerItem(
             context.l10n.categories, Icons.category_rounded, '/categories'),
         _DrawerItem(
@@ -47,7 +47,7 @@ class CinemapediaDrawer extends StatelessWidget {
                         child: FittedBox(
                             fit: BoxFit.scaleDown,
                             alignment: Alignment.centerLeft,
-                            child: Text('Cinemapedia',
+                            child: Text('230308',
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge

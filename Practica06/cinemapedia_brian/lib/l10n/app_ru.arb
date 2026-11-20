@@ -30,7 +30,7 @@
   "synopsis": "Описание", "noSynopsis": "Описание этого фильма недоступно.", "cast": "В ролях", "runtime": "{minutes} мин",
   "countryLanguage": "Страна и язык", "regionDescription": "Выберите язык приложения и регион кинопроката.",
   "currentRegion": "Текущий выбор: {country}", "regionUpdated": "Регион обновлён: {country}",
-  "regionSaveError": "Не удалось сохранить регион на этом устройстве.", "configuringRegion": "Настраиваем Cinemapedia для региона: {country}…",
+  "regionSaveError": "Не удалось сохранить регион на этом устройстве.", "configuringRegion": "Настраиваем 230308 для региона: {country}…",
   "countryUS": "США", "countryMX": "Мексика", "countryDE": "Германия", "countryJP": "Япония", "countryCN": "Китай", "countryRU": "Россия", "countryBR": "Бразилия"
   ,"splashWelcome": "Кино начинается здесь"
   ,"splashSound": "Звук заставки", "splashSoundDescription": "Готово для разрешенной локальной дорожки."

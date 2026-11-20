@@ -211,7 +211,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String configuringRegion(String country) {
-    return '正在为$country配置Cinemapedia…';
+    return '正在为$country配置230308…';
   }
 
   @override

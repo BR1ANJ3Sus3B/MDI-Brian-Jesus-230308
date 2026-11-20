@@ -99,10 +99,10 @@ class _TvShowsView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                            padding: EdgeInsets.fromLTRB(22, 10, 22, 0),
+                            padding: const EdgeInsets.fromLTRB(22, 10, 22, 0),
                             child: Text(context.l10n.discoverTvShows,
                                 style:
-                                    TextStyle(color: AppColors.secondaryText))),
+                                    const TextStyle(color: AppColors.secondaryText))),
                         _ShowRow(title: context.l10n.onTheAir, shows: onTheAir),
                         _ShowRow(
                             title: context.l10n.popularSeries, shows: popular),

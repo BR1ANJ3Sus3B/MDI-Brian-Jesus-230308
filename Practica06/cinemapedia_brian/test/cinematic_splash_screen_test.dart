@@ -15,7 +15,7 @@ void main() {
       ),
     );
 
-    expect(find.text('CINEMAPEDIA'), findsOneWidget);
+    expect(find.text('230308'), findsOneWidget);
     expect(find.text('El cine comienza aquí'), findsOneWidget);
 
     await tester.pump(const Duration(seconds: 3));

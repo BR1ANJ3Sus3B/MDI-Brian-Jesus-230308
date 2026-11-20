@@ -223,7 +223,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String configuringRegion(String country) {
-    return 'Настраиваем Cinemapedia для региона: $country…';
+    return 'Настраиваем 230308 для региона: $country…';
   }
 
   @override

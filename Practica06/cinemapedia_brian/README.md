@@ -66,7 +66,7 @@ Referencias de TMDB: [cartelera](https://developer.themoviedb.org/reference/movi
 
 ## Arquitectura
 
-Consulta el diagrama interactivo de la aplicación: [Arquitectura de Cinemapedia en GitHub Pages](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/Practica06/cinemapedia_brian/docs/architecture/).
+Consulta el diagrama interactivo de la aplicación: [Arquitectura de 230308 en GitHub Pages](https://br1anj3sus3b.github.io/MDI-Brian-Jesus-230308/).
 
 El diagrama describe el recorrido desde la interfaz Flutter y Riverpod hasta los repositorios, TMDB, la configuración `.env` y la persistencia local con `SharedPreferences`.
 

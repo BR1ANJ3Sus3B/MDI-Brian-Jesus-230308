@@ -60,7 +60,8 @@ class SettingsScreen extends ConsumerWidget {
                               ?.copyWith(color: AppColors.secondaryText),
                         ),
                         const SizedBox(height: 12),
-                        Text(context.l10n.currentRegion(selectedRegion.label)),
+                        Text(context.l10n.currentRegion(
+                            selectedRegion.localizedCountry(context.l10n))),
                       ],
                     ),
                   ),

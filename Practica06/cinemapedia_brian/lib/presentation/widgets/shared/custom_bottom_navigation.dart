@@ -19,8 +19,8 @@ class CustomBottomNavigation extends StatelessWidget {
           label: context.l10n.home,
         ),
         NavigationDestination(
-          icon: Icon(Icons.tv_outlined),
-          selectedIcon: Icon(Icons.tv_rounded),
+          icon: const Icon(Icons.tv_outlined),
+          selectedIcon: const Icon(Icons.tv_rounded),
           label: context.l10n.series,
         ),
         NavigationDestination(
@@ -68,8 +68,8 @@ class CustomBottomNavigation extends StatelessWidget {
             label: Text(context.l10n.home),
           ),
           NavigationRailDestination(
-            icon: Icon(Icons.tv_outlined),
-            selectedIcon: Icon(Icons.tv_rounded),
+            icon: const Icon(Icons.tv_outlined),
+            selectedIcon: const Icon(Icons.tv_rounded),
             label: Text(context.l10n.series),
           ),
           NavigationRailDestination(

@@ -30,7 +30,7 @@
   "synopsis": "Sinopsis", "noSynopsis": "No hay una sinopsis disponible para esta película.", "cast": "Reparto", "runtime": "{minutes} min",
   "countryLanguage": "País e idioma", "regionDescription": "Elige el idioma de la aplicación y la región para consultar estrenos.",
   "currentRegion": "Selección actual: {country}", "regionUpdated": "Región actualizada: {country}",
-  "regionSaveError": "No se pudo guardar la región en este dispositivo.", "configuringRegion": "Configurando Cinemapedia para {country}…",
+  "regionSaveError": "No se pudo guardar la región en este dispositivo.", "configuringRegion": "Configurando 230308 para {country}…",
   "countryUS": "Estados Unidos", "countryMX": "México", "countryDE": "Alemania", "countryJP": "Japón", "countryCN": "China", "countryRU": "Rusia", "countryBR": "Brasil"
   ,"splashWelcome": "El cine comienza aquí"
   ,"splashSound": "Sonido de introducción", "splashSoundDescription": "Preparado para una pista local autorizada."

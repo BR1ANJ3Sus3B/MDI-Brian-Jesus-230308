@@ -116,6 +116,7 @@ class _MainAppState extends ConsumerState<MainApp> {
 
     final region = ref.watch(selectedRegionProvider);
     return MaterialApp.router(
+      title: '230308',
       locale: region.locale,
       supportedLocales: CinemaRegion.all.map((region) => region.locale),
       localizationsDelegates: AppLocalizations.localizationsDelegates,

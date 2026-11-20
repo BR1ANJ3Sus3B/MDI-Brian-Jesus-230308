@@ -30,7 +30,7 @@
   "synopsis": "Handlung", "noSynopsis": "Für diesen Film ist keine Zusammenfassung verfügbar.", "cast": "Besetzung", "runtime": "{minutes} Min.",
   "countryLanguage": "Land und Sprache", "regionDescription": "Wähle die App-Sprache und die Region für Filmstarts.",
   "currentRegion": "Aktuelle Auswahl: {country}", "regionUpdated": "Region aktualisiert: {country}",
-  "regionSaveError": "Die Region konnte auf diesem Gerät nicht gespeichert werden.", "configuringRegion": "Cinemapedia wird für {country} eingerichtet…",
+  "regionSaveError": "Die Region konnte auf diesem Gerät nicht gespeichert werden.", "configuringRegion": "230308 wird für {country} eingerichtet…",
   "countryUS": "Vereinigte Staaten", "countryMX": "Mexiko", "countryDE": "Deutschland", "countryJP": "Japan", "countryCN": "China", "countryRU": "Russland", "countryBR": "Brasilien"
   ,"splashWelcome": "Hier beginnt Kino"
   ,"splashSound": "Introton", "splashSoundDescription": "Bereit für einen autorisierten lokalen Titel."

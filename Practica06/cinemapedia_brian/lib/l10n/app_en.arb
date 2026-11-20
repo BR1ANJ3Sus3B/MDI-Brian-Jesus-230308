@@ -67,7 +67,7 @@
   "regionUpdated": "Region updated: {country}",
   "@regionUpdated": {"placeholders": {"country": {"type": "String"}}},
   "regionSaveError": "Unable to save the region on this device.",
-  "configuringRegion": "Setting up Cinemapedia for {country}…",
+  "configuringRegion": "Setting up 230308 for {country}…",
   "@configuringRegion": {"placeholders": {"country": {"type": "String"}}},
   "countryUS": "United States",
   "countryMX": "Mexico",

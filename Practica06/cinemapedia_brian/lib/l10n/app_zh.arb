@@ -23,7 +23,7 @@
   "carouselHint": "双击图片可返回第一部电影", "synopsis": "剧情简介", "noSynopsis": "暂无此电影的剧情简介。", "cast": "演员阵容", "runtime": "{minutes}分钟",
   "countryLanguage": "国家和语言", "regionDescription": "选择应用语言及电影上映信息对应的地区。",
   "currentRegion": "当前选择：{country}", "regionUpdated": "地区已更新：{country}", "regionSaveError": "无法在此设备上保存地区设置。",
-  "configuringRegion": "正在为{country}配置Cinemapedia…",
+  "configuringRegion": "正在为{country}配置230308…",
   "countryUS": "美国", "countryMX": "墨西哥", "countryDE": "德国", "countryJP": "日本", "countryCN": "中国", "countryRU": "俄罗斯", "countryBR": "巴西"
   ,"splashWelcome": "电影从这里开始"
   ,"splashSound": "片头声音", "splashSoundDescription": "已为授权的本地音轨做好准备。"

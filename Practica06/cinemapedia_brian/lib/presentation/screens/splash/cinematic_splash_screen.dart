@@ -167,7 +167,7 @@ class _LogoAndCopy extends StatelessWidget {
                 shaderCallback: (bounds) => const LinearGradient(
                   colors: [Color(0xFFFFFFFF), Color(0xFF00E5FF)],
                 ).createShader(bounds),
-                child: const Text('CINEMAPEDIA', style: TextStyle(
+                child: const Text('230308', style: TextStyle(
                   color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700,
                   letterSpacing: 5.1,
                 )),

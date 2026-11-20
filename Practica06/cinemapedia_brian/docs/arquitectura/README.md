@@ -11,7 +11,7 @@
 
 ## Abrir localmente
 
-Abra `index.html` en un navegador, o sirva `docs/` con un servidor estático. Para GitHub Pages, seleccione la carpeta `docs/` y navegue a `/arquitectura/`.
+Abra `index.html` en un navegador, o sirva `docs/` con un servidor estático. GitHub Pages se publica automáticamente mediante `.github/workflows/deploy-pages.yml`; en el repositorio, seleccione **GitHub Actions** como fuente en Settings → Pages.
 
 ## Limitación de estilo
 

@@ -30,7 +30,7 @@
   "synopsis": "Sinopse", "noSynopsis": "Não há sinopse disponível para este filme.", "cast": "Elenco", "runtime": "{minutes} min",
   "countryLanguage": "País e idioma", "regionDescription": "Escolha o idioma do aplicativo e a região para consultar estreias.",
   "currentRegion": "Seleção atual: {country}", "regionUpdated": "Região atualizada: {country}",
-  "regionSaveError": "Não foi possível salvar a região neste dispositivo.", "configuringRegion": "Configurando o Cinemapedia para {country}…",
+  "regionSaveError": "Não foi possível salvar a região neste dispositivo.", "configuringRegion": "Configurando o 230308 para {country}…",
   "countryUS": "Estados Unidos", "countryMX": "México", "countryDE": "Alemanha", "countryJP": "Japão", "countryCN": "China", "countryRU": "Rússia", "countryBR": "Brasil"
   ,"splashWelcome": "O cinema começa aqui"
   ,"splashSound": "Som de introdução", "splashSoundDescription": "Pronto para uma faixa local autorizada."
